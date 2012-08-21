@@ -1,0 +1,20 @@
+@import url("layout.css");
+header{
+    margin:20px auto 5px auto;
+    display:block;
+}
+sub{
+    vertical-align:baseline;
+}
+a{
+    text-decoration:none;
+}
+#logo{
+ 
+    float:left;
+}
+
+#headerinfo{
+ 
+    float:right;
+}

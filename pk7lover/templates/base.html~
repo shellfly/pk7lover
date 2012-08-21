@@ -1,0 +1,53 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
+
+<!-- BEGIN html head -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="mobile-agent" content="format=html5;
+                                           url=http://i.pk7lover.net/" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta name="robots" content="index,follow" />
+
+  <meta name="keywords" content="分享，照片" />
+  <meta name="description" content="用照片分享生活" />
+
+  <link rel="alternate" type="application/rss+xml" title="pk7lover RSS Feed" href="http://feeds.feedburner.com/pk7lover" />
+  <link rel="stylesheet" href="/static/style/main.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/static/js/jquery-1.8.0.min.js"></script>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+  <title>{% block title %} Pk7lover {% endblock %}</title>
+</head>
+<!-- END html head -->
+
+<body>
+
+<!-- BEGIN wrapper -->
+<div id="wrapper">
+
+  	<header>
+		<span id="logo">
+		  <a href="/">Pk7lover</a>
+        </span>
+
+        <span id="headerinfo">
+          {% block headerinfo %}
+          {% if %}
+          <a href="/gallery" >浏览</a>
+          <a href="/signin">登入</a>
+          <a href="/signup">注册</a>
+        </span>
+        {% endblock headerinfo%}
+    </header>
+
+  <div id="content">
+    {% block content %} 
+    {% endblock content%}
+  </div>
+   
+</div>
+<!-- END wrapper -->
+
+</body>
+</html>
