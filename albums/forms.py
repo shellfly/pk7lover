@@ -1,0 +1,17 @@
+from django import forms
+from django.utils.translation import ugettext, ugettext_lazy as _
+
+class CreateAlbum(forms.Form):
+    RADIO=(('0',_('public')),('1',_('only friend')),('2',_('only me')))
+    CHECKBOX=((False,_('no comment')))
+    name = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}),
+                           max_length=90,
+                           label=_('Album name'))
+    permission = forms.ChoiceField(widget = forms.RadioSelect, 
+                                   choices=RADIO,
+                                   label=_('permission'))
+    comment = forms.CharField(widget=forms.CheckboxInput(attrs={'name':'comment','value':'no'}),
+                               label=_('No comment'))
+    description = forms.CharField(widget=forms.Textarea,
+                                 label=_('Album description'))
+

@@ -3,9 +3,14 @@ import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+EMAIL_HOST = 'smtp.google.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'shell0fly@gmail.com'
+EMAIL_HOST_PASSWORD = 'shEllfly333666'
+EMAIL_USE_TLS = True
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+    ('shellfly','shell0fly@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -29,7 +34,8 @@ TIME_ZONE = 'Asia/Hong_Kong'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 SITE_ID = 1
 
@@ -125,6 +131,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'accounts',
     'gallery',
+    'albums',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -14,6 +14,7 @@ from django.contrib.sites.models import get_current_site
 
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
+from django.utils.encoding import smart_str
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from django.core.mail import send_mail
@@ -46,7 +47,10 @@ def login(request,template_name='accounts/login.html',
                'site_name':current_site.name,}
     return TemplateResponse(request,template_name,context,current_app=current_app)
     
-
+def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
+    redirect_to = request.GET[redirect_field_name] if request.GET.has_key(redirect_field_name) else '/'
+    auth_logout(request)
+    return HttpResponseRedirect(redirect_to)
 
 
 class SignupForm(UserCreationForm):
@@ -59,7 +63,7 @@ class SignupForm(UserCreationForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     
-    email = forms.EmailField(label=_("Email"),max_length=40)
+    email = forms.EmailField(label=_("E-mail"),max_length=40)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -72,7 +76,7 @@ class SignupForm(UserCreationForm):
     def save(self,commit=True):
         user = super(SignupForm,self).save(commit=False)
         user.email = self.cleaned_data['email']
-        user.is_active = False;
+        user.is_active = True;
         if commit:
             user.save();
         return user;
@@ -100,7 +104,7 @@ def signup(request,usercreation_form=SignupForm):
         form = usercreation_form(data = request.POST)
         if form.is_valid():
             user = form.save();
-            check_email(user)
+            #check_email(user)
             return render_to_response('accounts/signup.html',
                                       RequestContext(request,{'submitinfo':True,'form':form}))
     else:
@@ -108,11 +112,21 @@ def signup(request,usercreation_form=SignupForm):
 
     return render_to_response('accounts/signup.html',RequestContext(request,{'form':form}))
 
+
+def confirm(request,activation_key):
+    if request.user.is_authenticated():
+        return render_to_response('confirm.html', {'has_account': True})
+    user_profile = get_object_or_404(UserProfile,
+                                     activation_key=activation_key)
+    if user_profile.key_expires < datetime.datetime.today():
+        return render_to_response('confirm.html', {'expired': True})
+    user_account = user_profile.user
+    user_account.is_active = True
+    user_account.save()
+    return render_to_response('confirm.html', {'success': True})
+
 @login_required
 def profile(request):
     return render_to_response('accounts/profile.html',RequestContext(request,{}))
 
-def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
-    redirect_to = request.GET[redirect_field_name] if request.GET.has_key(redirect_field_name) else '/'
-    auth_logout(request)
-    return HttpResponseRedirect(redirect_to)
+

@@ -8,5 +8,6 @@ class UserProfile(models.Model):
     key_expires = models.DateTimeField()
 
     def __unicode__(self):
-        return self.name
+        return self.activation_key
+
     

@@ -18,5 +18,6 @@ urlpatterns = patterns('',
                            url(r'^gallery/',include('gallery.urls')), 
                        url(r'^administrato/', include(admin.site.urls)),
                        url(r'^accounts/',include('accounts.urls')),
+                       url(r'^albums/',include('albums.urls')),
                        url(r'^$','pk7lover.views.home',name='home'),
 )
