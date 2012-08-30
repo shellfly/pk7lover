@@ -19,6 +19,8 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from django.core.mail import send_mail
 
+from albums.models import Gallery
+
 def login(request,template_name='accounts/login.html',
           authentication_form=AuthenticationForm,
           redirect_field_name = REDIRECT_FIELD_NAME,
@@ -127,6 +129,7 @@ def confirm(request,activation_key):
 
 @login_required
 def profile(request):
-    return render_to_response('accounts/profile.html',RequestContext(request,{}))
+    albums = Gallery.objects.filter(user_id=request.user.id)
+    return render_to_response('accounts/profile.html',RequestContext(request,locals()))
 
 

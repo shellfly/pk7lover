@@ -1,4 +1,4 @@
-@import url("layout.css");
+@import url("/static/style/layout.css");
 
 sub{
     vertical-align:baseline;
@@ -38,10 +38,10 @@ input:focus,textarea:focus{
     float:right;
 }
 
-#headerinfo ul{
+ul{
     list-style:none;
 }
-#headerinfo ul li{
+ul li{
     display:inline;
 }
 
@@ -112,3 +112,7 @@ th.specalt {
 font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
 color: #797268; 
 } 
+.bar {
+    height: 18px;
+    background: green;
+}
