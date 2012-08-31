@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block content%}
+  <a href="../create/" >+创建新相册</a>
+{% endblock content %}

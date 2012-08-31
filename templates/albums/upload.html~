@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if error %}
+    <p> file upload failed!</p>
+  {% endif %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    <input id="fileupload" type="file" name="files[]" data-url=""
+           multiple />
+    <input type="submit" value="上传">
+  </from>
+  <script src="/static/js/vendor/jquery.ui.widget.js"></script>
+  <script src="/static/js/jquery.iframe-transport.js"></script>
+  <script src="/static/js/jquery.fileupload.js"></script>
+  <div id="progress">
+    <div class="bar" style="width: 0%;"></div>
+  </div>
+{% endblock content%}

@@ -25,3 +25,11 @@ class Gallery(models.Model):
     
     def __unicode__(self):
         return self.name
+
+class Photo(models.Model):
+    gallery = models.ForeignKey(Gallery)
+    randomid = models.BigIntegerField(primary_key=True)
+    name = models.CharField(_('photo name'),max_length=64)
+    thumbnail = models.CharField(_('thumbnail'),max_length=90)
+    parent = models.CharField(max_length=10)
+    child = models.CharField(max_length=10)

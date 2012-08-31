@@ -1,0 +1,12 @@
+﻿<ul id="topbar">
+  <li> 欢迎<a href="/accounts/profile"> 
+  {% if user.firstname %}
+  {{ user.firstname }}
+  {% else %}
+  {{ user.username }}
+  {% endif %}</a></li>
+  <li><a href="/accounts/logout">退出</a></li>
+</ul>
+<ul id="utility">
+  
+</ul>

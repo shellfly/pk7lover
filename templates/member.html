@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="left-side">
+  <div  class="albums">   
+    <p><a href="/albums/{{ user.username }}">我的相册</a></p>
+    <div class="album">
+      <ul>
+        {% for album in albums %}
+          <li><a href="/albums/{{ user.username }}/{{ album.id }}">{{ album.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="right-side">
+  <div id="person">
+    
+  </div>
+  
+  <div id="circle">
+    <div class="lookat"></div>
+    <div class="atlook">我被7人关注</div>
+  </div>
+
+  
+</div>
+
+{% endblock content%}

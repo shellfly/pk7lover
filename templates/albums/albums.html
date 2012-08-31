@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content%}
+  <a href="../create/" >+创建新相册</a>
+  
+  <div id="albums">
+    <ul>
+     {% for album in albums %}
+       <li><a href="/albums/{{ user.username }}/{{ album.id }}">{{ album.name }}</a></li>
+     {% endfor %}
+   </ul>
+  </div>
+{% endblock content %}
