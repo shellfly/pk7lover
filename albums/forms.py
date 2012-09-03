@@ -12,6 +12,7 @@ class CreateAlbum(forms.Form):
     comment = forms.CharField(widget=forms.CheckboxInput(attrs={'name':'comment','value':'no'}),
                                label=_('No comment'))
     description = forms.CharField(widget=forms.Textarea,
+                                  required=False,
                                  label=_('Album description'))
 
 class UploadPhoto(forms.Form):

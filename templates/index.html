@@ -1,2 +1,45 @@
 {% extends "base.html" %}
 
+{% block 7navbar %}
+  <ul class="unstyled nav-tabs ">
+    <li><a href="/"><i class="icon-home"></i>首页</a></li>
+    <li><a href="/accounts/{{user.username}}"><i class="icon-th-large"></i>我的小7</a></li>
+    <li><a href="/accounts/groups/"><i class="icon-magnet"></i>我的圈子</a></li>
+    <li class="dropdown" >
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="icon-fire"></i>小7之刃
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#">动作</a>
+        </li>
+        <li>
+          <a href="#">另一个动作</a>
+        </li>
+        <li>
+          <a href="#">其他动作</a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-header">导航头</li>
+      </ul>      
+    </li>
+    <li>
+    <form class="navbar-search pull-right">
+      <input type="text" class="search-query" placeholder="Search" />
+    </form>
+    </li>
+  </ul>
+{% endblock 7navbar %}
+{% block content %}
+  <div class="row">
+    <h4>友邻广播</h4>
+    <div class="span8 boardcast">
+      <img src="http://placehold.it/600x450" />
+    </div>
+    <div class="span4 pull-right personal">
+      <img src="http://placehold.it/300x450" />
+    </div>
+  </div>
+{% endblock content %}
+

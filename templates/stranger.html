@@ -1,22 +1,35 @@
 {% extends 'base.html'%}
 {% block content %}
-<div id = "banner"> <img src="/static/images/5cm.jpg" alt="5cm"
-width="960" height="300"/></div>
-<div id="features">
-  <div class="feature" id="upload">
-    <h2>OUCH</h2>
-    <p><strong>update happiness</strong></p>
-  <p>只要你拥有一部智能手机或者一台联网的电脑，就可以浏览或者上传你最喜爱的照片</p></div>    
+
+<div id="myCarousel" class="carousel slide">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><img src="/static/images/4cm.jpg" height="300"/></div>
+    <div class="item"><img src="/static/images/4D.jpg" /></div>
+    <div class="item"><img src="/static/images/4fly.jpg" /></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+<div id="features" style="text-align:center">
+  <div class="feature ">
+    <h4>社区</h4>
+    <p ><strong>快乐和朋友,家人分享</strong></p>
+    <p>跟n个人分享你的快乐，你就能得到2<sup>n</sup>个快乐</p>
+  </div>    
   
-      <div class="feature" id="share">
-        <h2>SMILE</h2>
-        <p><strong>Socialise my image,laugh,emotion</strong></p>
-      <p>随时随地，拍完即可分享，和朋友分享你的小幸福，让家人掌握你的最新动态</p></div>
-      
-      <div class="feature" id="kiss">
-        <h2>KISS</h2>
-        <p><strong>Keep it stupid,simple</strong></p>
-        <p>这里没有gif，没有ps，只有最真实的照片，我们追求最简单的自己，最美的瞬间，拍照，分享，整理，纪念</p>
-      </div>
+  <div class="feature">
+    <h4>上传</h4>
+    <p><strong>随时随地，即拍即传</strong></p>
+    <p>一部手机或者一台电脑，任何你喜欢的方式，保留最美的瞬间</p>
+  </div>
+  
+  <div class="feature">
+    <h4 >简单</h4>
+    <p><strong>当一次没心没肺的傻瓜</strong></p>
+    <p>这里没有gif，没有ps，只有最简单的自己，拍照，分享，整理，纪念</p>
+  </div>
 </div>
 {% endblock content%}

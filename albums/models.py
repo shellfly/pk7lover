@@ -20,6 +20,8 @@ class Gallery(models.Model):
     description = models.TextField()
     permission = models.IntegerField(_('permission'),default=0)
     comment = models.BooleanField(_('allow comment'),default=True)
+    photo_num = models.BigIntegerField(_('photo number'),default=0)
+    cover = models.CharField(_('cover number'),max_length=255,default="")
     create_date = models.DateTimeField(_('date created'),default=timezone.now)
     update_date = models.DateTimeField(_('last updated'),default=timezone.now) 
     
@@ -28,7 +30,7 @@ class Gallery(models.Model):
 
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
-    randomid = models.BigIntegerField(primary_key=True)
+    index = models.IntegerField()
     name = models.CharField(_('photo name'),max_length=64)
     thumbnail = models.CharField(_('thumbnail'),max_length=90)
     parent = models.CharField(max_length=10)

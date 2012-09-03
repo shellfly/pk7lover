@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div id="album tools">
+  {% if perm_err %}
+    <p class="error_msg">
+      Sorry,but you have no permission to view these photos
+    </p>
+  {% else %}
+
+  <div id="utility">
     <ul>
-      <li><a href="upload">添加照片</a></li>
+      <li><a href="upload">上传照片</a></li>
       <li><a href="edit">修改属性</a></li>
       <li><a href="order">照片排序</a></li>
+      <li><a href="delete">删除相册</a></li>
       <li><a href="/albums/{{ user.username }}">返回相册首页</a></li>
     </ul>
   </div>
@@ -12,13 +19,13 @@
   <div id = "album_photos">
     <ul id="photos">
       {% for photo in photos %}
-        <li><a href="/albums/photos/{{ photo.randomid }}">
-            <img src="{{ MEDIA_URL}}{{ parent }}/{{ child }}/{{ photo.thumbnail }}" /></a>
+        <li style="display:inline"><a href="/albums/photos/{{ photo.id }}">
+            <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
         </li>
       {% endfor %}
     </ul>
     
   </div>
-
+{% endif %}
   
 {% endblock content %}

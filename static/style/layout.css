@@ -30,3 +30,8 @@ body{
 .right-side{
     width:32%;
 }
+
+.center{
+    margin:0 auto;
+    text-align:center;
+}

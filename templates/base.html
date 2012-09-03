@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html >
-<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
+<html lang="zh-cn">
 
 <!-- BEGIN html head -->
 <head>
@@ -14,10 +14,9 @@
   <meta name="description" content="用照片分享生活" />
 
   <link rel="alternate" type="application/rss+xml" title="pk7lover RSS Feed" href="http://feeds.feedburner.com/pk7lover" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}style/main.css" type="text/css"
-        media="screen" />
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}uploadify/uploadify.css" />
-  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style/main.css" />
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script> 
+  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}uploadify/jquery.uploadify.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
   <title>{% block title %} Pk7lover {% endblock %}</title>
@@ -25,37 +24,75 @@
 <!-- END html head -->
 
 <body>
-
-<!-- BEGIN wrapper -->
-<div id="wrapper">
-
-  	<div id="header">
-		<div id="logo">
-		  <a href="/">Pk7lover</a>
+<!-- BEGIN container -->
+<div class="container">
+  <header style="margin-bottom:7px">
+    {% load mytime %}
+     {% current_time "%H" as hour %}
+     <div class="row">
+     <div class="span4 pull-left">
+        <div id="brand" class="pull-left">
+        <a href="/"> <img src="http://placehold.it/128x70" /></a>
         </div>
-
-        <div id="headerinfo">
-         
-            {% if user.is_authenticated %}
-              {% include 'includes/userheader.html'%}
+     </div>
+     <div class="span8 pull-right">
+    <div class="row">
+      <div class="pull-right">
+        <ul class="unstyled">
+          {% if user.is_authenticated %}
+            <li style="display:inline">
+            {% if hour >= 6 and hour < 11 %}
+              早上好,
+            {% elif hour < 14  %}
+              可以睡个午觉哦,
+            {% elif hour < 18 %} 
+              下午好,
+            {% elif hour < 22 %}
+              晚上好,
+            {% elif hour <= 23%}
+              早点休息,
             {% else %}
-              {% include 'includes/nouserheader.html' %}
+              熬夜对身体不好,
             {% endif %}
-         
-        </div>
-    </div>
-
+           <a href="/accounts/profile">
+            {% if user.first_name %}
+              {{ user.first_name }}
+            {% else %}
+              {{ user.username }}
+            {% endif %}</a></li>
+            <li style="display:inline"><i class="icon-envelope"></i> 私信</li>
+            <li style="display:inline"><i class="icon-camera"></i> 拍照</li>
+            <li style="display:inline"><i class="icon-off"></i><a href="/accounts/logout">退出</a></li>
+          {% else %}
+              <li style="display:inline" ><a href = "/about">关于</a></li>
+              <li style="display:inline" ><a href = "/accounts/login/">登录</li>
+              <li style="display:inline"><sub class="navbar pull-right"> <a href="/accounts/signup">注册新用户</a></sub></li>
+         {% endif %}
+       </ul>
+     </div>
+   </div>
+   <div class="7nav row">
+     <div class="7navbar pull-right">
+       {% block 7navbar %}
+         觉得不错的话，就一起来玩把
+       {% endblock 7navbar %}
+     </div>
+   </div>
+</div>
+</div>
+ </header>
+  
   <!-- BEGIN content-->
   <div id="content">
     {% block content %} 
     {% endblock content%}
   </div>
   <!-- END content -->
-  <br />
-  <div id="footer">
-     <hr />
+ 
+  <footer>
+    <hr />
     <span id="copy">&copy pk7lover 2012</span>
-  </div>
+  </footer>
    
 </div>
 <!-- END wrapper -->

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% if error %}
-    <p> file upload failed!</p>
+  {% if upload_err %}
+    <p class="error_msg"> file upload failed!</p>
   {% endif %}
   <form action="" method="POST" enctype="multipart/form-data">
     <input id="fileupload" type="file" name="files[]" data-url=""

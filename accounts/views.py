@@ -1,25 +1,29 @@
 # Create your views here.
 import datetime,sha,random
-from django import forms
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
-
 from django.template.context import RequestContext
 from django.template.response import TemplateResponse
 
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as auth_login,logout as auth_logout,REDIRECT_FIELD_NAME
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.sites.models import get_current_site
 
-from django.contrib.auth.models import User
 from accounts.models import UserProfile
 from django.utils.encoding import smart_str
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.contrib.auth.forms import AuthenticationForm
 
 from django.core.mail import send_mail
-
 from albums.models import Gallery
+from accounts.forms import SignupForm
+
+
+@login_required
+def profile(request):
+    albums = Gallery.objects.filter(user_id=request.user.id)
+    return render_to_response('accounts/profile.html',RequestContext(request,locals()))
+
 
 def login(request,template_name='accounts/login.html',
           authentication_form=AuthenticationForm,
@@ -54,35 +58,6 @@ def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
     auth_logout(request)
     return HttpResponseRedirect(redirect_to)
 
-
-class SignupForm(UserCreationForm):
-    ''' 
-    A form thats register a new user
-    '''
-    error_messages = {
-        'duplicate_username': _("A user with that username already exists."),
-        'duplicate_email':_("The email address has already exists."),
-        'password_mismatch': _("The two password fields didn't match."),
-    }
-    
-    email = forms.EmailField(label=_("E-mail"),max_length=40)
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        try:
-            User.objects.get(email=email)
-        except:
-            return email
-        raise forms.ValidationError(self.error_messages['duplicate_email'])
-
-    def save(self,commit=True):
-        user = super(SignupForm,self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        user.is_active = True;
-        if commit:
-            user.save();
-        return user;
-        
 
 def check_email(user):
     salt = sha.new(str(random.random())).hexdigest()[:5]
@@ -127,9 +102,8 @@ def confirm(request,activation_key):
     user_account.save()
     return render_to_response('confirm.html', {'success': True})
 
-@login_required
-def profile(request):
-    albums = Gallery.objects.filter(user_id=request.user.id)
-    return render_to_response('accounts/profile.html',RequestContext(request,locals()))
 
-
+def people(request,username):
+    people = get_object_or_404(User,username=username)
+    albums = Gallery.objects.filter(user_id=people.id)
+    return render_to_response('accounts/member.html',RequestContext(request,locals()))

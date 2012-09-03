@@ -2,10 +2,15 @@
 {% block content%}
   <a href="../create/" >+创建新相册</a>
   
-  <div id="albums">
-    <ul>
+  <div clasls="span6 albums">
+    <ul class="unstyled">
      {% for album in albums %}
-       <li><a href="/albums/{{ user.username }}/{{ album.id }}">{{ album.name }}</a></li>
+       <li style="display:inline"><a href="/albums/{{ user.username }}/{{ album.id }}">{% if album.cover %}
+       <img src="{{ album.cover }}" />
+     {% else %}
+       <img src="http://placehold.it/128x128" />  
+     {% endif %}
+     {{ album.name }}</a></li>
      {% endfor %}
    </ul>
   </div>
