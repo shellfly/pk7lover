@@ -1,9 +1,14 @@
+
+from broadcast.models import Saying
+from django.http import HttpResponseRedirect
+
 # Create your views here.
 def say(request):
-    pass
-
-def text(request):
-    pass
-
-def photo(request):
-    pass
+    try: 
+        text = request.POST['saying']
+    except:
+        print 'not saying'
+    else:
+        saying = Saying.objects.create(user=request.user,text=text)
+       # saying.save()
+    return HttpResponseRedirect('/')

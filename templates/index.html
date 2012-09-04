@@ -35,17 +35,30 @@
   <div class="row">
     <div class="span8 7boardcast">
        <h4>广播 <i class="icon-volume-up"></i></h4>
-       <form class="7tucao form-vertical" method="post" 
-             action="'/broadcast/say/">
+       <form class="7saying form-vertical" action="{% url 7broadcast_say %}" method="post" >
          {% csrf_token%}
-        <input class="span7" type="text" placeholder="有什么不开心的事，说出来让大家开心一下..">
-         <input class="btn btn-success" type="submit" value="吐嘈">
+        <input class="span7" type="text" name="saying" placeholder="有什么不开心的事，说出来让大家开心一下.." />
+         <input class="btn btn-success" type="submit" value="吐嘈" />
        </form>
+
        <div class="7nav">
          <ul class="nav nav-tabs">
-           <li class="active"><a href="/">吐嘈</a></li>
-           <li><a href="/">照片</a></li>
+           <li {% if show_text %}class="active"{% endif %}><a href="{% url home %}?tag=1">吐嘈</a></li>
+           <li {% if not show_text%} class="active"{% endif %}><a href="{% url home %}?tag=2">照片</a></li>
          </ul>
+       </div>
+       
+       <div class="7news">
+         {% if show_text %}
+           <ul class="unstyled">
+             {% for saying in sayings %}
+             <li><a href="{% url 7people saying.user.username %}">{% firstof saying.user.firstname saying.user.username %} </a>
+             说：{{ saying.text }}</li>
+           {% endfor %}
+           </ul>
+         {% else %}
+           some photo
+         {% endif %}
        </div>
     </div>
     <div class="span4 pull-right personal">
