@@ -6,5 +6,6 @@ urlpatterns = patterns('accounts.views',
                        url(r'^logout/$','logout'),
                        url(r'^signup/$','signup'),
                        url(r'^confirm/$','confirm'),
-                       url(r'^(?P<username>\w+)/$','people'),
+                       url(r'^(?P<username>\w+)/$','people',name='7people'),
+                       url(r'^eyeon/(?P<username>\w+)/$','eyeon',name="accounts_eyeon")
 )

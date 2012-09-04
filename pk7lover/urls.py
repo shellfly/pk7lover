@@ -8,18 +8,11 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'pk7lover.views.home', name='home'),
-    # url(r'^pk7lover/', include('pk7lover.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-                           url(r'^gallery/',include('gallery.urls')), 
                        url(r'^administrato/', include(admin.site.urls)),
                        url(r'^accounts/',include('accounts.urls')),
                        url(r'^albums/',include('albums.urls')),
+                       url(r'^broadcast/',include('broadcast.urls')),
                        url(r'^$','pk7lover.views.home',name='home'),
 )
 

@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
 
-def home(request):
+def home(request,show_text=1):
     if request.user.is_authenticated():
         return render_to_response('index.html',RequestContext(request,locals()))
     else:

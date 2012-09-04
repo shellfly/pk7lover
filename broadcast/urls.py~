@@ -1,0 +1,5 @@
+from django.conf.urls import patterns, include, url
+
+urlpatterns = patterns('broadcast.views',
+                       url(r'^broadcast_say/$','broad_cast_say',name='7broadcast_say')
+)

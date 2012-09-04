@@ -67,25 +67,25 @@ def upload(request,album_id):
     path = parent +'/' + child
     filename = str(random.randint(1,1000))+'_'+ufile.name
     filepath = os.path.join(MEDIA_ROOT,path,filename)
-    thumbname = filepath + '.thumbnail'
-    squarename = filepath + '.square'
+    thumbpath = filepath + '.thumbnail'
+    squarepath = filepath + '.square'
     fold = os.path.join(MEDIA_ROOT,path)
     if not os.path.exists(fold):
         os.makedirs(fold)   
  
     image = Image.open(ufile)        
     image.save(filepath)
-    image_square = image.resize((100,68),Image.ANTIALIAS)
-    image_square.save(squarename,'JPEG')
+    image_square = image.resize((100,100),Image.ANTIALIAS)
+    image_square.save(squarepath,'JPEG')
     image.thumbnail((128,128),Image.ANTIALIAS) 
-    image.save(thumbname,'JPEG')
+    image.save(thumbpath,'JPEG')
     
     gallery = Gallery.objects.get(id=album_id)
     index = gallery.photo_num +1
     photo = Photo(gallery_id=album_id,
                   index = index,
                   name = filename,
-                  thumbnail = thumbname.split('/')[-1],
+                  thumbnail = thumbpath.split('/')[-1],
                   parent = parent,
                   child = child)
     photo.save()

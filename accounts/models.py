@@ -11,3 +11,13 @@ class UserProfile(models.Model):
         return self.activation_key
 
     
+class Circle(models.Model):
+    user = models.OneToOneField(User)
+    
+    
+class Leftright(models.Model):
+    TYPE_CHOICE=(('L','left'),('R','right'))
+    circle = models.ForeignKey(Circle)
+    friend = models.ForeignKey(User)
+    friend_type = models.CharField(max_length=5,choices=TYPE_CHOICE)
+   
