@@ -1,17 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'basic.html' %}
 {% block content%}
+  <div class="span7">
   <a href="../create/" >+创建新相册</a>
-  
-  <div clasls="span6 albums">
     <ul class="unstyled">
      {% for album in albums %}
-       <li style="display:inline"><a href="/albums/{{ user.username }}/{{ album.id }}">{% if album.cover %}
-       <img src="{{ album.cover }}" />
-     {% else %}
-       <img src="http://placehold.it/128x128" />  
-     {% endif %}
-     {{ album.name }}</a></li>
+       <li style="display:inline">
+         <div class="7album span2">
+         <a href="/albums/{{ user.username }}/{{ album.id }}">
+           {% if album.cover %}
+             <img src="{{ album.cover }}" />
+           {% else %}
+             <img src="http://placehold.it/100x100" />  
+           {% endif %}
+           </a><br />{{ album.name }}
+           </div>
+       </li>
      {% endfor %}
-   </ul>
+    </ul>
   </div>
+  <div class="span4 pull-right">
+    <img src="http://placehold.it/255x320">
+    </div>
 {% endblock content %}

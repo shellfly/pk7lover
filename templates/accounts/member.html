@@ -1,4 +1,4 @@
-{% extends 'index.html'%}
+{% extends 'basic.html'%}
 
 {% block content %}
 <div class="row">
@@ -8,12 +8,19 @@
       <div class="album">
         <ul class="unstyled">
           {% for album in albums %}
-          <li style="display:inline"><a href="/albums/{{ user.username}}/{{ album.id }}">{% if album.cover %}
-       <img src="{{ album.cover }}" />
-     {% else %}
-       <img src="http://placehold.it/128x128" />  
-     {% endif %}
-          {{ album.name }}</a></li>
+          <li style="display:inline">
+            <div class="7album span2">
+            <a href="/albums/{{ user.username }}/{{ album.id }}">
+            {% if album.cover %}
+            <img src="{{ album.cover }}" />
+            {% else %}
+            <img src="http://placehold.it/100x100" />  
+            {% endif %}
+            <br/>
+            {{ album.name }}
+            </a>
+            </div>
+          </li>
           {% endfor %}
         </ul>
       </div>

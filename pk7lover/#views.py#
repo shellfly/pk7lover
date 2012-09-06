@@ -32,8 +32,9 @@ def home(request,show_text=True):
             q_user = q_user | Q(user_id = lf.friend.id) 
             for gallery in Gallery.objects.filter(user_id=lf.friend.id):
                 q_gallery = q_gallery | Q(gallery_id = gallery.id)
+
     sayings = Saying.objects.filter(q_user).order_by('-time')
-      
+    photos = Photo.objects.filter(q_gallery).order_by
     #actives are User object,distinct(filename) just available in postgresql
     acs = Saying.objects.order_by('time').exclude(user=request.user)
     actives = []

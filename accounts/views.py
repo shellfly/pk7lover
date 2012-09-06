@@ -15,6 +15,7 @@ from django.utils.encoding import smart_str
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 
 from django.core.mail import send_mail
 from albums.models import Gallery
@@ -42,6 +43,14 @@ def login(request,template_name='accounts/login.html',
             auth_login(request,form.get_user())
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
+                
+            #people's circle is made at signup time,if support google account 
+            #or other login method,then create a circle in login time
+            #so that everyone has a circle
+            try:
+                Circle.objects.get(user=request.user)
+            except:
+                Circle.objects.create(user=request.user)
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(template_name,RequestContext(request,{'form':form}))
@@ -112,33 +121,34 @@ def people(request,username):
     albums = Gallery.objects.filter(user_id=people.id)
     if people.id != request.user.id:
         neighbour = 1
-    
+        
+        #if people not in my circle's left friend,eyeon him
+        my_circle = Circle.objects.get(user_id=request.user.id)
+        if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
+            neighbour_off = 1
     try:
         circle = Circle.objects.get(user_id=people.id)
     except:
         pass
     else:
         left_friends = circle.leftright_set.filter(circle_id=circle.id,friend_type="left")
-    
         right_friends = circle.leftright_set.filter(circle_id=circle.id,friend_type="right")
-        if not circle.leftright_set.filter(friend = people):
-            neighbour_off = 1
+   
     return render_to_response('accounts/member.html',RequestContext(request,locals()))
 
 
 def eyeon(request,username):
     try:
-        my_circle = Circle.objects.get(user_id=request.user.id)
+        friend = User.objects.get(username=username)
+        he_circle = Circle.objects.get(user_id=friend.id)
     except:
-        print "You haven't has a circle"
+        print "eyeon friend doesn't exist or he doesn't have a circle"
     else:
-        try:
-            friend = User.objects.get(username=username)
-        except:
-            print "eyeon friend doesn't exist!"
-        else:    
-            new_friend = Leftright(circle=my_circle,
-                                   friend=friend,
-                                   friend_type="left")
-            new_friend.save()
-            return HttpResponseRedirect("/accounts/%s" % username)
+        my_circle = Circle.objects.get(user_id=request.user.id)    
+        lf = Leftright.objects.create(circle=my_circle,
+                                              friend=friend,
+                                              friend_type='left')
+        rf = Leftright.objects.create(circle=he_circle,
+                                      friend=request.user,
+                                      friend_type='right')
+    return HttpResponseRedirect("/accounts/%s" % username)

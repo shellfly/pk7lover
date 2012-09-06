@@ -35,3 +35,6 @@ class Photo(models.Model):
     thumbnail = models.CharField(_('thumbnail'),max_length=90)
     parent = models.CharField(max_length=10)
     child = models.CharField(max_length=10)
+    
+    def __unicode__(self):
+        return self.name

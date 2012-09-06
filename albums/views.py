@@ -50,16 +50,19 @@ def show_photo(request,id):
                               {'photo':photo,'pp':pp,'np':np},
                               RequestContext(request))
 
-@csrf_exempt
-def upload(request,album_id):
-    if request.method != 'POST':
-        return render_to_response('albums/upload.html',RequestContext(request))
-    
-    try:
-        ufile = request.FILES['files[]']
-    except:
-        return render_to_response('albums/upload.html',RequestContext(request,{'upload_err':True}))
+from django.db import transaction
 
+@transaction.autocommit
+@csrf_exempt
+def upload(request,username,album_id=0):
+    from django.utils import simplejson
+    if request.method != 'POST':
+        return render_to_response('albums/upload.html',RequestContext(request,locals()))
+    
+    if request.FILES == None:
+        return HttpResponseBadRequest('Must have files attached!')
+    ufile = request.FILES[u'files[]']
+    
     id = int(album_id)
     parent = str(id/10000)
     child = str(id%10000)
@@ -80,19 +83,31 @@ def upload(request,album_id):
     image.thumbnail((128,128),Image.ANTIALIAS) 
     image.save(thumbpath,'JPEG')
     
-    gallery = Gallery.objects.get(id=album_id)
-    index = gallery.photo_num +1
-    photo = Photo(gallery_id=album_id,
-                  index = index,
-                  name = filename,
-                  thumbnail = thumbpath.split('/')[-1],
-                  parent = parent,
-                  child = child)
-    photo.save()
+    gallery = Gallery.objects.select_for_update().get(id=album_id)
+    index = gallery.photo_num+1
     gallery.photo_num = index
     gallery.save()
+    print 'gallery?'
+    Photo.objects.create(gallery_id=album_id,
+                         index = index,
+                         name = filename,
+                         thumbnail = thumbpath.split('/')[-1],
+                         parent = parent,
+                         child = child)
+    result = []
+    result.append({"name":filename, 
+                   "size":ufile.size, 
+                   "url":MEDIA_URL+parent+'/'+child+'/'+filename, 
+                   "thumbnail_url":MEDIA_URL+parent+'/'+child+'/'+thumbpath.split('/')[-1],
+                   "delete_url":'', 
+                   "delete_type":"POST",})
+    response_data = simplejson.dumps(result)
 
-    return HttpResponseRedirect('../')
+    if "application/json" in request.META['HTTP_ACCEPT_ENCODING']:
+        mimetype = 'application/json'
+    else:
+        mimetype = 'text/plain'
+    return HttpResponse(response_data, mimetype=mimetype)
         
 def edit(request,album_id):
     pass

@@ -1,36 +1,5 @@
-{% extends "base.html" %}
+{% extends 'basic.html' %}
 
-{% block 7navbar %}
-  <ul class="unstyled nav-tabs ">
-    <li><a href="/"><i class="icon-home"></i>首页</a></li>
-    <li><a href="/accounts/{{user.username}}"><i class="icon-th-large"></i>我的小7</a></li>
-    <li><a href="/accounts/groups/"><i class="icon-magnet"></i>我的圈子</a></li>
-    <li class="dropdown" >
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="icon-fire"></i>小7之刃
-        <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu">
-        <li>
-          <a href="/albums/{{ user.username }}">我的相册</a>
-        </li>
-        <li>
-          <a href="#">另一个动作</a>
-        </li>
-        <li>
-          <a href="#">其他动作</a>
-        </li>
-        <li class="divider"></li>
-        <li class="nav-header">导航头</li>
-      </ul>      
-    </li>
-    <li>
-    <form class="navbar-search pull-right">
-      <input type="text" class="search-query" placeholder="Search" />
-    </form>
-    </li>
-  </ul>
-{% endblock 7navbar %}
 {% block content %}
   <div class="row">
     <div class="span8 7boardcast">
@@ -52,8 +21,26 @@
          {% if show_text %}
            <ul class="unstyled">
              {% for saying in sayings %}
-             <li><a href="{% url 7people saying.user.username %}">{% firstof saying.user.firstname saying.user.username %} </a>
-             说：{{ saying.text }}</li>
+               <li> 
+                 <div class="row">
+                 <div class="7avatar span1">
+                 <a href="{% url 7people saying.user.username %}">
+                     <img src="http://placehold.it/64x64" />
+                 </a>
+                 </div>
+                 <div class="7text offset1">
+                   <a href="{% url 7people saying.user.username %}">
+                     {% firstof saying.user.firstname saying.user.username%} 
+                   </a>:
+                  <br />
+                  <blockquote>
+                    {{ saying.text }}
+                  </blockquote>
+                    <hr />
+                 </div>
+                 </div>
+              
+               </li>
            {% endfor %}
            </ul>
          {% else %}
@@ -61,8 +48,39 @@
          {% endif %}
        </div>
     </div>
+
+
     <div class="span4 pull-right personal">
-      <img src="http://placehold.it/300x450" />
+      <div class="row 7neighbour">
+        <h5>你的邻居们</h5>
+        <ul class="unstyled">
+          {% for friend in friends %}
+          <li style="display:inline">
+            <div class="7user span1">
+              <a href="{% url 7people friend.friend.username %}">
+                <img src="http://placehold.it/64x64" />
+                <br />
+              {% firstof friend.friend.first_name friend.friend.username%}
+              </a>        
+            </div>
+          </li>
+          {% endfor %}
+          </ul>
+      </div>
+      <div class="row 7active">
+        <h5>小7活跃用户</h5>
+         {% for active in actives %}
+          <li style="display:inline">
+            <div class="7user span1">
+              <a href="{% url 7people active.username %}">
+                <img src="http://placehold.it/64x64" />
+                <br />
+              {% firstof active.first_name active.username%}
+              </a>        
+            </div>
+          </li>
+          {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock content %}

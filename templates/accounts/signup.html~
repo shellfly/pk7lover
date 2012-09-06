@@ -17,7 +17,7 @@
   <table>
   {{ form.as_table }}
   </table>
-  <input type="submit" value="Create the account" />
+  <input type="submit" value="信息确认完毕 执行" />
 </form>
 {% else %}
   <h2>please quit current user first.</h2>
