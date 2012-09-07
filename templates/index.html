@@ -18,34 +18,8 @@
        </div>
        
        <div class="7news">
-         {% if show_text %}
-           <ul class="unstyled">
-             {% for saying in sayings %}
-               <li> 
-                 <div class="row">
-                 <div class="7avatar span1">
-                 <a href="{% url 7people saying.user.username %}">
-                     <img src="http://placehold.it/64x64" />
-                 </a>
-                 </div>
-                 <div class="7text offset1">
-                   <a href="{% url 7people saying.user.username %}">
-                     {% firstof saying.user.firstname saying.user.username%} 
-                   </a>:
-                  <br />
-                  <blockquote>
-                    {{ saying.text }}
-                  </blockquote>
-                    <hr />
-                 </div>
-                 </div>
-              
-               </li>
-           {% endfor %}
-           </ul>
-         {% else %}
-           some photo
-         {% endif %}
+         {% block 7news %}
+         {% endblock 7news %}
        </div>
     </div>
 
@@ -54,13 +28,13 @@
       <div class="row 7neighbour">
         <h5>你的邻居们</h5>
         <ul class="unstyled">
-          {% for friend in friends %}
+          {% for neighbour in neighbours %}
           <li style="display:inline">
             <div class="7user span1">
-              <a href="{% url 7people friend.friend.username %}">
+              <a href="{% url 7people neighbour.username %}">
                 <img src="http://placehold.it/64x64" />
                 <br />
-              {% firstof friend.friend.first_name friend.friend.username%}
+              {% firstof neighbour.first_name neighbour.username%}
               </a>        
             </div>
           </li>

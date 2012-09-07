@@ -4,10 +4,13 @@ from django.http import HttpResponseRedirect, HttpResponse,Http404
 from django.template.context import RequestContext
 from albums.forms import CreateAlbum,UploadPhoto
 from django.views.decorators.csrf import csrf_exempt
-from albums.models import Gallery,Photo
+from django.utils import timezone
+
+from albums.models import Gallery,Photo,user_modify_gallery
+from broadcast.models import PhotoSaying as B_Photo
 
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
-import os
+import os,datetime
 import random
 from PIL import Image
 
@@ -71,6 +74,7 @@ def upload(request,username,album_id=0):
     filename = str(random.randint(1,1000))+'_'+ufile.name
     filepath = os.path.join(MEDIA_ROOT,path,filename)
     thumbpath = filepath + '.thumbnail'
+    thumbpath2 = thumbpath+'2'
     squarepath = filepath + '.square'
     fold = os.path.join(MEDIA_ROOT,path)
     if not os.path.exists(fold):
@@ -82,18 +86,34 @@ def upload(request,username,album_id=0):
     image_square.save(squarepath,'JPEG')
     image.thumbnail((128,128),Image.ANTIALIAS) 
     image.save(thumbpath,'JPEG')
+    image.thumbnail((64,64),Image.ANTIALIAS)
+    image.save(thumbpath2,'JPEG')
     
     gallery = Gallery.objects.select_for_update().get(id=album_id)
     index = gallery.photo_num+1
-    gallery.photo_num = index
-    gallery.save()
-    print 'gallery?'
+    
     Photo.objects.create(gallery_id=album_id,
                          index = index,
                          name = filename,
                          thumbnail = thumbpath.split('/')[-1],
+                         thumbnail2 = thumbpath2.split('/')[-1],
                          parent = parent,
                          child = child)
+
+    user_modify_gallery.send(sender=Photo,gallery=gallery)
+    
+    b_photos = B_Photo.objects.filter(gallery_id=gallery.id).order_by('-pub_date') 
+    if b_photos.count() != 0 and b_photos[0].pub_date.strftime("%Y%m%d") == timezone.now().strftime("%Y%m%d"):
+        b_photo = b_photos[0]
+    else:
+        b_photo = B_Photo.objects.create(user_id=request.user.id,gallery_id=gallery.id)
+
+    b_photo.num = b_photo.num+1
+    b_photo.pub_date = timezone.now()
+    b_photo.save()
+    gallery.photo_num = index
+    gallery.save()
+
     result = []
     result.append({"name":filename, 
                    "size":ufile.size, 

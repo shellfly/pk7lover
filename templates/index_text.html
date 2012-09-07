@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block 7news %}
+  <ul class="unstyled">
+    {% for saying in sayings %}
+      <li> 
+        <div class="row">
+          <div class="7avatar span1">
+            <a href="{% url 7people saying.user.username %}">
+              <img src="http://placehold.it/64x64" />
+            </a>
+          </div>
+          <div class="7text offset1">
+            <a href="{% url 7people saying.user.username %}">
+              {% firstof saying.user.firstname saying.user.username%} 
+              </a>:
+              <br />
+              <blockquote>
+                {{ saying.text }}
+              </blockquote>
+              <hr />
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endblock 7news %}

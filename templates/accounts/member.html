@@ -18,7 +18,9 @@
             {% endif %}
             <br/>
             {{ album.name }}
+            <br />
             </a>
+            <small>{{ album.update_date|date:'m/d/Y'}} 更新</small>
             </div>
           </li>
           {% endfor %}

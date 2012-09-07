@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block 7news%}
+<ul class="unstyled">
+  {% for photo in photos %}
+  <li> 
+    <div class="row">
+      <div class="7avatar span1">
+        <a href="{% url 7people photo.gallery.user.username %}">
+          <img src="http://placehold.it/64x64" />
+        </a>
+      </div>
+      <div class="7photo offset1">
+        <a href="{% url 7people photo.gallery.user.username %}">
+          {{ photo.gallery.user.username }} 
+          </a>:
+          <br />
+          <blockquote>
+            <a href="/albums/photos/{{ photo.id }}">
+            <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.name}}.square" /></a>
+          </blockquote>
+          <hr />
+          {% endfor %}
+        </ul>
+{% endblock 7news%}

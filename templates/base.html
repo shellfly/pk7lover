@@ -1,4 +1,5 @@
-﻿{# base template just include the basic html #}
+﻿
+{# base template just include the basic html #}
 <!DOCTYPE html >
 <html lang="zh-cn">
 
@@ -30,13 +31,13 @@
 {% current_time "%H" as 7hour %}
 {% current_time "%M" as 7minute%}
 <div class="container">
-  <header style="margin-bottom:7px">
+  <header >
     <div class="row">
       <div class="7logo span4 pull-left">
         <a href="/"> <img src="http://placehold.it/128x72" /></a>
       </div>
 
-      <div class="7utility span8">
+      <div class="7utility span8 pull-right">
         <div class="row">
           <div class="7header_info pull-right">
             {% block 7header_info %}

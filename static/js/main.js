@@ -1,3 +1,4 @@
+
 $(function () {
     'use strict';
 
@@ -66,9 +67,6 @@ function() {
     $('.carousel').carousel({
         interval: 1500
     })
-},
-function(){
-    $(header).css("margin-bottom","5px")
 });
 
 

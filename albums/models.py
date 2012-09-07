@@ -10,6 +10,7 @@ def update_last_modified(sender,gallery,**kwargs):
     '''a signal receiver which updates the update_date for
     the user modify a album
     '''
+    print 'upload image'
     gallery.update_date = timezone.now()
     gallery.save()
 user_modify_gallery.connect(update_last_modified)    
@@ -33,8 +34,10 @@ class Photo(models.Model):
     index = models.IntegerField()
     name = models.CharField(_('photo name'),max_length=64)
     thumbnail = models.CharField(_('thumbnail'),max_length=90)
+    thumbnail2 = models.CharField(_('thumbnail2'),max_length=90)
     parent = models.CharField(max_length=10)
     child = models.CharField(max_length=10)
+    upload_date = models.DateTimeField(_('upload date'),default=timezone.now)
     
     def __unicode__(self):
         return self.name

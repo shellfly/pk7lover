@@ -12,7 +12,7 @@
            {% else %}
              <img src="http://placehold.it/100x100" />  
            {% endif %}
-           </a><br />{{ album.name }}
+           </a><br />{{ album.name }}<br /> <small>{{ album.update_date|date:'m/d/Y'}} 更新</small>
            </div>
        </li>
      {% endfor %}
