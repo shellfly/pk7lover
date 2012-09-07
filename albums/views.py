@@ -5,12 +5,13 @@ from django.template.context import RequestContext
 from albums.forms import CreateAlbum,UploadPhoto
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+from django.db.models import F
 
 from albums.models import Gallery,Photo,user_modify_gallery
 from broadcast.models import PhotoSaying as B_Photo
 
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
-import os,datetime
+import os
 import random
 from PIL import Image
 
@@ -58,6 +59,7 @@ from django.db import transaction
 @transaction.autocommit
 @csrf_exempt
 def upload(request,username,album_id=0):
+    
     from django.utils import simplejson
     if request.method != 'POST':
         return render_to_response('albums/upload.html',RequestContext(request,locals()))
@@ -90,8 +92,11 @@ def upload(request,username,album_id=0):
     image.save(thumbpath2,'JPEG')
     
     gallery = Gallery.objects.select_for_update().get(id=album_id)
-    index = gallery.photo_num+1
-    
+    gallery.photo_num = F('photo_num')+1
+    gallery.save()
+    gallery = Gallery.objects.get(pk=gallery.pk)
+    index = gallery.photo_num
+   
     Photo.objects.create(gallery_id=album_id,
                          index = index,
                          name = filename,
@@ -102,17 +107,15 @@ def upload(request,username,album_id=0):
 
     user_modify_gallery.send(sender=Photo,gallery=gallery)
     
-    b_photos = B_Photo.objects.filter(gallery_id=gallery.id).order_by('-pub_date') 
+    b_photos = B_Photo.objects.filter(gallery_id=album_id).order_by('-pub_date') 
     if b_photos.count() != 0 and b_photos[0].pub_date.strftime("%Y%m%d") == timezone.now().strftime("%Y%m%d"):
         b_photo = b_photos[0]
     else:
-        b_photo = B_Photo.objects.create(user_id=request.user.id,gallery_id=gallery.id)
-
-    b_photo.num = b_photo.num+1
+        b_photo = B_Photo.objects.create(user_id=request.user.id,gallery_id=album_id)
+        
+    b_photo.num = F('num')+1
     b_photo.pub_date = timezone.now()
     b_photo.save()
-    gallery.photo_num = index
-    gallery.save()
 
     result = []
     result.append({"name":filename, 
@@ -148,10 +151,10 @@ def album(request,username,album_id):
     except:
         photos = None
     return render_to_response('albums/album.html',
-                              {'photos':photos},
+                              locals(),
                               RequestContext(request))
 
-def albums(request):
+def albums(request,username):
     albums = Gallery.objects.filter(user_id = request.user.id)
     return render_to_response('albums/albums.html',RequestContext(request,{'albums':albums}))
 
@@ -164,7 +167,12 @@ def setcover(request,id):
     return HttpResponseRedirect("/albums/photos/%s" % id)
     
     
+def del_album(request,username,album_id):
+    Gallery.objects.get(id=album_id).delete()
+    return HttpResponseRedirect('/albums/%s/' % username)
+    
 
-
+def del_photo(request):
+    pass
 
  

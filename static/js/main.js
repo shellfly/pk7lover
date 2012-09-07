@@ -1,3 +1,21 @@
+$(function() {
+    $('.carousel').carousel({
+        interval: 3600
+    });
+    
+})
+
+$(function(){
+    $('.7tucao').click(function()
+                       {
+                           $('.7tucao form textarea').attr('rows',2);
+                           if ($('.7tucao form .btn').length == 0){
+                               $('<input class="btn btn-success pull-right" type="submit" value="吐嘈" />').appendTo('.7tucao form') 
+                           }
+                       });
+    $('ul li').css('display','inline');
+    $('header').css('margin-bottom','13px')
+})
 
 $(function () {
     'use strict';
@@ -62,11 +80,6 @@ $(function () {
         });
     }
 
-},
-function() {
-    $('.carousel').carousel({
-        interval: 1500
-    })
 });
 
 

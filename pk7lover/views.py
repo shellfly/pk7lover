@@ -44,12 +44,13 @@ def home(request,show_text=True):
         gallerys = Gallery.objects.filter(q_user)
         for gallery in gallerys:
             q_gallery = q_gallery | Q(gallery_id = gallery.id)
-
-        photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
+        
         photos={}
-        for ps in photosayings:
-            num = 7 and ps.num > 7 or ps.num
-            photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
+        if len(q_gallery) != 0:
+            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
+            for ps in photosayings:
+                num = 7 and ps.num > 7 or ps.num
+                photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
 
         return render_to_response('index_photo.html',RequestContext(request,locals()))
 

@@ -10,9 +10,10 @@ def update_last_modified(sender,gallery,**kwargs):
     '''a signal receiver which updates the update_date for
     the user modify a album
     '''
-    print 'upload image'
+    print 'signal: update gallery update_date'
     gallery.update_date = timezone.now()
     gallery.save()
+    print 'signal:updated'
 user_modify_gallery.connect(update_last_modified)    
     
 class Gallery(models.Model):

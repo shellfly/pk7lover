@@ -4,7 +4,7 @@
 <div class="row">
   <div class="span6">
     <div  class="span6 albums">   
-      <h4>我的相册</h4>
+      <p><strong><a href="{% url 7albums user.username %}">我的相册({{albums.count}})</a></strong></p>
       <div class="album">
         <ul class="unstyled">
           {% for album in albums %}
@@ -31,8 +31,7 @@
 
   <div class="span3 pull-right">
     <div id="person" class="span4 pull-right">
-      <p>You</p>
-      <img src="http://placehold.it/100x100">{{ people.username }}
+      <img src="http://placehold.it/100x100">{{ people.username }}<br />
       {% if neighbour and neighbour_off %}
         <a href="{% url accounts_eyeon people.username %}">关注此人</a>
       {% elif neighbour %}
@@ -41,9 +40,9 @@
     </div>
   <div>
   <div id="circle" class="span4 pull-right">
-    <h4>Circle</h4>
+    <h5>我的圈子</h5>
     <div class="7eyeon">
-      <h5>左邻({{ left_friends.count|default:0 }})</h5>
+      <p><strong>左邻({{ left_friends.count|default:0 }})</strong></p>
       <ul class="unstyled">
         {% for lf in left_friends %}
           <li><a href="{% url 7people lf.friend.username %}">
@@ -53,7 +52,7 @@
       </ul>
     </div>
     <div class="7oneye">
-      <h5>右舍({{ right_friends.count|default:0 }})</h5>
+      <p><strong>右舍({{ right_friends.count|default:0 }})</strong></p>
      
     </div>
     

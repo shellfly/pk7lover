@@ -1,0 +1,282 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Fri Sep  7 16:17:13 2012
+;; Desktop file format version 206
+;; Emacs version 24.2.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("filter"))
+(setq regexp-search-ring nil)
+(setq register-alist '((48 . "")))
+(setq file-name-history '("~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/accounts/templatetags/" "~/documents/gitdir/pk7lover/accounts/templatetags/keyvalue.py" "~/documents/gitdir/pk7lover/templates/albums/" "~/documents/gitdir/pk7lover/templates/" "~/documents/source/note.org" "~/documents/source/" "~/documents/source/note.org" "~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/templates/" "~/documents/gitdir/pk7lover/pk7lover/" "~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/broadcast/" "~/" "~/documents/gitdir/pk7lover/broadcast/" "~/documents/gitdir/pk7lover/pk7lover/" "~/documents/gitdir/pk7lover/broadcast/" "~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/pk7lover/" "~/documents/gitdir/pk7lover/broadcast/" "~/documents/gitdir/pk7lover/pk7lover/" "~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/templates/accounts/" "~/documents/gitdir/pk7lover/templates/" "~/documents/gitdir/pk7lover/templates/accounts/" "~/documents/gitdir/pk7lover/albums/" "~/documents/gitdir/pk7lover/pk7lover/" "~/documents/gitdir/pk7lover/templates/" "~/documents/gitdir/pk7lover/pk7lover/"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/albums/models.py"
+  "models.py"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  1422
+  '(384 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "albums"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  551
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/albums/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/albums/views.py"
+  "views.py<2>"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  3692
+  '(4163 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/index_photo.html"
+  "index_photo.html"
+  'django-html-mumamo-mode
+  '(linum-mode)
+  1118
+  '(839 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/pk7lover/views.py"
+  "views.py"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  1012
+  '(1973 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "pk7lover"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  417
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "accounts<2>"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  1048
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/accounts/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "templatetags"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  446
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/accounts/templatetags/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/accounts/templatetags/keyvalue.py"
+  "keyvalue.py"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  127
+  '(1 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/accounts/templatetags/upload_tags.py"
+  "upload_tags.py"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  59
+  '(1 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "templates"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  203
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/templates/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "albums<2>"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  208
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/templates/albums/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/albums/album.html"
+  "album.html"
+  'nxhtml-mumamo-mode
+  '(auto-fill-mode linum-mode yas/minor-mode)
+  761
+  '(570 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/index.html"
+  "index.html"
+  'nxhtml-mumamo-mode
+  '(auto-fill-mode linum-mode yas/minor-mode)
+  1472
+  '(1016 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "pk7lover<2>"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  202
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/pk7lover/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/broadcast/models.py"
+  "models.py<2>"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  163
+  '(130 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "broadcast"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  378
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/broadcast/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "~"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  223
+  '(nil nil)
+  t
+  '("/home/shellfly/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/albums/signal.py"
+  "signal.py"
+  'python-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  94
+  '(58 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-dos)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/albums/albums.html"
+  "albums.html"
+  'nxhtml-mumamo-mode
+  '(auto-fill-mode linum-mode yas/minor-mode)
+  571
+  '(517 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "accounts"
+  'dired-mode
+  '(linum-mode yas/minor-mode)
+  210
+  '(nil nil)
+  t
+  '("/home/shellfly/documents/gitdir/pk7lover/templates/accounts/")
+  nil)
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/accounts/member.html"
+  "member.html"
+  'nxhtml-mumamo-mode
+  '(auto-fill-mode linum-mode yas/minor-mode)
+  706
+  '(652 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/home/shellfly/documents/gitdir/pk7lover/templates/base.html"
+  "base.html"
+  'nxhtml-mumamo-mode
+  '(auto-fill-mode linum-mode yas/minor-mode)
+  1553
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-with-signature-unix)))
+
+(desktop-create-buffer 206
+  "/usr/share/emacs/24.2/lisp/textmodes/css-mode.el.gz"
+  "css-mode.el.gz"
+  'emacs-lisp-mode
+  '(linum-mode yas/minor-mode auto-complete-mode)
+  19598
+  '(nil nil)
+  t
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
