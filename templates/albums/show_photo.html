@@ -1,16 +1,19 @@
 {% extends 'basic.html' %}
 {% block content %}
-  <div class="7photowin row">
+<div calss="row">
+  <div class="7photowin span7">
     <div class="7photonav row">
-      <div class="span2 offset2">
+      <div class="span2">
         <a href = "/albums/photos/{{ pp.id }}">&lt;prev</a>
         <a href = "/albums/photos/{{ np.id}}">next&gt;</a>
       </div>
-      <div class="span2 offset2">
+      <div class="span4 pull-right">
+        <a href="delete">删除照片</a>
         <a href = "/albums/setcover/{{ photo.id }}">&gt;设为封面</a>
-        <a href = "/albums/{{ user.username}}/{{ photo.gallery.id }}">&gt;返回相册</a>
+        <a href = "{% url 7albums user.username %}">&gt;返回相册{{album.name}}</a>
       </div>
     </div>
   <img src="{{ MEDIA_URL }}{{ photo.parent}}/{{ photo.child }}/{{photo.name }}" width="640" height="450" />
+  </div>
   </div>
 {% endblock content %}

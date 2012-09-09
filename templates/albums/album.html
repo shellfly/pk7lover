@@ -26,7 +26,7 @@
       <li><a href="edit">修改属性</a></li>
       <li><a href="order">照片排序</a></li>
       <li><a data-toggle="modal" href="#myModal">删除相册</a></li>
-      <li><a href="/albums/{{ user.username }}">返回相册首页</a></li>
+      <li><a href="{% url 7albums user.username %}">返回相册首页</a></li>
     </ul>
   </div>
   

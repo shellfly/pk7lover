@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -31,3 +32,9 @@ class SignupForm(UserCreationForm):
             user.save();
         return user;
         
+class ProfileFrom(forms.Form):
+    nickname = forms.CharField(label=_("Nickname"),
+                               max_length=7,
+                               help_text='设置后可代替用户名在小7上显示')
+    email = forms.EmailField(label=_("Email"),help_text="用于登陆或者密码重置")
+    

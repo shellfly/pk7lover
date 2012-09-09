@@ -1,4 +1,5 @@
 # Create your views here.
+# -*- coding: utf-8 -*-
 import datetime,sha,random
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -12,21 +13,33 @@ from django.contrib.sites.models import get_current_site
 
 from accounts.models import UserProfile
 from django.utils.encoding import smart_str
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 
+from django.contrib.auth.models import User
+
 from django.core.mail import send_mail
 from albums.models import Gallery
 from accounts.models import Circle,Leftright
-from accounts.forms import SignupForm
+from accounts.forms import SignupForm,ProfileFrom
 
 
 @login_required
 def profile(request):
-    return render_to_response('accounts/profile.html',RequestContext(request))
+    if request.method != 'POST':
+        form = ProfileFrom(initial={'email':request.user.email,
+                                    'nickname':request.user.first_name})
+    else:
+        form = ProfileFrom(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            User.objects.filter(id=request.user.id).update(first_name=cd['nickname'],email=cd['email'])
+    return render_to_response('accounts/profile.html',{'form':form},RequestContext(request))
 
+    
 
 def login(request,template_name='accounts/login.html',
           authentication_form=AuthenticationForm,
@@ -68,6 +81,37 @@ def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
     redirect_to = request.GET[redirect_field_name] if request.GET.has_key(redirect_field_name) else '/'
     auth_logout(request)
     return HttpResponseRedirect(redirect_to)
+
+
+def passwd_reset(request,
+                 template_name='accounts/password_reset_form.html',
+                 password_reset_form = PasswordResetForm,
+                 token_generator = default_token_generator,
+                 from_email = None,
+                 current_app = None,
+                 extra_context = None):
+
+    if request.method == 'POST':
+        form = password_reset_form(request.POST)
+        if form.is_valid():
+            opts = {
+                'use_https': request.is_secure(),
+                'token_generator': token_generator,
+                'from_email': from_email,
+                'email_template_name': email_template_name,
+                'subject_template_name': subject_template_name,
+                'request': request,
+                }
+            if is_admin_site:
+                opts = dict(opts, domain_override=request.META['HTTP_HOST'])
+            form.save(**opts)
+            return HttpResponseRedirect('/accounts/profile')
+    else:
+        form = password_reset_form()
+    context = {'form':form,}
+    if extra_context is not None:
+        context.update(extra_context)
+    return TemplateResponse(request,template_name,context,current_app=current_app)
 
 
 def check_email(user):
@@ -123,9 +167,13 @@ def people(request,username):
         neighbour = 1
         
         #if people not in my circle's left friend,eyeon him
-        my_circle = Circle.objects.get(user_id=request.user.id)
-        if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
+        try:
+            my_circle = Circle.objects.get(user_id=request.user.id)
+        except:
             neighbour_off = 1
+        else:
+            if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
+                neighbour_off = 1
     try:
         circle = Circle.objects.get(user_id=people.id)
     except:

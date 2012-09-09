@@ -6,8 +6,9 @@ from albums.forms import CreateAlbum,UploadPhoto
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from django.db.models import F
+from django.contrib.auth.decorators import login_required
 
-from albums.models import Gallery,Photo,user_modify_gallery
+from albums.models import Gallery,Photo,user_modify_gallery,user_delete_photo
 from broadcast.models import PhotoSaying as B_Photo
 
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
@@ -15,6 +16,7 @@ import os
 import random
 from PIL import Image
 
+@login_required
 def create(request):
     if request.method != 'POST':
         form = CreateAlbum(initial={'permission':'0'})
@@ -51,13 +53,14 @@ def show_photo(request,id):
     pp = Photo.objects.filter(gallery_id = photo.gallery_id).get(index=p)
     np = Photo.objects.filter(gallery_id = photo.gallery_id).get(index=n)
     return render_to_response('albums/show_photo.html',
-                              {'photo':photo,'pp':pp,'np':np},
+                              locals(),
                               RequestContext(request))
 
 from django.db import transaction
 
 @transaction.autocommit
 @csrf_exempt
+@login_required
 def upload(request,username,album_id=0):
     
     from django.utils import simplejson
@@ -78,7 +81,7 @@ def upload(request,username,album_id=0):
     thumbpath = filepath + '.thumbnail'
     thumbpath2 = thumbpath+'2'
     squarepath = filepath + '.square'
-    fold = os.path.join(MEDIA_ROOT,path)
+    fold = filepath.rsplit('/',1)[0]
     if not os.path.exists(fold):
         os.makedirs(fold)   
  
@@ -169,10 +172,22 @@ def setcover(request,id):
     
 def del_album(request,username,album_id):
     Gallery.objects.get(id=album_id).delete()
-    return HttpResponseRedirect('/albums/%s/' % username)
+    return HttpResponseRedirect('../../albums')
     
 
-def del_photo(request):
-    pass
+def del_photo(request,photo_id):
+    photo = Photo.objects.get(id=photo_id)
+    index = photo.index
+    gallery = photo.gallery
+    photo.delete()
+    print 'delete' + photo.name
+    user_delete_photo.send(sender=Photo,gallery=gallery,index=index)
+    try:
+        photo = gallery.photo_set.get(index=index)
+    except:
+        return HttpResponseRedirect("/albums/%s/%s" % (request.user.username,gallery.id) )
+    
+    return HttpResponseRedirect('/albums/photos/%s' % photo.id)
+    
 
  

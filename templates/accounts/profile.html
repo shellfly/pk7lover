@@ -1,24 +1,27 @@
 {% extends 'basic.html' %}
 {% block content %}
-  <div class="7profile row">
-    <form class="form-inline span8">
-      <fieldset>
-        <legend>个人信息</legend>
-        <div class="control-group">
-          <label class="control-label" for="input01">名号</label>
-          <div class="controls">
-            <input type="text" class="input-xlarge" id="input01" value="{{ user.first_name}}">
-              <p class="help-block">设置后可代替用户名在小7上显示</p>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="input01">头像</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="input01">
-                <p class="help-block"></p>
-              </div>
-            </div>
-          </fieldset>
-        </form>
-  </div>
+<div class="7profile row">
+<h6>个人信息</h6>
+{% load gravatar %}
+
+</div>
+<div class="7profile">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="control-group">
+    <label class="control-label">头像</label>
+    <img src="{% gravatar_url user.email %}">
+    <div class="controls">
+      <p>默认使用你的<a href="http://en.gravatar.com/" target="_blank">Gravatar</a>头像,猛击<a href="http://jandan.net/2010/03/03/gravatar.html" target="_blank">这里</a>获得帮助</p>
+    </div>
+    </div>
+    <table
+    {{form.as_table}}
+    <tr><th><label>密码:</label></th><td><a href="{% url 7passwd_change%}">修改</a></td></tr>
+    </table>
+   
+    <br />
+    <button type="submit" class="btn">更新资料</button>
+  </from>
+</div>
 {% endblock content%}

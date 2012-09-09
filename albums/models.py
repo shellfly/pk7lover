@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from albums.signal import user_modify_gallery
+from albums.signal import user_modify_gallery,user_delete_photo
+from django.db.models import F
 
 # Create your models here.
 
@@ -14,8 +15,25 @@ def update_last_modified(sender,gallery,**kwargs):
     gallery.update_date = timezone.now()
     gallery.save()
     print 'signal:updated'
-user_modify_gallery.connect(update_last_modified)    
-    
+user_modify_gallery.connect(update_last_modified) 
+   
+def photo_deleted(sender,gallery,index,**kwargs):
+    '''a signal receiver when user delete a photo
+    '''
+    print 'signal: delete photo'
+
+    if index != gallery.photo_num:
+        
+        num = gallery.photo_num
+        for i in range(index,num+1):
+            print i
+            gallery.photo_set.filter(index=i).update(index=F('index')-1)
+
+    gallery.photo_num=F('photo_num')-1
+    gallery.save()
+    print 'signal:deleted'
+user_delete_photo.connect(photo_deleted)    
+        
 class Gallery(models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(_('gallery name'),max_length=90)
