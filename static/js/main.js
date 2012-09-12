@@ -9,7 +9,7 @@ $(function(){
     $('.7photo-boxs').imagesLoaded(function(){
         $('.7photo-boxs').masonry({
             itemSelector : '.7photo-box',
-            columnWidth : 80,
+            columnWidth : 60,
             isAnimated: true,
         });
     });
@@ -31,7 +31,6 @@ $(function(){
 
     $('ul li').css('display','inline');
     $('header').css('margin-bottom','13px');
-   
 });
 
 $(function () {

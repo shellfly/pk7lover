@@ -1,12 +1,13 @@
 {% extends 'index.html' %}
 {% block 7news %}
+{%load gravatar%}
   <ul class="unstyled">
     {% for saying in sayings %}
       <li> 
         <div class="row">
           <div class="7avatar span1">
             <a href="{% url 7people saying.user.username %}">
-              <img src="http://placehold.it/64x64" />
+             <img src="{% gravatar_url people.email %}" />
             </a>
           </div>
           <div class="7text offset1">

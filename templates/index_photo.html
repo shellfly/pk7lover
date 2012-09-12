@@ -1,13 +1,14 @@
 {% extends 'index.html' %}
 
 {% block 7news%}
+{% load gravatar %}
   <ul class="unstyled">
     {% for photosaying in photosayings %}
       <li> 
         <div class="row">
           <div class="7avatar span1">
             <a href="{% url 7people photosaying.user.username %}">
-              <img src="http://placehold.it/64x64" />
+              <img src="{% gravatar_url people.email %}" />
             </a>
           </div>
           <div class="7photo offset1">
@@ -25,7 +26,7 @@
                  {% for photo in photos|keyvalue:photosaying %}
                     <li style="display:inline">
                       <a href="{% url 7single_photo photo.id %}">
-                      <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail2 }}" /></a>
+                      <img src="{{MEDIA_URL}}{{ photo.thumb64 }}" /></a>
                     </li>
                   {% endfor %}
               </ul>

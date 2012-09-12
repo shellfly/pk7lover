@@ -37,8 +37,8 @@ user_delete_photo.connect(photo_deleted)
 class Gallery(models.Model):
     user = models.ForeignKey(User)
     name = models.CharField(_('gallery name'),max_length=90)
-    description = models.TextField()
-    permission = models.IntegerField(_('permission'),default=0)
+    desc = models.TextField()
+    perm = models.IntegerField(_('permission'),default=0)
     comment = models.BooleanField(_('allow comment'),default=True)
     photo_num = models.BigIntegerField(_('photo number'),default=0)
     cover = models.CharField(_('cover number'),max_length=255,default="")
@@ -52,10 +52,13 @@ class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
     index = models.IntegerField()
     name = models.CharField(_('photo name'),max_length=64)
-    thumbnail = models.CharField(_('thumbnail'),max_length=90)
-    thumbnail2 = models.CharField(_('thumbnail2'),max_length=90)
-    parent = models.CharField(max_length=10)
-    child = models.CharField(max_length=10)
+    path = models.CharField(_('photo path'),max_length=225)
+    thumb128 = models.CharField(_('thumbnail'),max_length=225)
+    thumb64 = models.CharField(_('thumbnail2'),max_length=225)
+    square = models.CharField(_('square thumb'),max_length=225)
+    
+    desc = models.CharField(_('description'),max_length=225)
+    tags = models.CharField(_('tags'),max_length=256)
     upload_date = models.DateTimeField(_('upload date'),default=timezone.now)
     
     def __unicode__(self):

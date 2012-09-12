@@ -1,6 +1,7 @@
 {% extends 'basic.html'%}
 
 {% block content %}
+{%load gravatar %}
   <div class="span9">
     <div class="span9 7photos">
         <p><strong>最近上传</strong></p>
@@ -9,7 +10,7 @@
           <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
             <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
               <a href="/albums/photos/{{ photo.id }}">
-              <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
+              <img src="{{ MEDIA_URL}}{{photo.thumb128}}" /></a>
             </div>
             <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
               <p><small>一些照片描述，anything you want</small></p>
@@ -35,7 +36,7 @@
               <div class="7album span2">
                 <a href="{% url 7single_album people.username album.id %}">
                   {% if album.cover %}
-                    <img src="{{ album.cover }}" class="img-polaroid"/>
+                    <img src="{{MEDIA_URL}}{{ album.cover }}" class="img-polaroid"/>
                   {% else %}
                     <img src="http://placehold.it/100x100" class="img-polaroid"/>  
                   {% endif %}
@@ -54,7 +55,7 @@
     
     <div class="span3 pull-right">
       <div id="person" class="span3 pull-right">
-        <img src="http://placehold.it/100x100">{{ people.username }}<br/>
+        <img src="{% gravatar_url people.email%}">{{ people.username }}<br/>
         {% if user.is_authenticated %}
           {% if neighbour and neighbour_off %}
             <a href="{% url accounts_eyeon people.username %}">关注此人</a>

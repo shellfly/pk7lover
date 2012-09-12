@@ -40,7 +40,7 @@
   <div class="pull-right">
     <p class="muted"><strong>{{album.name}}</strong> <small>创建于{{album.create_date|date:'Y-m-d'}} 
     {% if not OTHER %}
-    <a style="color:gray" data-toggle="modal" href="#deleteModal">
+    <a  data-toggle="modal" href="#deleteModal">
       删除相册
     </a>
     {% endif %}</small></p>
@@ -52,7 +52,7 @@
           <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
             <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
               <a href="/albums/photos/{{ photo.id }}">
-              <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
+              <img src="{{MEDIA_URL}}{{ photo.thumb128 }}" /></a>
             </div>
             <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
               <p><small>一些照片描述，anything you want</small></p>

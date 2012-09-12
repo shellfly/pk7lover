@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% block content%}
+{% load gravatar %}
   <div class="span7">
     {% if  not OTHER  %}
   <p class="text-info"><a href="../create/" ><button class="btn
@@ -11,7 +12,7 @@
          <div class="7album span2">
          <a href="{% url 7single_album people.username album.id %}">
            {% if album.cover %}
-             <img src="{{ album.cover }}"  class="img-polaroid"/>
+             <img src="{{MEDIA_URL}}{{ album.cover }}"  class="img-polaroid"/>
            {% else %}
              <img src="http://placehold.it/100x100"  class="img-polaroid"/>  
            {% endif %}
@@ -27,7 +28,7 @@
 
   <div class="span3 pull-right">
       <div id="person" class="span3 pull-right">
-        <img src="http://placehold.it/100x100">{{ people.username }}<br/>
+        <img src="{% gravatar_url user.email %}">{% firstof people.first_name people.username %}<br/>
         {% if user.is_authenticated %}
           {% if neighbour and neighbour_off %}
             <a href="{% url accounts_eyeon people.username %}">关注此人</a>

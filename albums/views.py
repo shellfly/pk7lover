@@ -29,12 +29,11 @@ def create(request):
         cd = form.cleaned_data
         perm = int(cd['permission'])
         comm = False if cd['comment'] == 'no' else True
-        gallery = Gallery(user_id=request.user.id,
+        gallery = Gallery.objects.create(user_id=request.user.id,
                           name=cd['name'],
-                          description=cd['description'],
-                          permission=perm,
+                          desc=cd['description'],
+                          perm=perm,
                           comment=comm)
-        gallery.save();
         return HttpResponseRedirect('/albums/%s/%d' % 
                                     (request.user.username,gallery.id))
         
@@ -50,7 +49,7 @@ def show_photo(request,id):
         OTHER = True
 
     print album_id
-    if album.permission != 0 and request.user.id != album.user_id:
+    if album.perm != 0 and request.user.id != album.user_id:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
                                   RequestContext(request))
@@ -87,43 +86,47 @@ def upload(request,username,album_id=0):
     parent = str(id/10000)
     child = str(id%10000)
     
-    path = parent +'/' + child
+    path = parent +'/' + child + '/'
+    fold = os.path.join(MEDIA_ROOT,path)
     filename = str(random.randint(1,1000))+'_'+ufile.name
-    filepath = os.path.join(MEDIA_ROOT,path,filename)
+    filepath = path+filename
     thumbpath = filepath + '.thumbnail'
     thumbpath2 = thumbpath+'2'
     squarepath = filepath + '.square'
-    fold = filepath.rsplit('/',1)[0]
+   
     if not os.path.exists(fold):
         os.makedirs(fold)   
- 
-    image = Image.open(ufile)        
-    image.save(filepath)
-    image_square = image.resize((100,100),Image.ANTIALIAS)
-    image_square.save(squarepath,'JPEG')
-    image.thumbnail((128,128),Image.ANTIALIAS) 
-    image.save(thumbpath,'JPEG')
-    image.thumbnail((64,64),Image.ANTIALIAS)
-    image.save(thumbpath2,'JPEG')
     
+    image = Image.open(ufile)        
+    image.save(os.path.join(MEDIA_ROOT,filepath))
+    print 'hello'
+    image_square = image.resize((100,100),Image.ANTIALIAS)
+    image_square.save(os.path.join(MEDIA_ROOT,squarepath),'JPEG')
+    image.thumbnail((128,128),Image.ANTIALIAS) 
+    image.save(os.path.join(MEDIA_ROOT,thumbpath),'JPEG')
+    image.thumbnail((64,64),Image.ANTIALIAS)
+    image.save(os.path.join(MEDIA_ROOT,thumbpath2),'JPEG')
+    print 'hello2'
     gallery = Gallery.objects.select_for_update().get(id=album_id)
     gallery.photo_num = F('photo_num')+1
     gallery.save()
     gallery = Gallery.objects.get(pk=gallery.pk)
     index = gallery.photo_num
    
+   
     Photo.objects.create(gallery_id=album_id,
                          index = index,
                          name = filename,
-                         thumbnail = thumbpath.split('/')[-1],
-                         thumbnail2 = thumbpath2.split('/')[-1],
-                         parent = parent,
-                         child = child)
+                         path = filepath,
+                         thumb128 = thumbpath,
+                         thumb64 = thumbpath2,
+                         square = squarepath)
 
     user_modify_gallery.send(sender=Photo,gallery=gallery)
     if not gallery.cover:
-        gallery.cover = MEDIA_URL + parent + '/' + child + '/' + squarepath.rsplit('/',1)[-1]
+        gallery.cover = squarepath
         gallery.save()
+
     b_photos = B_Photo.objects.filter(gallery_id=album_id).order_by('-pub_date') 
     if b_photos.count() != 0 and b_photos[0].pub_date.strftime("%Y%m%d") == timezone.now().strftime("%Y%m%d"):
         b_photo = b_photos[0]
@@ -138,8 +141,8 @@ def upload(request,username,album_id=0):
     result = []
     result.append({"name":filename, 
                    "size":ufile.size, 
-                   "url":MEDIA_URL+parent+'/'+child+'/'+filename, 
-                   "thumbnail_url":MEDIA_URL+parent+'/'+child+'/'+thumbpath.split('/')[-1],
+                   "url":MEDIA_URL+filepath, 
+                   "thumbnail_url":MEDIA_URL+thumbpath,
                    "delete_url":'', 
                    "delete_type":"POST",})
     response_data = simplejson.dumps(result)
@@ -170,7 +173,7 @@ def album(request,username,album_id):
     if not request.user.is_authenticated() or request.user.id !=people.id:
         OTHER = True   
 
-    if album.permission != 0 and OTHER:
+    if album.perm != 0 and OTHER:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
                                   RequestContext(request)) 
@@ -193,7 +196,7 @@ def albums(request,username):
 @login_required
 def setcover(request,id):
     photo = get_object_or_404(Photo,id=id)
-    cover_url = os.path.join(MEDIA_URL,photo.parent,photo.child,photo.name+'.square')
+    cover_url = photo.square
     gallery = photo.gallery
     gallery.cover = cover_url
     gallery.save()
