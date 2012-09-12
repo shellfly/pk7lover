@@ -1,66 +1,93 @@
 {% extends 'basic.html'%}
 
 {% block content %}
-<div class="row">
-  <div class="span6">
-    <div  class="span6 albums">   
-      <p><strong><a href="{% url 7albums user.username %}">我的相册({{albums.count}})</a></strong></p>
-      <div class="album">
-        <ul class="unstyled">
-          {% for album in albums %}
-          <li style="display:inline">
-            <div class="7album span2">
-            <a href="/albums/{{ user.username }}/{{ album.id }}">
-            {% if album.cover %}
-            <img src="{{ album.cover }}" />
-            {% else %}
-            <img src="http://placehold.it/100x100" />  
-            {% endif %}
-            <br/>
-            {{ album.name }}
-            <br />
-            </a>
-            <small>{{ album.update_date|date:'m/d/Y'}} 更新</small>
+  <div class="span9">
+    <div class="span9 7photos">
+        <p><strong>最近上传</strong></p>
+        <div class="7photo-boxs">
+        {% for photo in photos %}
+          <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
+            <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
+              <a href="/albums/photos/{{ photo.id }}">
+              <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
             </div>
-          </li>
+            <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
+              <p><small>一些照片描述，anything you want</small></p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+
+      <div  class="span9 7albums">   
+        <p><strong><a href="{% url 7albums people.username %}">
+          {% if OTHER %}
+            {% firstof people.first_name people.username %}
+          {% else %}
+            我
+          {% endif %}
+          的相册({{albums.count}})</a>
+        </strong></p>
+        <div class="album">
+          <ul class="unstyled">
+            {% for album in albums %}
+              <li">
+              <div class="7album span2">
+                <a href="{% url 7single_album people.username album.id %}">
+                  {% if album.cover %}
+                    <img src="{{ album.cover }}" class="img-polaroid"/>
+                  {% else %}
+                    <img src="http://placehold.it/100x100" class="img-polaroid"/>  
+                  {% endif %}
+                  <br/>
+                  {{ album.name }}
+                  <br />
+                </a>
+                <p class="muted"><small>{{album.photo_num}}张照片<br />{{ album.update_date|date:'Y-m-d'}} 更新</small></p>           
+              </div>
+            </li>
           {% endfor %}
         </ul>
       </div>
     </div>
   </div>
-
-  <div class="span3 pull-right">
-    <div id="person" class="span4 pull-right">
-      <img src="http://placehold.it/100x100">{{ people.username }}<br />
-      {% if neighbour and neighbour_off %}
-        <a href="{% url accounts_eyeon people.username %}">关注此人</a>
-      {% elif neighbour %}
-        已关注
-      {% endif %}
-    </div>
-  <div>
-  <div id="circle" class="span4 pull-right">
-    <h5>我的圈子</h5>
-    <div class="7eyeon">
-      <p><strong>左邻({{ left_friends.count|default:0 }})</strong></p>
-      <ul class="unstyled">
-        {% for lf in left_friends %}
-          <li><a href="{% url 7people lf.friend.username %}">
-            {% firstof lf.friend.first_name lf.friend.username %}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="7oneye">
-      <p><strong>右舍({{ right_friends.count|default:0 }})</strong></p>
-     
-    </div>
     
-    <img src="http://placehold.it/220x350" />
-  </div>
+    <div class="span3 pull-right">
+      <div id="person" class="span3 pull-right">
+        <img src="http://placehold.it/100x100">{{ people.username }}<br/>
+        {% if user.is_authenticated %}
+          {% if neighbour and neighbour_off %}
+            <a href="{% url accounts_eyeon people.username %}">关注此人</a>
+            {% elif neighbour %}
+            已关注
+          {% endif %}
+        {% endif %}
+      </div>
 
-  
-</div>
-</div>
+      <div id="circle" class="span3 pull-right">
+        <div class="7eyeon">
+          <p><strong>左邻({{ left_friends.count|default:0 }})</strong></p>
+          <ul class="unstyled">
+            {% for lf in left_friends %}
+              <li><a href="{% url 7people lf.friend.username %}">
+                {% firstof lf.friend.first_name lf.friend.username %}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="7oneye">
+          <p><strong>右舍({{ right_friends.count|default:0 }})</strong></p>
+           <ul class="unstyled">
+            {% for rf in right_friends %}
+              <li><a href="{% url 7people rf.friend.username %}">
+                {% firstof rf.friend.first_name rf.friend.username %}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
 
-{% endblock content%}
+      
+      
+    {% endblock content%}

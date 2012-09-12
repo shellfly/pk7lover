@@ -1,24 +1,40 @@
 {% extends 'basic.html' %}
 {% block content%}
   <div class="span7">
-  <a href="../create/" >+创建新相册</a>
+    {% if  not OTHER  %}
+  <p class="text-info"><a href="../create/" ><button class="btn
+  btn-success btn-small">+创建新相册</button></a></p>
+  {% endif %}
     <ul class="unstyled">
      {% for album in albums %}
-       <li style="display:inline">
+       <li >
          <div class="7album span2">
-         <a href="/albums/{{ user.username }}/{{ album.id }}">
+         <a href="{% url 7single_album people.username album.id %}">
            {% if album.cover %}
-             <img src="{{ album.cover }}" />
+             <img src="{{ album.cover }}"  class="img-polaroid"/>
            {% else %}
-             <img src="http://placehold.it/100x100" />  
+             <img src="http://placehold.it/100x100"  class="img-polaroid"/>  
            {% endif %}
-           </a><br />{{ album.name }}<br /> <small>{{ album.update_date|date:'m/d/Y'}} 更新</small>
+           </a><br />{{ album.name }}
+           <p class="muted"><small>{{album.photo_num}}张照片<br />{{ album.update_date|date:'Y-m-d'}} 更新</small></p>
+
            </div>
        </li>
      {% endfor %}
     </ul>
   </div>
-  <div class="span4 pull-right">
-    <img src="http://placehold.it/255x320">
-    </div>
+
+
+  <div class="span3 pull-right">
+      <div id="person" class="span3 pull-right">
+        <img src="http://placehold.it/100x100">{{ people.username }}<br/>
+        {% if user.is_authenticated %}
+          {% if neighbour and neighbour_off %}
+            <a href="{% url accounts_eyeon people.username %}">关注此人</a>
+            {% elif neighbour %}
+            已关注
+          {% endif %}
+        {% endif %}
+      </div>
+  </div>
 {% endblock content %}

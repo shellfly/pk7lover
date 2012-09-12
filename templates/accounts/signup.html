@@ -1,4 +1,4 @@
-{% extends "basic2.html" %}
+{% extends "basic.html" %}
 
 {% block title %}Create an account{% endblock %}
 
@@ -7,7 +7,7 @@
     <p>Check your email to active your account</p>
   {% else %}
     {% if not  user.is_authenticated %}
-      <h3>Welcome to join Pk7lover.</h3>
+      <h5><i class="icon-star-empty"></i>欢迎加入小7<i class="icon-star-empty"></i></h5>
       <form action="" method="post">
         {% csrf_token %}
 
@@ -16,8 +16,9 @@
         {% endif %}
         <table>
           {{ form.as_table }}
+          <tr><th></th><td><button type="submit" class="btn btn-inverse"/>注册</button></td></tr>
         </table>
-        <input type="submit" value="正式加入" />
+        
       </form>
     {% else %}
       <h2>please quit current user first.</h2>

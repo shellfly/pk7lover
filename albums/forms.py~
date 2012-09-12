@@ -1,9 +1,0 @@
-from django import forms
-
-class CreateAlbum(forms.Form):
-    name = forms.CharField(max_length=90)
-    description = forms.CharField()
-    limit = forms.IntegerField()
-    comment = forms.BooleanField()
-    create_date = forms.DateField()
-    update_date = forms.DateField()

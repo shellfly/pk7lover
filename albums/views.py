@@ -1,17 +1,19 @@
 # Create your views here.
 from django.shortcuts import get_object_or_404, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse,Http404
+from django.http import HttpResponseRedirect, HttpResponse,Http404,HttpResponseBadRequest
 from django.template.context import RequestContext
 from albums.forms import CreateAlbum,UploadPhoto
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 from albums.models import Gallery,Photo,user_modify_gallery,user_delete_photo
 from broadcast.models import PhotoSaying as B_Photo
-
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
+
 import os
 import random
 from PIL import Image
@@ -40,6 +42,14 @@ def create(request):
 def show_photo(request,id):
     photo = get_object_or_404(Photo,id=id)
     album = photo.gallery
+    album_id=album.id
+    people = album.user
+    
+    OTHER = False 
+    if not request.user.is_authenticated() or people.id != request.user.id:
+        OTHER = True
+
+    print album_id
     if album.permission != 0 and request.user.id != album.user_id:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
@@ -62,16 +72,18 @@ from django.db import transaction
 @csrf_exempt
 @login_required
 def upload(request,username,album_id=0):
-    
-    from django.utils import simplejson
+    id = int(album_id)
+    gallerys = Gallery.objects.filter(user_id=request.user.id)
     if request.method != 'POST':
         return render_to_response('albums/upload.html',RequestContext(request,locals()))
     
     if request.FILES == None:
         return HttpResponseBadRequest('Must have files attached!')
+    if 'selected_album' not in request.POST:
+        return HttpResponseBadRequest('Must select a album')
+
     ufile = request.FILES[u'files[]']
-    
-    id = int(album_id)
+    id = int(request.POST['selected_album'])
     parent = str(id/10000)
     child = str(id%10000)
     
@@ -109,7 +121,9 @@ def upload(request,username,album_id=0):
                          child = child)
 
     user_modify_gallery.send(sender=Photo,gallery=gallery)
-    
+    if not gallery.cover:
+        gallery.cover = MEDIA_URL + parent + '/' + child + '/' + squarepath.rsplit('/',1)[-1]
+        gallery.save()
     b_photos = B_Photo.objects.filter(gallery_id=album_id).order_by('-pub_date') 
     if b_photos.count() != 0 and b_photos[0].pub_date.strftime("%Y%m%d") == timezone.now().strftime("%Y%m%d"):
         b_photo = b_photos[0]
@@ -119,7 +133,8 @@ def upload(request,username,album_id=0):
     b_photo.num = F('num')+1
     b_photo.pub_date = timezone.now()
     b_photo.save()
-
+ 
+    from django.utils import simplejson
     result = []
     result.append({"name":filename, 
                    "size":ufile.size, 
@@ -134,18 +149,28 @@ def upload(request,username,album_id=0):
     else:
         mimetype = 'text/plain'
     return HttpResponse(response_data, mimetype=mimetype)
-        
+ 
+@login_required       
 def edit(request,album_id):
     pass
 
+@login_required
 def order(request,album_id):
     pass
 
 
 def album(request,username,album_id):
-    album = get_object_or_404(Gallery,id=album_id)
+    people = get_object_or_404(User,username=username)
+    try:
+        album = people.gallery_set.get(id=album_id)
+    except:
+        return HttpResponseBadRequest('%s don\'t have this album' % people.username)
 
-    if album.permission != 0 and request.user.id != album.user_id:
+    OTHER = False
+    if not request.user.is_authenticated() or request.user.id !=people.id:
+        OTHER = True   
+
+    if album.permission != 0 and OTHER:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
                                   RequestContext(request)) 
@@ -158,23 +183,35 @@ def album(request,username,album_id):
                               RequestContext(request))
 
 def albums(request,username):
-    albums = Gallery.objects.filter(user_id = request.user.id)
-    return render_to_response('albums/albums.html',RequestContext(request,{'albums':albums}))
+    people = get_object_or_404(User,username=username)
+    albums = Gallery.objects.filter(user_id = people.id)
+    OTHER = False
+    if not request.user.is_authenticated() or request.user.id !=people.id:
+        OTHER = True
+    return render_to_response('albums/albums.html',RequestContext(request,locals()))
 
+@login_required
 def setcover(request,id):
     photo = get_object_or_404(Photo,id=id)
     cover_url = os.path.join(MEDIA_URL,photo.parent,photo.child,photo.name+'.square')
     gallery = photo.gallery
     gallery.cover = cover_url
     gallery.save()
-    return HttpResponseRedirect("/albums/photos/%s" % id)
+    return HttpResponseRedirect(reverse('7single_photo',args=[photo.id]))
     
     
+@login_required
 def del_album(request,username,album_id):
-    Gallery.objects.get(id=album_id).delete()
-    return HttpResponseRedirect('../../albums')
-    
+    people =  get_object_or_404(User,username=username)
 
+    OTHER = False
+    if not request.user.is_authenticated() or request.user.id !=people.id:
+        OTHER = True 
+    if not OTHER:
+        Gallery.objects.get(id=album_id).delete()
+    return HttpResponseRedirect(reverse('7albums',args=[username]))
+    
+@login_required
 def del_photo(request,photo_id):
     photo = Photo.objects.get(id=photo_id)
     index = photo.index
@@ -185,9 +222,9 @@ def del_photo(request,photo_id):
     try:
         photo = gallery.photo_set.get(index=index)
     except:
-        return HttpResponseRedirect("/albums/%s/%s" % (request.user.username,gallery.id) )
+        return HttpResponseRedirect(reverse('7single_album',args=[request.user.username,gallery.id]))
     
-    return HttpResponseRedirect('/albums/photos/%s' % photo.id)
+    return HttpResponseRedirect(reverse('7single_photo',args=[photo.id]))
     
 
  

@@ -2,6 +2,7 @@
 {# basic.html ,be extended for auth users #}
 
 {% block 7header_info %}
+{%if user.is_authenticated %}
   <ul class="unstyled">
     <li>
       {% if 7hour >= 0 and 7hour < 6 %}
@@ -25,11 +26,18 @@
     <li style="display:inline"><i class="icon-camera"></i> 拍照</li>
     <li style="display:inline"><i class="icon-off"></i><a href="/accounts/logout">退出</a></li>   
   </ul>
+{% else %}
+ <ul class="unstyled">
+    <li style="display:inline" ><i class="icon-globe"></i><a href = "/about">浏览</a></li>
+    <li style="display:inline" ><i class="icon-user"></i><a href = "/accounts/login/">登录</li>
+    <li style="display:inline"><i class="icon-heart"></i><a href="/accounts/signup">加入小7</a></li>
+  </ul>
+
+{% endif %}
 {% endblock 7header_info %}
 
-
-
 {% block 7header_nav %}
+{% if user.is_authenticated %}
   <ul class="unstyled nav-tabs ">
     <li><a href="/"><i class="icon-home"></i>首页</a></li>
     <li><a href="/accounts/{{user.username}}"><i class="icon-th-large"></i>我的小7</a></li>
@@ -59,4 +67,7 @@
       </form>
     </li>
   </ul>
+{% else %}
+<p>觉得不错的话，就一起来玩把</p>
+{% endif %}
 {% endblock 7header_nav %}

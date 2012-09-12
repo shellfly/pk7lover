@@ -1,2 +1,12 @@
 #ignore emacs backup files
 ^#.*#$
+# 忽略临时文件
+*~
+
+# # 忽略后缀为elc的文件
+*.elc
+
+# # 忽略所有的隐藏文件
+.*
+# # 在上面的规则中加入一条例外，即不要忽略.gitignore文件
+!.gitignore

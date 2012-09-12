@@ -1,6 +1,0 @@
-<ul>
-  <li> <a href="/gallery" >浏览</a></li>
-  
-  <li><a href="/accounts/login">登入</a></li>
-  <li><sub> <a href="/accounts/signup">注册新用户</a></sub></li>
-</ul>

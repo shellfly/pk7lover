@@ -15,7 +15,7 @@
               {{ photosaying.user.username }} 
             </a> 
             上传了{{ photosaying.num }}张照片 到 
-            <a href="{% url single_album photosaying.user.username photosaying.gallery.id%}">
+            <a href="{% url 7single_album photosaying.user.username photosaying.gallery.id%}">
               {{ photosaying.gallery.name }}:
             </a>
             <br />
@@ -24,7 +24,7 @@
               <ul class="unstyled">
                  {% for photo in photos|keyvalue:photosaying %}
                     <li style="display:inline">
-                      <a href="/albums/photos/{{ photo.id }}">
+                      <a href="{% url 7single_photo photo.id %}">
                       <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail2 }}" /></a>
                     </li>
                   {% endfor %}

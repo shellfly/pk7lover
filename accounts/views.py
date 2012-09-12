@@ -15,14 +15,14 @@ from accounts.models import UserProfile
 from django.utils.encoding import smart_str
 from django.contrib.auth.forms import AuthenticationForm,PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 
-from django.contrib.auth.models import User
-
 from django.core.mail import send_mail
-from albums.models import Gallery
+
+from albums.models import Gallery,Photo
 from accounts.models import Circle,Leftright
 from accounts.forms import SignupForm,ProfileFrom
 
@@ -159,10 +159,21 @@ def confirm(request,activation_key):
     user_account.save()
     return render_to_response('confirm.html', {'success': True})
 
-
 def people(request,username):
     people = get_object_or_404(User,username=username)
     albums = Gallery.objects.filter(user_id=people.id)
+    q = Q()
+    for album in albums:
+        q = q | Q(gallery_id=album.id)
+
+    photos = []
+    if len(q) != 0:
+        photos = Photo.objects.filter(q).order_by('-upload_date')[:8]
+    
+    OTHER = False
+    if not request.user.is_authenticated() or request.user.id !=people.id:
+        OTHER = True 
+
     if people.id != request.user.id:
         neighbour = 1
         
@@ -199,4 +210,4 @@ def eyeon(request,username):
         rf = Leftright.objects.create(circle=he_circle,
                                       friend=request.user,
                                       friend_type='right')
-    return HttpResponseRedirect("/accounts/%s" % username)
+    return HttpResponseRedirect(reverse('7people',args=[username]))

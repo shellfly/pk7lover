@@ -1,19 +1,45 @@
 {% extends 'basic.html' %}
 {% block content %}
+
+ <div class="modal" id="deleteModal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h4>确定要删除照片吗</h4>
+    </div>
+    <div class="modal-footer">
+      <a href="." class="btn">取消</a>
+      <a href="delete" class="btn btn-primary">删除</a>
+    </div>
+  </div>
+
 <div calss="row">
   <div class="7photowin span7">
     <div class="7photonav row">
       <div class="span2">
-        <a href = "/albums/photos/{{ pp.id }}">&lt;prev</a>
-        <a href = "/albums/photos/{{ np.id}}">next&gt;</a>
+        <a href = "/albums/photos/{{ pp.id }}">&lt;-前.</a>
+        <a href = "/albums/photos/{{ np.id}}">.后-&gt;</a>
       </div>
-      <div class="span4 pull-right">
-        <a href="delete">删除照片</a>
+      <div class="pull-right">
+        {% if not OTHER %}
         <a href = "/albums/setcover/{{ photo.id }}">&gt;设为封面</a>
-        <a href = "{% url 7albums user.username %}">&gt;返回相册{{album.name}}</a>
+        {% endif %}
+        <a href = "{% url 7single_album people.username album_id %}">&gt;返回相册</a>
       </div>
     </div>
-  <img src="{{ MEDIA_URL }}{{ photo.parent}}/{{ photo.child }}/{{photo.name }}" width="640" height="450" />
+    <div class="7photo">
+      <a href = "/albums/photos/{{ np.id}}">
+      <img src="{{ MEDIA_URL }}{{ photo.parent}}/{{ photo.child }}/{{photo.name }}" width="720" height="550"
+           class="img-polaroid"/>
+      </a>
+    </div>
+    <div class="7photobottom row">
+      <br />
+      <p class="muted"><small>上传于
+      {{photo.upload_date|date:'Y-m-d'}} 
+      {% if not OTHER %}
+      <a  data-toggle="modal" href="#deleteModal">删除照片</a></small></p>
+      {% endif %}
+    </div>
   </div>
   </div>
 {% endblock content %}

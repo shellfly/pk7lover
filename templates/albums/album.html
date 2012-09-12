@@ -6,39 +6,61 @@
     </p>
   {% else %}
 
-  <div class="modal" id="myModal" style="display:none">
+  <div class="modal" id="deleteModal" style="display:none">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
       <h4>删除相册 {{ album.name }}</h4>
     </div>
     <div class="modal-body">
-      <p><strong>所有此相册相关的信息都将被删除！</strong><br />确定删除？</p>
+      <p><strong>所有此相册相关的信息都将被删除！</strong>确定删除？</p>
     </div>
     <div class="modal-footer">
       <a href="." class="btn">取消</a>
       <a href="delete" class="btn btn-primary">删除</a>
     </div>
   </div>
-  
-  <div id="utility">
+ 
+  <div class="row">
+  <div class="utility span7">
     <ul>
-      <li><a href="upload">上传照片</a></li>
-      <li><a href="edit">修改属性</a></li>
-      <li><a href="order">照片排序</a></li>
-      <li><a data-toggle="modal" href="#myModal">删除相册</a></li>
-      <li><a href="{% url 7albums user.username %}">返回相册首页</a></li>
+      {% if not OTHER %}
+      <li><a href="upload"><button class="btn btn-small">上传照片</button></a></li>
+      <li><a href="property"><button class="btn btn-small">修改属性</button></a></li>
+      <li><a href="edit"><button class="btn btn-small">批量修改</button></a></li>
+      <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">我的所有相册</button></a></li>
+      {% else %}
+      <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">
+        {% firstof people.first_name people.username %}的所有相册</button>
+      </a>
+      </li>
+      {% endif %}
     </ul>
   </div>
-  
-  <div id = "album_photos">
-    <ul id="photos">
-      {% for photo in photos %}
-        <li style="display:inline"><a href="/albums/photos/{{ photo.id }}">
-            <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
-        </li>
-      {% endfor %}
-    </ul>
+
+  <div class="pull-right">
+    <p class="muted"><strong>{{album.name}}</strong> <small>创建于{{album.create_date|date:'Y-m-d'}} 
+    {% if not OTHER %}
+    <a style="color:gray" data-toggle="modal" href="#deleteModal">
+      删除相册
+    </a>
+    {% endif %}</small></p>
+    </div>
+  </div>
+
+  <div class="7photo-boxs">
+     {% for photo in photos %}
+          <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
+            <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
+              <a href="/albums/photos/{{ photo.id }}">
+              <img src="{{ MEDIA_URL}}{{ photo.parent }}/{{ photo.child }}/{{ photo.thumbnail }}" /></a>
+            </div>
+            <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
+              <p><small>一些照片描述，anything you want</small></p>
+            </div>
+          </div>
+          {% endfor %}
     
+     
   </div>
 {% endif %}
   

@@ -15,6 +15,15 @@ class SignupForm(UserCreationForm):
     }
     
     email = forms.EmailField(label=_("E-mail"),max_length=40)
+    
+    def as_table(self):
+        "Returns this form rendered as HTML <tr>s -- excluding the <table></table>."
+        return self._html_output(
+            normal_row = u'<tr%(html_class_attr)s><th>%(label)s</th><td>%(errors)s%(field)s%(help_text)s</td></tr>',
+            error_row = u'<tr><td colspan="2">%s</td></tr>',
+            row_ender = u'</td></tr>',
+            help_text_html = u'<br /><span class="helptext"><small>%s</small></span>',
+            errors_on_separate_row = False)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -36,5 +45,5 @@ class ProfileFrom(forms.Form):
     nickname = forms.CharField(label=_("Nickname"),
                                max_length=7,
                                help_text='设置后可代替用户名在小7上显示')
-    email = forms.EmailField(label=_("Email"),help_text="用于登陆或者密码重置")
+    email = forms.EmailField(label=_("E-mail"),help_text="用于登陆或者密码重置")
     
