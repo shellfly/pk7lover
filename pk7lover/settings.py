@@ -3,11 +3,14 @@ import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
 EMAIL_HOST = 'smtp.google.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'shell0fly@gmail.com'
 EMAIL_HOST_PASSWORD = 'shEllfly333666'
 EMAIL_USE_TLS = True
+SESSION_SAVE_EVERY_REQUEST=True
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
     ('shellfly','shell0fly@gmail.com'),
@@ -97,6 +100,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

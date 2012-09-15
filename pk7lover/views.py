@@ -13,9 +13,15 @@ def home(request,show_text=True):
     if not request.user.is_authenticated():
         return render_to_response('stranger.html',RequestContext(request,locals()))
     
-    #actives are User object,distinct(filename) just available in postgresql
+    if not 'page' in request.GET:
+        page = 0
+    else:
+        page = int(request.GET['page'])
+
+    #actives are User object,distinct(filename) just available in
+    #postgresql,so mannul...
     acs = Saying.objects.order_by('-pub_date')
-    actives = []  #used for display active users
+    actives = []  #used for display activly users
     for i in range(8):
         for ac in acs:
             if not ac.user in actives:
@@ -24,37 +30,41 @@ def home(request,show_text=True):
         circle = Circle.objects.get(user_id=request.user.id)
     except:
         circle = Circle.objects.create(user_id=request.user.id)
-    finally:
-        lfs = circle.leftright_set.filter(friend_type='left')
-        friends = circle.leftright_set.all()
-        neighbours=[]
-        for f in friends:
-            if f.friend not in neighbours:
-                neighbours.append(f.friend)
+    
+    lfs = circle.leftright_set.filter(friend_type='left')
+    friends = circle.leftright_set.all()
+    neighbours=[]
+    for f in friends[:16]:
+        if f.friend not in neighbours:
+            neighbours.append(f.friend)
        
       
-    q_user = Q(user_id = request.user.id) #for retrive syaings,and get updated gallery
+    q_user = Q(user_id = request.user.id) #for retrive syaings,and photo_sayings
     for lf in lfs:
         q_user = q_user | Q(user_id = lf.friend.id) 
   
     if 'tag' in request.GET and request.GET['tag'] != '1':
         show_text = False
 
-        q_gallery = Q()
         gallerys = Gallery.objects.filter(q_user)
+        q_gallery = Q()
         for gallery in gallerys:
             q_gallery = q_gallery | Q(gallery_id = gallery.id)
         
-        photos={}
+        photos={} #key is every photo_saying,and value is a list of correlation photos
         if len(q_gallery) != 0:
             photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
             for ps in photosayings:
-                num = 7 and ps.num > 7 or ps.num
+                num = 7 if ps.num > 7 else ps.num
                 photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
-
+        photosayings = photosayings[page*7:page*7+7]
+        sum_pages = photosayings.count
+        tag = 2
         return render_to_response('index_photo.html',RequestContext(request,locals()))
 
-    sayings = Saying.objects.filter(q_user).order_by('-pub_date')
+    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*7:page*7+7]
+    sum_pages = sayings.count
+    tag = 1
     return render_to_response('index_text.html',RequestContext(request,locals()))
 
 

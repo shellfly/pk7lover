@@ -1,8 +1,7 @@
-
 {% extends 'basic.html' %}
 
-
 {% block content %}
+{% load gravatar %}
   <div class="row">
     <div class="span8 7boardcast">
        <h4>小7广播 <i class="icon-volume-up"></i></h4>
@@ -23,7 +22,12 @@
        <div class="7news">
          {% block 7news %}
          {% endblock 7news %}
+         
+         <div class="7pages span7 offset1">
+           <a href=/?tag={{tag}}&page={{page}}>{{page}}</a>
+         </div>
        </div>
+       
     </div>
 
 
@@ -35,7 +39,7 @@
           <li style="display:inline">
             <div class="7user span1">
               <a href="{% url 7people neighbour.username %}">
-                <img src="http://placehold.it/64x64" />
+                <img src="{% gravatar_url neighbour.email %}" />
                 <br />
               {% firstof neighbour.first_name neighbour.username%}
               </a>        
@@ -50,7 +54,7 @@
           <li style="display:inline">
             <div class="7user span1">
               <a href="{% url 7people active.username %}">
-                <img src="http://placehold.it/64x64" />
+                <img src="{% gravatar_url active.email %}" />
                 <br />
               {% firstof active.first_name active.username%}
               </a>        

@@ -72,17 +72,21 @@ from django.db import transaction
 @login_required
 def upload(request,username,album_id=0):
     id = int(album_id)
+    upload_sessionid=request.COOKIES['sessionid']
     gallerys = Gallery.objects.filter(user_id=request.user.id)
     if request.method != 'POST':
-        return render_to_response('albums/upload.html',RequestContext(request,locals()))
-    
+        response=render_to_response('albums/upload.html',RequestContext(request,locals()))
+        response.set_cookie('upload_sessionid',upload_sessionid,httponly=False)
+        return response
+
     if request.FILES == None:
         return HttpResponseBadRequest('Must have files attached!')
     if 'selected_album' not in request.POST:
         return HttpResponseBadRequest('Must select a album')
 
-    ufile = request.FILES[u'files[]']
+    ufile = request.FILES[u'Filedata']
     id = int(request.POST['selected_album'])
+   
     parent = str(id/10000)
     child = str(id%10000)
     
@@ -99,66 +103,67 @@ def upload(request,username,album_id=0):
     
     image = Image.open(ufile)        
     image.save(os.path.join(MEDIA_ROOT,filepath))
-    print 'hello'
+   
     image_square = image.resize((100,100),Image.ANTIALIAS)
     image_square.save(os.path.join(MEDIA_ROOT,squarepath),'JPEG')
     image.thumbnail((128,128),Image.ANTIALIAS) 
     image.save(os.path.join(MEDIA_ROOT,thumbpath),'JPEG')
     image.thumbnail((64,64),Image.ANTIALIAS)
     image.save(os.path.join(MEDIA_ROOT,thumbpath2),'JPEG')
-    print 'hello2'
-    gallery = Gallery.objects.select_for_update().get(id=album_id)
+    print 'image save'
+    
+    gallery = Gallery.objects.select_for_update().get(id=id)
     gallery.photo_num = F('photo_num')+1
     gallery.save()
     gallery = Gallery.objects.get(pk=gallery.pk)
     index = gallery.photo_num
-   
-   
-    Photo.objects.create(gallery_id=album_id,
+    
+    photo = Photo.objects.create(gallery_id=id,
                          index = index,
                          name = filename,
                          path = filepath,
                          thumb128 = thumbpath,
                          thumb64 = thumbpath2,
                          square = squarepath)
-
+    print 'photo created'
     user_modify_gallery.send(sender=Photo,gallery=gallery)
+
     if not gallery.cover:
         gallery.cover = squarepath
         gallery.save()
 
-    b_photos = B_Photo.objects.filter(gallery_id=album_id).order_by('-pub_date') 
+    print gallery.cover
+
+    b_photos = B_Photo.objects.filter(gallery_id=id).order_by('-pub_date') 
     if b_photos.count() != 0 and b_photos[0].pub_date.strftime("%Y%m%d") == timezone.now().strftime("%Y%m%d"):
         b_photo = b_photos[0]
     else:
-        b_photo = B_Photo.objects.create(user_id=request.user.id,gallery_id=album_id)
-        
+        b_photo = B_Photo.objects.create(user_id=request.user.id,gallery_id=id)
+    
+    
     b_photo.num = F('num')+1
     b_photo.pub_date = timezone.now()
-    b_photo.save()
- 
-    from django.utils import simplejson
-    result = []
-    result.append({"name":filename, 
-                   "size":ufile.size, 
-                   "url":MEDIA_URL+filepath, 
-                   "thumbnail_url":MEDIA_URL+thumbpath,
-                   "delete_url":'', 
-                   "delete_type":"POST",})
-    response_data = simplejson.dumps(result)
+    b_photo.save()  
 
-    if "application/json" in request.META['HTTP_ACCEPT_ENCODING']:
-        mimetype = 'application/json'
-    else:
-        mimetype = 'text/plain'
-    return HttpResponse(response_data, mimetype=mimetype)
+    from django.utils import simplejson
+    data = {'thumb64':photo.thumb64,'index':photo.index}
+    return HttpResponse(simplejson.dumps(data))
  
-@login_required       
-def edit(request,album_id):
-    pass
 
 @login_required
-def order(request,album_id):
+def edit(request,username,album_id):
+    
+    id = int(album_id)
+    gallery = Gallery.objects.get(pk=id)
+    cover_photo = gallery.photo_set.get(index=request.POST['cover'])
+    gallery.cover = cover_photo.square
+    gallery.save()
+    [Photo.objects.filter(gallery_id=id,index=key).update(desc=request.POST[key])
+    for key in request.POST.keys() if key.isdigit()] 
+    return HttpResponseRedirect(reverse('7single_album',args=[request.user.username,id]))
+
+@login_required
+def property(request,album_id):
     pass
 
 

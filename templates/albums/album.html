@@ -26,7 +26,6 @@
       {% if not OTHER %}
       <li><a href="upload"><button class="btn btn-small">上传照片</button></a></li>
       <li><a href="property"><button class="btn btn-small">修改属性</button></a></li>
-      <li><a href="edit"><button class="btn btn-small">批量修改</button></a></li>
       <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">我的所有相册</button></a></li>
       {% else %}
       <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">
@@ -55,7 +54,7 @@
               <img src="{{MEDIA_URL}}{{ photo.thumb128 }}" /></a>
             </div>
             <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
-              <p><small>一些照片描述，anything you want</small></p>
+              <p><small>{{photo.desc}}</small></p>
             </div>
           </div>
           {% endfor %}

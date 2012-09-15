@@ -3,8 +3,8 @@
 {% block content %}
 {%load gravatar %}
   <div class="span9">
-    <div class="span9 7photos">
-        <p><strong>最近上传</strong></p>
+    <div class="7photos pull-left span9">
+        <h5>最近上传</h5>
         <div class="7photo-boxs">
         {% for photo in photos %}
           <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
@@ -13,22 +13,22 @@
               <img src="{{ MEDIA_URL}}{{photo.thumb128}}" /></a>
             </div>
             <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
-              <p><small>一些照片描述，anything you want</small></p>
+              <p><small>{{photo.desc}}</small></p>
             </div>
           </div>
           {% endfor %}
         </div>
     </div>
 
-      <div  class="span9 7albums">   
-        <p><strong><a href="{% url 7albums people.username %}">
+      <div  class="span9 7albums pull-left">   
+        <h5><a href="{% url 7albums people.username %}">
           {% if OTHER %}
             {% firstof people.first_name people.username %}
           {% else %}
             我
           {% endif %}
           的相册({{albums.count}})</a>
-        </strong></p>
+        </h5>
         <div class="album">
           <ul class="unstyled">
             {% for album in albums %}
@@ -55,7 +55,7 @@
     
     <div class="span3 pull-right">
       <div id="person" class="span3 pull-right">
-        <img src="{% gravatar_url people.email%}">{{ people.username }}<br/>
+        <img src="{% gravatar_url people.email 64 %}">{{ people.username }}<br/>
         {% if user.is_authenticated %}
           {% if neighbour and neighbour_off %}
             <a href="{% url accounts_eyeon people.username %}">关注此人</a>
@@ -66,22 +66,31 @@
       </div>
 
       <div id="circle" class="span3 pull-right">
-        <div class="7eyeon">
-          <p><strong>左邻({{ left_friends.count|default:0 }})</strong></p>
+        <div class="7eyeon row">
+         <h5>左邻({{ left_friends.count|default:0 }})</h5>
           <ul class="unstyled">
             {% for lf in left_friends %}
-              <li><a href="{% url 7people lf.friend.username %}">
+              <li>
+                <div class="span1">
+                  <a href="{% url 7people lf.friend.username %}">
+                    <img src="{% gravatar_url lf.friend.email %}" /><br />
                 {% firstof lf.friend.first_name lf.friend.username %}</a>
+                </div>
               </li>
             {% endfor %}
           </ul>
         </div>
-        <div class="7oneye">
-          <p><strong>右舍({{ right_friends.count|default:0 }})</strong></p>
+        
+        <div class="7oneye row">
+          <h5>右舍({{ right_friends.count|default:0 }})</h5>
            <ul class="unstyled">
             {% for rf in right_friends %}
-              <li><a href="{% url 7people rf.friend.username %}">
+              <li> 
+                <div class="span1">
+                  <img src="{% gravatar_url rf.friend.email %}" /><br />
+                  <a href="{% url 7people rf.friend.username %}">
                 {% firstof rf.friend.first_name rf.friend.username %}</a>
+                </div>
               </li>
             {% endfor %}
           </ul>

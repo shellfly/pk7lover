@@ -2,7 +2,8 @@
 
 {% block content %}
 {% load upload_tags %}
-<div class="span6">
+<div class="row">
+<div class="span9">
   <div class="7tips row ">
     <div class="7nav">
       <div class="span2"><a href="
@@ -12,92 +13,68 @@
                       {% url 7single_album user.username id%}
                     {% endif %}">
       -返回相册</a></div>
-      <div class="span2 pull-right"><a href="{% url 7create_album %}" >+创建新相册</a></div>
+      <div class="pull-right"><a href="{% url 7create_album %}" >+创建新相册</a></div>
     </div>
   </div>
 
-  <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
-    <div class="7select_album ">
-      <label>上传照片到:</label>
-      <select name="selected_album" class="span2">
-        {% for gallery in gallerys %}
-          <option value="{{ gallery.id }}"
-                  {% if gallery.id == id %}selected="selected"{% endif %}>
-          {{ gallery.name}} </option>
-        {% endfor %}
-      </select>
-    </div>
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-        <div class="row fileupload-buttonbar">
-          <div class="span7">
-            <!-- The fileinput-button span is used to style the file input field as button -->
-            <span class="btn btn-success fileinput-button">
-              <i class="icon-plus icon-white"></i>
-              <span>添加照片...</span>
-              <input type="file" name="files[]" multiple>
-              </span>
-              <button type="submit" class="btn btn-primary start">
-                <i class="icon-upload icon-white"></i>
-                <span>开始上传</span>
-              </button>
-              
-            </div>
-            <!-- The global progress information -->
-            <div class="span5 fileupload-progress fade">
-                <!-- The global progress bar -->
-                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="bar" style="width:0%;"></div>
-                </div>
-                <!-- The extended global progress information -->
-                <div class="progress-extended">&nbsp;</div>
-            </div>
-        </div>
-        <!-- The loading indicator is shown during file processing -->
-        <div class="fileupload-loading"></div>
-        <br>
-        <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-    </form>
+  <label>
+  上传照片到:
+  <select name="selected_album" class="span2 selected_data">
+    {% for gallery in gallerys %}
+      <option value="{{ gallery.id }}"
+              {% if gallery.id == id %}selected="selected"{% endif %}>
+      {{ gallery.name}} </option>
+    {% endfor %}
+  </select></label>
+  <input type="file" name="uploaded_form" id="file_upload" />
  
-<!-- modal-gallery is the modal dialog used for the image gallery -->
-<div id="modal-gallery" class="modal modal-gallery hide fade" data-filter=":odd">
-    <div class="modal-header">
-        <a class="close" data-dismiss="modal">&times;</a>
-        <h3 class="modal-title"></h3>
-    </div>
-    <div class="modal-body"><div class="modal-image"></div></div>
-    <div class="modal-footer">
-        <a class="btn modal-download" target="_blank">
-            <i class="icon-download"></i>
-            <span>Download</span>
-        </a>
-        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
-            <i class="icon-play icon-white"></i>
-            <span>Slideshow</span>
-        </a>
-        <a class="btn btn-info modal-prev">
-            <i class="icon-arrow-left icon-white"></i>
-            <span>Previous</span>
-        </a>
-        <a class="btn btn-primary modal-next">
-            <span>Next</span>
-            <i class="icon-arrow-right icon-white"></i>
-        </a>
-    </div>
+  <div class="7uploaded_info span9">
+    <form class="7uploaded_success form-horizontal  pull-left"
+          action="../edit/" method="POST">
+      {%csrf_token%}
+      {# when a photo is upload success,dynamic add a element in thisform#}
+    </form>
+  </div>
+<script src="{{ STATIC_URL }}uploadify/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+   $('#file_upload').uploadify({
+        'swf'      : '/static/uploadify/uploadify.swf',
+        'uploader' : '',
+        // Put your options here
+        'fileTypeExts':'*.jpg;*.bmp;*.png',
+        'formData':{'csrftoken':$.cookie('csrftoken'),'upload_sessionid':$.cookie('upload_sessionid'),'selected_album':$('.selected_data').val()},
+        'multi':true,
+        'auto':true,
+        'removeTimeout':1,
+        'buttonText':'添加照片',
+        'height':21,
+        'width':81,
+        'onUploadSuccess':function(file,data,response){
+            $('input:submit').remove();
+            data = eval( '(' + data + ')' );
 
+            html = '<div class="control-group row">\
+            <label class="control-label">\
+            <div class="pull-left"><img src="/media/'
+                      + data.thumb64 
+                      + '"  >' 
+            + '<br />设为封面<input type="radio" name="cover" value="'
+            + data.index 
+            +'"></div></label>\
+            <div class="control-label"><textarea name='
+             + data.index 
+             + ' cols=7 rows=3></textarea></div>\
+            </div>';
+            $(html).appendTo('.7uploaded_success');
+        },
+        'onQueueComplete':function(){
+        
+            $('<input type="submit" value="保存更改" />').appendTo('.7uploaded_success');
+        }
+    });
+}); 
+</script>
 </div>
-</div>
-{% upload_js %}
 
-<script src="{{ STATIC_URL }}js/jquery_upload/jquery.ui.widget.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/tmpl.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/load-image.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/canvas-to-blob.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/bootstrap-image-gallery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/jquery.iframe-transport.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/jquery.fileupload.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/jquery.fileupload-fp.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/jquery.fileupload-ui.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/locale.js"></script>
-<script src="{{ STATIC_URL }}js/jquery_upload/csrf.js"></script>
 {% endblock content%}

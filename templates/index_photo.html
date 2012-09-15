@@ -13,7 +13,7 @@
           </div>
           <div class="7photo offset1">
             <a href="{% url 7people photosaying.user.username %}">
-              {{ photosaying.user.username }} 
+              {% firstof photosaying.user.first_name photosaying.user.username %} 
             </a> 
             上传了{{ photosaying.num }}张照片 到 
             <a href="{% url 7single_album photosaying.user.username photosaying.gallery.id%}">

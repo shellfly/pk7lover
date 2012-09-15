@@ -9,7 +9,7 @@ $(function(){
     $('.7photo-boxs').imagesLoaded(function(){
         $('.7photo-boxs').masonry({
             itemSelector : '.7photo-box',
-            columnWidth : 60,
+            columnWidth : 10,
             isAnimated: true,
         });
     });
@@ -29,74 +29,7 @@ $(function(){
         $(this).css({'filter':'alpha(opacity=81)','opacity':0.81})
     }); 
 
+  //  $('<a href="#edit"><i class="icon-pencil"></i></a>').appendTo('.7photo-desc p')
     $('ul li').css('display','inline');
     $('header').css('margin-bottom','13px');
 });
-
-$(function () {
-    'use strict';
-
-    // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
-
-    // Enable iframe cross-domain access via redirect option:
-    $('#fileupload').fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
-
-    if (window.location.hostname === 'blueimp.github.com') {
-        // Demo settings:
-        $('#fileupload').fileupload('option', {
-            url: '//jquery-file-upload.appspot.com/',
-            maxFileSize: 5000000,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            process: [
-                {
-                    action: 'load',
-                    fileTypes: /^image\/(gif|jpeg|png)$/,
-                    maxFileSize: 20000000 // 20MB
-                },
-                {
-                    action: 'resize',
-                    maxWidth: 1440,
-                    maxHeight: 900
-                },
-                {
-                    action: 'save'
-                }
-            ]
-        });
-        // Upload server status check for browsers with CORS support:
-        if ($.support.cors) {
-            $.ajax({
-                url: '//jquery-file-upload.appspot.com/',
-                type: 'HEAD'
-            }).fail(function () {
-                $('<span class="alert alert-error"/>')
-                    .text('Upload server currently unavailable - ' +
-                            new Date())
-                    .appendTo('#fileupload');
-            });
-        }
-    } else {
-        // Load existing files:
-        $('#fileupload').each(function () {
-            var that = this;
-            $.getJSON(this.action, function (result) {
-                if (result && result.length) {
-                    $(that).fileupload('option', 'done')
-                        .call(that, null, {result: result});
-                }
-            });
-        });
-    }
-
-});
-
-
-
