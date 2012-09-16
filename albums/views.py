@@ -166,26 +166,26 @@ def edit(request,username,album_id):
 def property(request,album_id):
     pass
 
-
+@csrf_exempt
 def album(request,username,album_id):
     people = get_object_or_404(User,username=username)
-    try:
-        album = people.gallery_set.get(id=album_id)
-    except:
-        return HttpResponseBadRequest('%s don\'t have this album' % people.username)
+    album = get_object_or_404(Gallery,id=album_id,user=people)
 
-    OTHER = False
+    OTHER = False #OTHER is used in template,for identify 
     if not request.user.is_authenticated() or request.user.id !=people.id:
         OTHER = True   
+
+    page = 1 if not 'p' in request.GET  else int(request.GET['p'])
 
     if album.perm != 0 and OTHER:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
                                   RequestContext(request)) 
-    try:
-        photos = Photo.objects.filter(gallery_id=album_id)
-    except:
-        photos = None
+
+    sum_pages = Photo.objects.filter(gallery_id=album_id).count() / 31 + 1
+    pp = page-1
+    np = page+1
+    photos = Photo.objects.filter(gallery_id=album_id)[page*31-31:page*31-1] #(page-1)*31:(page-1)*31+30
     return render_to_response('albums/album.html',
                               locals(),
                               RequestContext(request))
@@ -196,6 +196,7 @@ def albums(request,username):
     OTHER = False
     if not request.user.is_authenticated() or request.user.id !=people.id:
         OTHER = True
+
     return render_to_response('albums/albums.html',RequestContext(request,locals()))
 
 @login_required

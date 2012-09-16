@@ -23,8 +23,42 @@
          {% block 7news %}
          {% endblock 7news %}
          
-         <div class="7pages span7 offset1">
-           <a href=/?tag={{tag}}&page={{page}}>{{page}}</a>
+         <div class="7page-nav span7 offset1">
+           <span class="7page-prev">
+           {% if not pp < 0 %}
+             <a href="/?tag={{tag}}&p={{pp}}">前一页</a>
+           {% else %}
+             前一页
+           {% endif %}
+           </span>
+           
+           {% if 0 < pp %}                         {# first page #}
+           <a href="/?tag={{tag}}&p=0">1</a>  
+           {% if 1 < pp %}..{% endif%}
+           {% endif%}
+
+           {% if not pp < 0 %}                    {# the privous of current page #}
+             <a href="/?tag={{tag}}&p={{pp}}">{{pp|add:"1"}}</a>
+           {% endif %}
+
+           <span class="thislink">                   {# current page #}
+             <a href="/?tag={{tag}}&p={{page}}">{{page|add:"1"}}</a>
+           </span>
+
+           {% if not np > sum_pages %}            {# the next of current page #}
+             <a href="/?tag={{tag}}&p={{np}}">{{np|add:"1"}}</a>
+           {% endif %}
+ 
+           {% if sum_pages > np %}               {# last page #}
+           {% if sum_pages > np|add:"1" %}...{% endif %}
+           <a href="/?tag={{tag}}&p={{sum_pages}}">{{sum_pages|add:"1"}}</a>
+         {% endif %}
+
+           <span class="7page-next">
+           {% if np < sum_pages|add:"1"%}
+             <a href="/?tag={{tag}}&p={{np}}">后一页</a>
+           {% else %}后一页
+         {% endif %}</span>
          </div>
        </div>
        

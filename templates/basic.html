@@ -4,7 +4,7 @@
 {% block 7header_info %}
 {%if user.is_authenticated %}
   <ul class="unstyled">
-    <li>
+    <li style="display:inline">
       {% if 7hour >= 0 and 7hour < 6 %}
         熬夜对身体不好,
         {% elif 7hour >= 6 and 7hour < 11 %}

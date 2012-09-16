@@ -13,10 +13,10 @@ def home(request,show_text=True):
     if not request.user.is_authenticated():
         return render_to_response('stranger.html',RequestContext(request,locals()))
     
-    if not 'page' in request.GET:
+    if not 'p' in request.GET:
         page = 0
     else:
-        page = int(request.GET['page'])
+        page = int(request.GET['p'])
 
     #actives are User object,distinct(filename) just available in
     #postgresql,so mannul...
@@ -53,17 +53,31 @@ def home(request,show_text=True):
         
         photos={} #key is every photo_saying,and value is a list of correlation photos
         if len(q_gallery) != 0:
-            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
+            sum_pages =  B_Photo.objects.filter(q_gallery).order_by('-pub_date').count()
+            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')[page*7:page*7+7]
             for ps in photosayings:
                 num = 7 if ps.num > 7 else ps.num
                 photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
-        photosayings = photosayings[page*7:page*7+7]
-        sum_pages = photosayings.count
+        
+        pp = page -1
+        np = page +1
+        sum_pages /= 8
+        if sum_pages > 1:
+            rangee = range(2)
+        else:
+            rangee = range(sum_pages+1)
         tag = 2
         return render_to_response('index_photo.html',RequestContext(request,locals()))
 
-    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*7:page*7+7]
-    sum_pages = sayings.count
+    sum_pages = Saying.objects.filter(q_user).order_by('-pub_date').count()
+    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*8:page*8+7]
+    pp = page-1
+    np = page+1
+    sum_pages /= 8
+    if sum_pages > 1:
+            rangee = range(2)
+    else:
+        rangee = range(sum_pages+1)
     tag = 1
     return render_to_response('index_text.html',RequestContext(request,locals()))
 
