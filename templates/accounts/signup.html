@@ -4,7 +4,9 @@
 
 {% block content %}
   {% if submitinfo %}
-    <p>Check your email to active your account</p>
+    <p>你的邮箱里应该已经收到了一封激活信息，请点击里面的链接来激活你
+    的账户，否则可能无法正常登陆</p>
+    <p><small>开玩笑的，马上去体验小7吧</small></p>
   {% else %}
     {% if not  user.is_authenticated %}
       <h5><i class="icon-star-empty"></i>欢迎加入小7<i class="icon-star-empty"></i></h5>
@@ -21,7 +23,7 @@
         
       </form>
     {% else %}
-      <h2>please quit current user first.</h2>
+      <h3>请先退出当前登陆用户.</h3>
     {% endif %}
   {% endif %}
 {% endblock %}

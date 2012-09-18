@@ -24,9 +24,9 @@
   <div class="utility span7">
     <ul>
       {% if not OTHER %}
-      <li><a href="upload"><button class="btn btn-small">上传照片</button></a></li>
-      <li><a href="property"><button class="btn btn-small">修改属性</button></a></li>
-      <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">我的所有相册</button></a></li>
+      <li><a href="upload" style="display:inline"><button class="btn btn-small">上传照片</button></a></li>
+      <li><a href="property" style="display:inline"><button class="btn btn-small">修改属性</button></a></li>
+      <li><a href="{% url 7albums people.username %}" style="display:inline"><button class="btn btn-small">我的所有相册</button></a></li>
       {% else %}
       <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">
         {% firstof people.first_name people.username %}的所有相册</button>
@@ -62,7 +62,7 @@
 
 
   
-  <nav id="7page-nav" >
+  <nav id="7page-nav" style="display:none">
     {# infinite scroll's next page must have a '2'!!!#}
      <span class="7page-prev">
            {% if not pp < 1 %}
@@ -72,7 +72,7 @@
            {% endif %}
      </span>
 
-     <span class="7page-next">
+     <span class="7page-next" >
        {% if np < sum_pages|add:"1"%}
          <a href="?p={{np}}">后一页</a>
        {% else %}后一页

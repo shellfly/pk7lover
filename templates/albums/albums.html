@@ -14,7 +14,7 @@
            {% if album.cover %}
              <img src="{{MEDIA_URL}}{{ album.cover }}"  class="img-polaroid"/>
            {% else %}
-             <img src="http://placehold.it/100x100"  class="img-polaroid"/>  
+             <img src="{{STATIC_URL}}100x100.gif"  class="img-polaroid"/>  
            {% endif %}
            </a><br />{{ album.name }}
            <p class="muted"><small>{{album.photo_num}}张照片<br />{{ album.update_date|date:'Y-m-d'}} 更新</small></p>

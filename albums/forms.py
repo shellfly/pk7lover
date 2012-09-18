@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 class CreateAlbum(forms.Form):
-    RADIO=(('0',_('public')),('1',_('only friend')),('2',_('only me')))
+    RADIO=(('0',_('public')),('1',_('only friend')),('2',_('only family')))
     name = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}),
                            max_length=90,
                            label=_('Album name'))

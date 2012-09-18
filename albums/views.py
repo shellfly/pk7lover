@@ -71,9 +71,16 @@ from django.db import transaction
 @csrf_exempt
 @login_required
 def upload(request,username,album_id=0):
+
     id = int(album_id)
     upload_sessionid=request.COOKIES['sessionid']
     gallerys = Gallery.objects.filter(user_id=request.user.id)
+    
+    print gallerys.count()
+    has_gallery = gallerys.count() > 0
+    if not has_gallery:
+        return HttpResponseRedirect(reverse('7create_album'))
+        
     if request.method != 'POST':
         response=render_to_response('albums/upload.html',RequestContext(request,locals()))
         response.set_cookie('upload_sessionid',upload_sessionid,httponly=False)

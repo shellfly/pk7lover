@@ -6,22 +6,23 @@ $(function(){
         }
     });
 
-    $('.7photo-image > a ').css({'filter':'alpha(opacity=81)','opacity':0.81}).hover(function(){
-        $(this).css({'filter':'alpha(opacity=100)','opacity':1});
+    $('.7photo-box ').hover(function(){
+        $(this).css({'filter':'alpha(opacity=81)','opacity':0.81});
     },function(){
-        $(this).css({'filter':'alpha(opacity=81)','opacity':0.81})
+        $(this).css({'filter':'alpha(opacity=100)','opacity':1})
     }); 
 
   //  $('<a href="#edit"><i class="icon-pencil"></i></a>').appendTo('.7photo-desc p')
     $('ul li').css('display','inline');
     $('header').css('margin-bottom','13px');
-    $('.thislink').css({'color':'white','background':'#83BF73'})
-    $('#id_username').focus()
+    $('.thislink').css({'color':'white','background':'#83BF73'});
+    $('#id_username').focus();
+    $('.helptext').css('display','none');
 });
 
 $(function() {
     $('.carousel').carousel({
-        interval: 3600
+        interval: 3000
     });
     
 });

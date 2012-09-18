@@ -1,7 +1,12 @@
 # Django settings for pk7lover project.
 import os.path
+import socket
 
-DEBUG = True
+if socket.gethostname()=='arch':
+    DEBUG = True
+else:
+    DEBUG = False
+print socket.gethostname()
 TEMPLATE_DEBUG = DEBUG
 
 EMAIL_HOST = 'smtp.google.com'
@@ -52,8 +57,7 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
+#Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = '/home/shellfly/documents/django/images/'
 
@@ -166,3 +170,5 @@ LOGGING = {
         },
     }
 }
+
+#FILE_UPLOAD_MAX_MEMORY_SIZE = 3

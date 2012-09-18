@@ -58,26 +58,22 @@ def home(request,show_text=True):
             for ps in photosayings:
                 num = 7 if ps.num > 7 else ps.num
                 photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
-        
+        else:
+            sum_pages=0
+
         pp = page -1
         np = page +1
         sum_pages /= 8
-        if sum_pages > 1:
-            rangee = range(2)
-        else:
-            rangee = range(sum_pages+1)
+
         tag = 2
         return render_to_response('index_photo.html',RequestContext(request,locals()))
 
     sum_pages = Saying.objects.filter(q_user).order_by('-pub_date').count()
-    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*8:page*8+7]
+    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*14:page*14+13]
     pp = page-1
     np = page+1
-    sum_pages /= 8
-    if sum_pages > 1:
-            rangee = range(2)
-    else:
-        rangee = range(sum_pages+1)
+    sum_pages /= 14
+    
     tag = 1
     return render_to_response('index_text.html',RequestContext(request,locals()))
 

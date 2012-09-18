@@ -1,0 +1,1231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# shell0fly@gmail.com
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-18 18:51+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: accounts/forms.py:12
+msgid "A user with that username already exists."
+msgstr "这个用户名已被别人占用了.."
+
+#: accounts/forms.py:13
+msgid "The email address has already exists."
+msgstr "邮箱地址已注册过"
+
+#: accounts/forms.py:14
+msgid "The two password fields didn't match."
+msgstr "密码不匹配"
+
+#: accounts/forms.py:17 accounts/forms.py:48
+msgid "E-mail"
+msgstr "邮箱"
+
+#: accounts/forms.py:45
+msgid "Nickname"
+msgstr "名号"
+
+#: accounts/templates/admin/404.html:4 accounts/templates/admin/404.html:8
+#: accounts/templates/admin/django_templates/admin/404.html:4
+#: accounts/templates/admin/django_templates/admin/404.html:8
+#: gallery/templates/admin/404.html:4 gallery/templates/admin/404.html.py:8
+#: gallery/templates/admin/django_templates/admin/404.html:4
+#: gallery/templates/admin/django_templates/admin/404.html:8
+#: main/templates/admin/404.html:4 main/templates/admin/404.html.py:8
+#: main/templates/admin/django_templates/admin/404.html:4
+#: main/templates/admin/django_templates/admin/404.html:8
+msgid "Page not found"
+msgstr "页面不存在"
+
+#: accounts/templates/admin/404.html:10
+#: accounts/templates/admin/django_templates/admin/404.html:10
+#: gallery/templates/admin/404.html:10
+#: gallery/templates/admin/django_templates/admin/404.html:10
+#: main/templates/admin/404.html:10
+#: main/templates/admin/django_templates/admin/404.html:10
+msgid "We're sorry, but the requested page could not be found."
+msgstr "对不起.. 但是找不到你请求的文件"
+
+#: accounts/templates/admin/500.html:7
+#: accounts/templates/admin/app_index.html:8
+#: accounts/templates/admin/base.html:45
+#: accounts/templates/admin/change_form.html:21
+#: accounts/templates/admin/change_list.html:43
+#: accounts/templates/admin/delete_confirmation.html:8
+#: accounts/templates/admin/delete_selected_confirmation.html:8
+#: accounts/templates/admin/invalid_setup.html:7
+#: accounts/templates/admin/object_history.html:8
+#: accounts/templates/admin/auth/user/change_password.html:15
+#: accounts/templates/admin/django_templates/admin/500.html:7
+#: accounts/templates/admin/django_templates/admin/app_index.html:8
+#: accounts/templates/admin/django_templates/admin/base.html:45
+#: accounts/templates/admin/django_templates/admin/change_form.html:21
+#: accounts/templates/admin/django_templates/admin/change_list.html:43
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:8
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:8
+#: accounts/templates/admin/django_templates/admin/invalid_setup.html:7
+#: accounts/templates/admin/django_templates/admin/object_history.html:8
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:15
+#: accounts/templates/admin/django_templates/registration/logged_out.html:5
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:7
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:8
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:7
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:7
+#: accounts/templates/admin/django_templates/registration/password_reset_done.html:7
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:7
+#: gallery/templates/admin/500.html:7 gallery/templates/admin/app_index.html:8
+#: gallery/templates/admin/base.html:45
+#: gallery/templates/admin/change_form.html:21
+#: gallery/templates/admin/change_list.html:43
+#: gallery/templates/admin/delete_confirmation.html:8
+#: gallery/templates/admin/delete_selected_confirmation.html:8
+#: gallery/templates/admin/invalid_setup.html:7
+#: gallery/templates/admin/object_history.html:8
+#: gallery/templates/admin/auth/user/change_password.html:15
+#: gallery/templates/admin/django_templates/admin/500.html:7
+#: gallery/templates/admin/django_templates/admin/app_index.html:8
+#: gallery/templates/admin/django_templates/admin/base.html:45
+#: gallery/templates/admin/django_templates/admin/change_form.html:21
+#: gallery/templates/admin/django_templates/admin/change_list.html:43
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:8
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:8
+#: gallery/templates/admin/django_templates/admin/invalid_setup.html:7
+#: gallery/templates/admin/django_templates/admin/object_history.html:8
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:15
+#: gallery/templates/admin/django_templates/registration/logged_out.html:5
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:7
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:7
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:7
+#: gallery/templates/admin/django_templates/registration/password_reset_done.html:7
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:7
+#: main/templates/admin/500.html:7 main/templates/admin/app_index.html:8
+#: main/templates/admin/base.html:45 main/templates/admin/change_form.html:21
+#: main/templates/admin/change_list.html:43
+#: main/templates/admin/delete_confirmation.html:8
+#: main/templates/admin/delete_selected_confirmation.html:8
+#: main/templates/admin/invalid_setup.html:7
+#: main/templates/admin/object_history.html:8
+#: main/templates/admin/auth/user/change_password.html:15
+#: main/templates/admin/django_templates/admin/500.html:7
+#: main/templates/admin/django_templates/admin/app_index.html:8
+#: main/templates/admin/django_templates/admin/base.html:45
+#: main/templates/admin/django_templates/admin/change_form.html:21
+#: main/templates/admin/django_templates/admin/change_list.html:43
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:8
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:8
+#: main/templates/admin/django_templates/admin/invalid_setup.html:7
+#: main/templates/admin/django_templates/admin/object_history.html:8
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:15
+#: main/templates/admin/django_templates/registration/logged_out.html:5
+#: main/templates/admin/django_templates/registration/password_change_done.html:7
+#: main/templates/admin/django_templates/registration/password_change_form.html:8
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:7
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:7
+#: main/templates/admin/django_templates/registration/password_reset_done.html:7
+#: main/templates/admin/django_templates/registration/password_reset_form.html:7
+msgid "Home"
+msgstr "主页"
+
+#: accounts/templates/admin/500.html:8
+#: accounts/templates/admin/django_templates/admin/500.html:8
+#: gallery/templates/admin/500.html:8
+#: gallery/templates/admin/django_templates/admin/500.html:8
+#: main/templates/admin/500.html:8
+#: main/templates/admin/django_templates/admin/500.html:8
+msgid "Server error"
+msgstr "服务器错误.."
+
+#: accounts/templates/admin/500.html:12
+#: accounts/templates/admin/django_templates/admin/500.html:12
+#: gallery/templates/admin/500.html:12
+#: gallery/templates/admin/django_templates/admin/500.html:12
+#: main/templates/admin/500.html:12
+#: main/templates/admin/django_templates/admin/500.html:12
+msgid "Server error (500)"
+msgstr "服务器错误(500)"
+
+#: accounts/templates/admin/500.html:15
+#: accounts/templates/admin/django_templates/admin/500.html:15
+#: gallery/templates/admin/500.html:15
+#: gallery/templates/admin/django_templates/admin/500.html:15
+#: main/templates/admin/500.html:15
+#: main/templates/admin/django_templates/admin/500.html:15
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: accounts/templates/admin/500.html:16
+#: accounts/templates/admin/django_templates/admin/500.html:16
+#: gallery/templates/admin/500.html:16
+#: gallery/templates/admin/django_templates/admin/500.html:16
+#: main/templates/admin/500.html:16
+#: main/templates/admin/django_templates/admin/500.html:16
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: accounts/templates/admin/actions.html:4
+#: accounts/templates/admin/django_templates/admin/actions.html:4
+#: gallery/templates/admin/actions.html:4
+#: gallery/templates/admin/django_templates/admin/actions.html:4
+#: main/templates/admin/actions.html:4
+#: main/templates/admin/django_templates/admin/actions.html:4
+msgid "Run the selected action"
+msgstr ""
+
+#: accounts/templates/admin/actions.html:4
+#: accounts/templates/admin/django_templates/admin/actions.html:4
+#: gallery/templates/admin/actions.html:4
+#: gallery/templates/admin/django_templates/admin/actions.html:4
+#: main/templates/admin/actions.html:4
+#: main/templates/admin/django_templates/admin/actions.html:4
+msgid "Go"
+msgstr ""
+
+#: accounts/templates/admin/actions.html:11
+#: accounts/templates/admin/django_templates/admin/actions.html:11
+#: gallery/templates/admin/actions.html:11
+#: gallery/templates/admin/django_templates/admin/actions.html:11
+#: main/templates/admin/actions.html:11
+#: main/templates/admin/django_templates/admin/actions.html:11
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: accounts/templates/admin/actions.html:11
+#: accounts/templates/admin/django_templates/admin/actions.html:11
+#: gallery/templates/admin/actions.html:11
+#: gallery/templates/admin/django_templates/admin/actions.html:11
+#: main/templates/admin/actions.html:11
+#: main/templates/admin/django_templates/admin/actions.html:11
+#, python-format
+msgid "Select all %(total_count)s %(module_name)s"
+msgstr ""
+
+#: accounts/templates/admin/actions.html:13
+#: accounts/templates/admin/django_templates/admin/actions.html:13
+#: gallery/templates/admin/actions.html:13
+#: gallery/templates/admin/django_templates/admin/actions.html:13
+#: main/templates/admin/actions.html:13
+#: main/templates/admin/django_templates/admin/actions.html:13
+msgid "Clear selection"
+msgstr ""
+
+#: accounts/templates/admin/app_index.html:11
+#: accounts/templates/admin/index.html:19
+#: accounts/templates/admin/django_templates/admin/app_index.html:11
+#: accounts/templates/admin/django_templates/admin/index.html:19
+#: gallery/templates/admin/app_index.html:11
+#: gallery/templates/admin/index.html:19
+#: gallery/templates/admin/django_templates/admin/app_index.html:11
+#: gallery/templates/admin/django_templates/admin/index.html:19
+#: main/templates/admin/app_index.html:11 main/templates/admin/index.html:19
+#: main/templates/admin/django_templates/admin/app_index.html:11
+#: main/templates/admin/django_templates/admin/index.html:19
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: accounts/templates/admin/base.html:28
+#: accounts/templates/admin/django_templates/admin/base.html:28
+#: gallery/templates/admin/base.html:28
+#: gallery/templates/admin/django_templates/admin/base.html:28
+#: main/templates/admin/base.html:28
+#: main/templates/admin/django_templates/admin/base.html:28
+msgid "Welcome,"
+msgstr ""
+
+#: accounts/templates/admin/base.html:33
+#: accounts/templates/admin/django_templates/admin/base.html:33
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:4
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:5
+#: gallery/templates/admin/base.html:33
+#: gallery/templates/admin/django_templates/admin/base.html:33
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:4
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:5
+#: main/templates/admin/base.html:33
+#: main/templates/admin/django_templates/admin/base.html:33
+#: main/templates/admin/django_templates/registration/password_change_done.html:4
+#: main/templates/admin/django_templates/registration/password_change_form.html:5
+msgid "Documentation"
+msgstr ""
+
+#: accounts/templates/admin/base.html:35
+#: accounts/templates/admin/auth/user/change_password.html:19
+#: accounts/templates/admin/auth/user/change_password.html:53
+#: accounts/templates/admin/django_templates/admin/base.html:35
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:19
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:53
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:4
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:5
+#: gallery/templates/admin/base.html:35
+#: gallery/templates/admin/auth/user/change_password.html:19
+#: gallery/templates/admin/auth/user/change_password.html:53
+#: gallery/templates/admin/django_templates/admin/base.html:35
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:19
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:53
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:4
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:5
+#: main/templates/admin/base.html:35
+#: main/templates/admin/auth/user/change_password.html:19
+#: main/templates/admin/auth/user/change_password.html:53
+#: main/templates/admin/django_templates/admin/base.html:35
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:19
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:53
+#: main/templates/admin/django_templates/registration/password_change_done.html:4
+#: main/templates/admin/django_templates/registration/password_change_form.html:5
+msgid "Change password"
+msgstr ""
+
+#: accounts/templates/admin/base.html:36
+#: accounts/templates/admin/django_templates/admin/base.html:36
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:4
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:5
+#: gallery/templates/admin/base.html:36
+#: gallery/templates/admin/django_templates/admin/base.html:36
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:4
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:5
+#: main/templates/admin/base.html:36
+#: main/templates/admin/django_templates/admin/base.html:36
+#: main/templates/admin/django_templates/registration/password_change_done.html:4
+#: main/templates/admin/django_templates/registration/password_change_form.html:5
+msgid "Log out"
+msgstr ""
+
+#: accounts/templates/admin/base_site.html:4
+#: accounts/templates/admin/django_templates/admin/base_site.html:4
+#: gallery/templates/admin/base_site.html:4
+#: gallery/templates/admin/django_templates/admin/base_site.html:4
+#: main/templates/admin/base_site.html:4
+#: main/templates/admin/django_templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: accounts/templates/admin/base_site.html:7
+#: accounts/templates/admin/django_templates/admin/base_site.html:7
+#: gallery/templates/admin/base_site.html:7
+#: gallery/templates/admin/django_templates/admin/base_site.html:7
+#: main/templates/admin/base_site.html:7
+#: main/templates/admin/django_templates/admin/base_site.html:7
+msgid "Django administration"
+msgstr ""
+
+#: accounts/templates/admin/change_form.html:24
+#: accounts/templates/admin/index.html:29
+#: accounts/templates/admin/django_templates/admin/change_form.html:24
+#: accounts/templates/admin/django_templates/admin/index.html:29
+#: gallery/templates/admin/change_form.html:24
+#: gallery/templates/admin/index.html:29
+#: gallery/templates/admin/django_templates/admin/change_form.html:24
+#: gallery/templates/admin/django_templates/admin/index.html:29
+#: main/templates/admin/change_form.html:24 main/templates/admin/index.html:29
+#: main/templates/admin/django_templates/admin/change_form.html:24
+#: main/templates/admin/django_templates/admin/index.html:29
+msgid "Add"
+msgstr ""
+
+#: accounts/templates/admin/change_form.html:34
+#: accounts/templates/admin/object_history.html:12
+#: accounts/templates/admin/django_templates/admin/change_form.html:34
+#: accounts/templates/admin/django_templates/admin/object_history.html:12
+#: gallery/templates/admin/change_form.html:34
+#: gallery/templates/admin/object_history.html:12
+#: gallery/templates/admin/django_templates/admin/change_form.html:34
+#: gallery/templates/admin/django_templates/admin/object_history.html:12
+#: main/templates/admin/change_form.html:34
+#: main/templates/admin/object_history.html:12
+#: main/templates/admin/django_templates/admin/change_form.html:34
+#: main/templates/admin/django_templates/admin/object_history.html:12
+msgid "History"
+msgstr ""
+
+#: accounts/templates/admin/change_form.html:35
+#: accounts/templates/admin/django_templates/admin/change_form.html:35
+#: accounts/templates/admin/django_templates/admin/edit_inline/stacked.html:9
+#: accounts/templates/admin/django_templates/admin/edit_inline/tabular.html:30
+#: accounts/templates/admin/edit_inline/stacked.html:9
+#: accounts/templates/admin/edit_inline/tabular.html:30
+#: gallery/templates/admin/change_form.html:35
+#: gallery/templates/admin/django_templates/admin/change_form.html:35
+#: gallery/templates/admin/django_templates/admin/edit_inline/stacked.html:9
+#: gallery/templates/admin/django_templates/admin/edit_inline/tabular.html:30
+#: gallery/templates/admin/edit_inline/stacked.html:9
+#: gallery/templates/admin/edit_inline/tabular.html:30
+#: main/templates/admin/change_form.html:35
+#: main/templates/admin/django_templates/admin/change_form.html:35
+#: main/templates/admin/django_templates/admin/edit_inline/stacked.html:9
+#: main/templates/admin/django_templates/admin/edit_inline/tabular.html:30
+#: main/templates/admin/edit_inline/stacked.html:9
+#: main/templates/admin/edit_inline/tabular.html:30
+msgid "View on site"
+msgstr ""
+
+#: accounts/templates/admin/change_form.html:46
+#: accounts/templates/admin/change_list.html:69
+#: accounts/templates/admin/login.html:18
+#: accounts/templates/admin/auth/user/change_password.html:29
+#: accounts/templates/admin/django_templates/admin/change_form.html:46
+#: accounts/templates/admin/django_templates/admin/change_list.html:69
+#: accounts/templates/admin/django_templates/admin/login.html:18
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:29
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:21
+#: gallery/templates/admin/change_form.html:46
+#: gallery/templates/admin/change_list.html:69
+#: gallery/templates/admin/login.html:18
+#: gallery/templates/admin/auth/user/change_password.html:29
+#: gallery/templates/admin/django_templates/admin/change_form.html:46
+#: gallery/templates/admin/django_templates/admin/change_list.html:69
+#: gallery/templates/admin/django_templates/admin/login.html:18
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:29
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:21
+#: main/templates/admin/change_form.html:46
+#: main/templates/admin/change_list.html:69 main/templates/admin/login.html:18
+#: main/templates/admin/auth/user/change_password.html:29
+#: main/templates/admin/django_templates/admin/change_form.html:46
+#: main/templates/admin/django_templates/admin/change_list.html:69
+#: main/templates/admin/django_templates/admin/login.html:18
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:29
+#: main/templates/admin/django_templates/registration/password_change_form.html:21
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "请更正下面的错误"
+msgstr[1] "请更正下面的错误"
+
+#: accounts/templates/admin/change_list.html:60
+#: accounts/templates/admin/django_templates/admin/change_list.html:60
+#: gallery/templates/admin/change_list.html:60
+#: gallery/templates/admin/django_templates/admin/change_list.html:60
+#: main/templates/admin/change_list.html:60
+#: main/templates/admin/django_templates/admin/change_list.html:60
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: accounts/templates/admin/change_list.html:80
+#: accounts/templates/admin/django_templates/admin/change_list.html:80
+#: gallery/templates/admin/change_list.html:80
+#: gallery/templates/admin/django_templates/admin/change_list.html:80
+#: main/templates/admin/change_list.html:80
+#: main/templates/admin/django_templates/admin/change_list.html:80
+msgid "Filter"
+msgstr ""
+
+#: accounts/templates/admin/change_list_results.html:17
+#: accounts/templates/admin/django_templates/admin/change_list_results.html:17
+#: gallery/templates/admin/change_list_results.html:17
+#: gallery/templates/admin/django_templates/admin/change_list_results.html:17
+#: main/templates/admin/change_list_results.html:17
+#: main/templates/admin/django_templates/admin/change_list_results.html:17
+msgid "Remove from sorting"
+msgstr ""
+
+#: accounts/templates/admin/change_list_results.html:18
+#: accounts/templates/admin/django_templates/admin/change_list_results.html:18
+#: gallery/templates/admin/change_list_results.html:18
+#: gallery/templates/admin/django_templates/admin/change_list_results.html:18
+#: main/templates/admin/change_list_results.html:18
+#: main/templates/admin/django_templates/admin/change_list_results.html:18
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr ""
+
+#: accounts/templates/admin/change_list_results.html:19
+#: accounts/templates/admin/django_templates/admin/change_list_results.html:19
+#: gallery/templates/admin/change_list_results.html:19
+#: gallery/templates/admin/django_templates/admin/change_list_results.html:19
+#: main/templates/admin/change_list_results.html:19
+#: main/templates/admin/django_templates/admin/change_list_results.html:19
+msgid "Toggle sorting"
+msgstr ""
+
+#: accounts/templates/admin/delete_confirmation.html:12
+#: accounts/templates/admin/submit_line.html:4
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:12
+#: accounts/templates/admin/django_templates/admin/submit_line.html:4
+#: gallery/templates/admin/delete_confirmation.html:12
+#: gallery/templates/admin/submit_line.html:4
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:12
+#: gallery/templates/admin/django_templates/admin/submit_line.html:4
+#: main/templates/admin/delete_confirmation.html:12
+#: main/templates/admin/submit_line.html:4
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:12
+#: main/templates/admin/django_templates/admin/submit_line.html:4
+msgid "Delete"
+msgstr ""
+
+#: accounts/templates/admin/delete_confirmation.html:19
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:19
+#: gallery/templates/admin/delete_confirmation.html:19
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:19
+#: main/templates/admin/delete_confirmation.html:19
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:19
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: accounts/templates/admin/delete_confirmation.html:27
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:27
+#: gallery/templates/admin/delete_confirmation.html:27
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:27
+#: main/templates/admin/delete_confirmation.html:27
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:27
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: accounts/templates/admin/delete_confirmation.html:35
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:35
+#: gallery/templates/admin/delete_confirmation.html:35
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:35
+#: main/templates/admin/delete_confirmation.html:35
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:35
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: accounts/templates/admin/delete_confirmation.html:40
+#: accounts/templates/admin/delete_selected_confirmation.html:45
+#: accounts/templates/admin/django_templates/admin/delete_confirmation.html:40
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:45
+#: gallery/templates/admin/delete_confirmation.html:40
+#: gallery/templates/admin/delete_selected_confirmation.html:45
+#: gallery/templates/admin/django_templates/admin/delete_confirmation.html:40
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:45
+#: main/templates/admin/delete_confirmation.html:40
+#: main/templates/admin/delete_selected_confirmation.html:45
+#: main/templates/admin/django_templates/admin/delete_confirmation.html:40
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:45
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: accounts/templates/admin/delete_selected_confirmation.html:11
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:11
+#: gallery/templates/admin/delete_selected_confirmation.html:11
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:11
+#: main/templates/admin/delete_selected_confirmation.html:11
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:11
+msgid "Delete multiple objects"
+msgstr ""
+
+#: accounts/templates/admin/delete_selected_confirmation.html:18
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:18
+#: gallery/templates/admin/delete_selected_confirmation.html:18
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:18
+#: main/templates/admin/delete_selected_confirmation.html:18
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:18
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: accounts/templates/admin/delete_selected_confirmation.html:26
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:26
+#: gallery/templates/admin/delete_selected_confirmation.html:26
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:26
+#: main/templates/admin/delete_selected_confirmation.html:26
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:26
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: accounts/templates/admin/delete_selected_confirmation.html:34
+#: accounts/templates/admin/django_templates/admin/delete_selected_confirmation.html:34
+#: gallery/templates/admin/delete_selected_confirmation.html:34
+#: gallery/templates/admin/django_templates/admin/delete_selected_confirmation.html:34
+#: main/templates/admin/delete_selected_confirmation.html:34
+#: main/templates/admin/django_templates/admin/delete_selected_confirmation.html:34
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+#: accounts/templates/admin/filter.html:2
+#: accounts/templates/admin/django_templates/admin/filter.html:2
+#: gallery/templates/admin/filter.html:2
+#: gallery/templates/admin/django_templates/admin/filter.html:2
+#: main/templates/admin/filter.html:2
+#: main/templates/admin/django_templates/admin/filter.html:2
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: accounts/templates/admin/index.html:18
+#: accounts/templates/admin/django_templates/admin/index.html:18
+#: gallery/templates/admin/index.html:18
+#: gallery/templates/admin/django_templates/admin/index.html:18
+#: main/templates/admin/index.html:18
+#: main/templates/admin/django_templates/admin/index.html:18
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: accounts/templates/admin/index.html:35
+#: accounts/templates/admin/django_templates/admin/index.html:35
+#: gallery/templates/admin/index.html:35
+#: gallery/templates/admin/django_templates/admin/index.html:35
+#: main/templates/admin/index.html:35
+#: main/templates/admin/django_templates/admin/index.html:35
+msgid "Change"
+msgstr ""
+
+#: accounts/templates/admin/index.html:45
+#: accounts/templates/admin/django_templates/admin/index.html:45
+#: gallery/templates/admin/index.html:45
+#: gallery/templates/admin/django_templates/admin/index.html:45
+#: main/templates/admin/index.html:45
+#: main/templates/admin/django_templates/admin/index.html:45
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: accounts/templates/admin/index.html:53
+#: accounts/templates/admin/django_templates/admin/index.html:53
+#: gallery/templates/admin/index.html:53
+#: gallery/templates/admin/django_templates/admin/index.html:53
+#: main/templates/admin/index.html:53
+#: main/templates/admin/django_templates/admin/index.html:53
+msgid "Recent Actions"
+msgstr ""
+
+#: accounts/templates/admin/index.html:54
+#: accounts/templates/admin/django_templates/admin/index.html:54
+#: gallery/templates/admin/index.html:54
+#: gallery/templates/admin/django_templates/admin/index.html:54
+#: main/templates/admin/index.html:54
+#: main/templates/admin/django_templates/admin/index.html:54
+msgid "My Actions"
+msgstr ""
+
+#: accounts/templates/admin/index.html:58
+#: accounts/templates/admin/django_templates/admin/index.html:58
+#: gallery/templates/admin/index.html:58
+#: gallery/templates/admin/django_templates/admin/index.html:58
+#: main/templates/admin/index.html:58
+#: main/templates/admin/django_templates/admin/index.html:58
+msgid "None available"
+msgstr ""
+
+#: accounts/templates/admin/index.html:72
+#: accounts/templates/admin/django_templates/admin/index.html:72
+#: gallery/templates/admin/index.html:72
+#: gallery/templates/admin/django_templates/admin/index.html:72
+#: main/templates/admin/index.html:72
+#: main/templates/admin/django_templates/admin/index.html:72
+msgid "Unknown content"
+msgstr ""
+
+#: accounts/templates/admin/invalid_setup.html:13
+#: accounts/templates/admin/django_templates/admin/invalid_setup.html:13
+#: gallery/templates/admin/invalid_setup.html:13
+#: gallery/templates/admin/django_templates/admin/invalid_setup.html:13
+#: main/templates/admin/invalid_setup.html:13
+#: main/templates/admin/django_templates/admin/invalid_setup.html:13
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+
+#: accounts/templates/admin/login.html:34
+#: accounts/templates/admin/django_templates/admin/login.html:34
+#: gallery/templates/admin/login.html:34
+#: gallery/templates/admin/django_templates/admin/login.html:34
+#: main/templates/admin/login.html:34
+#: main/templates/admin/django_templates/admin/login.html:34
+msgid "Username:"
+msgstr ""
+
+#: accounts/templates/admin/login.html:38
+#: accounts/templates/admin/django_templates/admin/login.html:38
+#: gallery/templates/admin/login.html:38
+#: gallery/templates/admin/django_templates/admin/login.html:38
+#: main/templates/admin/login.html:38
+#: main/templates/admin/django_templates/admin/login.html:38
+msgid "Password:"
+msgstr ""
+
+#: accounts/templates/admin/login.html:45
+#: accounts/templates/admin/django_templates/admin/login.html:45
+#: gallery/templates/admin/login.html:45
+#: gallery/templates/admin/django_templates/admin/login.html:45
+#: main/templates/admin/login.html:45
+#: main/templates/admin/django_templates/admin/login.html:45
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: accounts/templates/admin/login.html:49
+#: accounts/templates/admin/django_templates/admin/login.html:49
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:20
+#: gallery/templates/admin/login.html:49
+#: gallery/templates/admin/django_templates/admin/login.html:49
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:20
+#: main/templates/admin/login.html:49
+#: main/templates/admin/django_templates/admin/login.html:49
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:20
+msgid "Log in"
+msgstr ""
+
+#: accounts/templates/admin/object_history.html:24
+#: accounts/templates/admin/django_templates/admin/object_history.html:24
+#: gallery/templates/admin/object_history.html:24
+#: gallery/templates/admin/django_templates/admin/object_history.html:24
+#: main/templates/admin/object_history.html:24
+#: main/templates/admin/django_templates/admin/object_history.html:24
+msgid "Date/time"
+msgstr ""
+
+#: accounts/templates/admin/object_history.html:25
+#: accounts/templates/admin/django_templates/admin/object_history.html:25
+#: gallery/templates/admin/object_history.html:25
+#: gallery/templates/admin/django_templates/admin/object_history.html:25
+#: main/templates/admin/object_history.html:25
+#: main/templates/admin/django_templates/admin/object_history.html:25
+msgid "User"
+msgstr ""
+
+#: accounts/templates/admin/object_history.html:26
+#: accounts/templates/admin/django_templates/admin/object_history.html:26
+#: gallery/templates/admin/object_history.html:26
+#: gallery/templates/admin/django_templates/admin/object_history.html:26
+#: main/templates/admin/object_history.html:26
+#: main/templates/admin/django_templates/admin/object_history.html:26
+msgid "Action"
+msgstr ""
+
+#: accounts/templates/admin/object_history.html:40
+#: accounts/templates/admin/django_templates/admin/object_history.html:40
+#: gallery/templates/admin/object_history.html:40
+#: gallery/templates/admin/django_templates/admin/object_history.html:40
+#: main/templates/admin/object_history.html:40
+#: main/templates/admin/django_templates/admin/object_history.html:40
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: accounts/templates/admin/pagination.html:10
+#: accounts/templates/admin/django_templates/admin/pagination.html:10
+#: gallery/templates/admin/pagination.html:10
+#: gallery/templates/admin/django_templates/admin/pagination.html:10
+#: main/templates/admin/pagination.html:10
+#: main/templates/admin/django_templates/admin/pagination.html:10
+msgid "Show all"
+msgstr ""
+
+#: accounts/templates/admin/pagination.html:11
+#: accounts/templates/admin/submit_line.html:3
+#: accounts/templates/admin/django_templates/admin/pagination.html:11
+#: accounts/templates/admin/django_templates/admin/submit_line.html:3
+#: gallery/templates/admin/pagination.html:11
+#: gallery/templates/admin/submit_line.html:3
+#: gallery/templates/admin/django_templates/admin/pagination.html:11
+#: gallery/templates/admin/django_templates/admin/submit_line.html:3
+#: main/templates/admin/pagination.html:11
+#: main/templates/admin/submit_line.html:3
+#: main/templates/admin/django_templates/admin/pagination.html:11
+#: main/templates/admin/django_templates/admin/submit_line.html:3
+msgid "Save"
+msgstr ""
+
+#: accounts/templates/admin/search_form.html:7
+#: accounts/templates/admin/django_templates/admin/search_form.html:7
+#: gallery/templates/admin/search_form.html:7
+#: gallery/templates/admin/django_templates/admin/search_form.html:7
+#: main/templates/admin/search_form.html:7
+#: main/templates/admin/django_templates/admin/search_form.html:7
+msgid "Search"
+msgstr ""
+
+#: accounts/templates/admin/search_form.html:9
+#: accounts/templates/admin/django_templates/admin/search_form.html:9
+#: gallery/templates/admin/search_form.html:9
+#: gallery/templates/admin/django_templates/admin/search_form.html:9
+#: main/templates/admin/search_form.html:9
+#: main/templates/admin/django_templates/admin/search_form.html:9
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: accounts/templates/admin/search_form.html:9
+#: accounts/templates/admin/django_templates/admin/search_form.html:9
+#: gallery/templates/admin/search_form.html:9
+#: gallery/templates/admin/django_templates/admin/search_form.html:9
+#: main/templates/admin/search_form.html:9
+#: main/templates/admin/django_templates/admin/search_form.html:9
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: accounts/templates/admin/submit_line.html:5
+#: accounts/templates/admin/django_templates/admin/submit_line.html:5
+#: gallery/templates/admin/submit_line.html:5
+#: gallery/templates/admin/django_templates/admin/submit_line.html:5
+#: main/templates/admin/submit_line.html:5
+#: main/templates/admin/django_templates/admin/submit_line.html:5
+msgid "Save as new"
+msgstr ""
+
+#: accounts/templates/admin/submit_line.html:6
+#: accounts/templates/admin/django_templates/admin/submit_line.html:6
+#: gallery/templates/admin/submit_line.html:6
+#: gallery/templates/admin/django_templates/admin/submit_line.html:6
+#: main/templates/admin/submit_line.html:6
+#: main/templates/admin/django_templates/admin/submit_line.html:6
+msgid "Save and add another"
+msgstr ""
+
+#: accounts/templates/admin/submit_line.html:7
+#: accounts/templates/admin/django_templates/admin/submit_line.html:7
+#: gallery/templates/admin/submit_line.html:7
+#: gallery/templates/admin/django_templates/admin/submit_line.html:7
+#: main/templates/admin/submit_line.html:7
+#: main/templates/admin/django_templates/admin/submit_line.html:7
+msgid "Save and continue editing"
+msgstr ""
+
+#: accounts/templates/admin/auth/user/add_form.html:6
+#: accounts/templates/admin/django_templates/admin/auth/user/add_form.html:6
+#: gallery/templates/admin/auth/user/add_form.html:6
+#: gallery/templates/admin/django_templates/admin/auth/user/add_form.html:6
+#: main/templates/admin/auth/user/add_form.html:6
+#: main/templates/admin/django_templates/admin/auth/user/add_form.html:6
+msgid ""
+"First, enter a username and password. Then, you'll be able to edit more user "
+"options."
+msgstr ""
+
+#: accounts/templates/admin/auth/user/add_form.html:8
+#: accounts/templates/admin/django_templates/admin/auth/user/add_form.html:8
+#: gallery/templates/admin/auth/user/add_form.html:8
+#: gallery/templates/admin/django_templates/admin/auth/user/add_form.html:8
+#: main/templates/admin/auth/user/add_form.html:8
+#: main/templates/admin/django_templates/admin/auth/user/add_form.html:8
+msgid "Enter a username and password."
+msgstr ""
+
+#: accounts/templates/admin/auth/user/change_password.html:33
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:33
+#: gallery/templates/admin/auth/user/change_password.html:33
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:33
+#: main/templates/admin/auth/user/change_password.html:33
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:33
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: accounts/templates/admin/auth/user/change_password.html:40
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:40
+#: gallery/templates/admin/auth/user/change_password.html:40
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:40
+#: main/templates/admin/auth/user/change_password.html:40
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:40
+msgid "Password"
+msgstr ""
+
+#: accounts/templates/admin/auth/user/change_password.html:46
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:46
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:43
+#: gallery/templates/admin/auth/user/change_password.html:46
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:46
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:43
+#: main/templates/admin/auth/user/change_password.html:46
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:46
+#: main/templates/admin/django_templates/registration/password_change_form.html:43
+msgid "Password (again)"
+msgstr ""
+
+#: accounts/templates/admin/auth/user/change_password.html:47
+#: accounts/templates/admin/django_templates/admin/auth/user/change_password.html:47
+#: gallery/templates/admin/auth/user/change_password.html:47
+#: gallery/templates/admin/django_templates/admin/auth/user/change_password.html:47
+#: main/templates/admin/auth/user/change_password.html:47
+#: main/templates/admin/django_templates/admin/auth/user/change_password.html:47
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/admin/edit_inline/stacked.html:67
+#: accounts/templates/admin/django_templates/admin/edit_inline/tabular.html:115
+#: accounts/templates/admin/edit_inline/stacked.html:67
+#: accounts/templates/admin/edit_inline/tabular.html:115
+#: gallery/templates/admin/django_templates/admin/edit_inline/stacked.html:67
+#: gallery/templates/admin/django_templates/admin/edit_inline/tabular.html:115
+#: gallery/templates/admin/edit_inline/stacked.html:67
+#: gallery/templates/admin/edit_inline/tabular.html:115
+#: main/templates/admin/django_templates/admin/edit_inline/stacked.html:67
+#: main/templates/admin/django_templates/admin/edit_inline/tabular.html:115
+#: main/templates/admin/edit_inline/stacked.html:67
+#: main/templates/admin/edit_inline/tabular.html:115
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/admin/edit_inline/stacked.html:70
+#: accounts/templates/admin/django_templates/admin/edit_inline/tabular.html:118
+#: accounts/templates/admin/edit_inline/stacked.html:70
+#: accounts/templates/admin/edit_inline/tabular.html:118
+#: gallery/templates/admin/django_templates/admin/edit_inline/stacked.html:70
+#: gallery/templates/admin/django_templates/admin/edit_inline/tabular.html:118
+#: gallery/templates/admin/edit_inline/stacked.html:70
+#: gallery/templates/admin/edit_inline/tabular.html:118
+#: main/templates/admin/django_templates/admin/edit_inline/stacked.html:70
+#: main/templates/admin/django_templates/admin/edit_inline/tabular.html:118
+#: main/templates/admin/edit_inline/stacked.html:70
+#: main/templates/admin/edit_inline/tabular.html:118
+msgid "Remove"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/admin/edit_inline/tabular.html:17
+#: accounts/templates/admin/edit_inline/tabular.html:17
+#: gallery/templates/admin/django_templates/admin/edit_inline/tabular.html:17
+#: gallery/templates/admin/edit_inline/tabular.html:17
+#: main/templates/admin/django_templates/admin/edit_inline/tabular.html:17
+#: main/templates/admin/edit_inline/tabular.html:17
+msgid "Delete?"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/logged_out.html:9
+#: gallery/templates/admin/django_templates/registration/logged_out.html:9
+#: main/templates/admin/django_templates/registration/logged_out.html:9
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/logged_out.html:11
+#: gallery/templates/admin/django_templates/registration/logged_out.html:11
+#: main/templates/admin/django_templates/registration/logged_out.html:11
+msgid "Log in again"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:8
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:9
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:13
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:25
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:8
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:9
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:13
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:25
+#: main/templates/admin/django_templates/registration/password_change_done.html:8
+#: main/templates/admin/django_templates/registration/password_change_form.html:9
+#: main/templates/admin/django_templates/registration/password_change_form.html:13
+#: main/templates/admin/django_templates/registration/password_change_form.html:25
+msgid "Password change"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:12
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:16
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:12
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:16
+#: main/templates/admin/django_templates/registration/password_change_done.html:12
+#: main/templates/admin/django_templates/registration/password_change_done.html:16
+msgid "Password change successful"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_done.html:18
+#: gallery/templates/admin/django_templates/registration/password_change_done.html:18
+#: main/templates/admin/django_templates/registration/password_change_done.html:18
+msgid "Your password was changed."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:27
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:27
+#: main/templates/admin/django_templates/registration/password_change_form.html:27
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:33
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:33
+#: main/templates/admin/django_templates/registration/password_change_form.html:33
+msgid "Old password"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:38
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:38
+#: main/templates/admin/django_templates/registration/password_change_form.html:38
+msgid "New password"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_change_form.html:49
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:27
+#: gallery/templates/admin/django_templates/registration/password_change_form.html:49
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:27
+#: main/templates/admin/django_templates/registration/password_change_form.html:49
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:27
+msgid "Change my password"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:8
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:12
+#: accounts/templates/admin/django_templates/registration/password_reset_done.html:8
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:8
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:12
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:16
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:12
+#: gallery/templates/admin/django_templates/registration/password_reset_done.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:12
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:16
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:8
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:12
+#: main/templates/admin/django_templates/registration/password_reset_done.html:8
+#: main/templates/admin/django_templates/registration/password_reset_form.html:8
+#: main/templates/admin/django_templates/registration/password_reset_form.html:12
+#: main/templates/admin/django_templates/registration/password_reset_form.html:16
+msgid "Password reset"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:12
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:16
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:12
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:16
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:12
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:16
+msgid "Password reset complete"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_complete.html:18
+#: gallery/templates/admin/django_templates/registration/password_reset_complete.html:18
+#: main/templates/admin/django_templates/registration/password_reset_complete.html:18
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:8
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:8
+msgid "Password reset confirmation"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:18
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:18
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:18
+msgid "Enter new password"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:20
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:20
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:20
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:24
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:24
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:24
+msgid "New password:"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:26
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:26
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:26
+msgid "Confirm password:"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:32
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:32
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:32
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:34
+#: gallery/templates/admin/django_templates/registration/password_reset_confirm.html:34
+#: main/templates/admin/django_templates/registration/password_reset_confirm.html:34
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_done.html:12
+#: accounts/templates/admin/django_templates/registration/password_reset_done.html:16
+#: gallery/templates/admin/django_templates/registration/password_reset_done.html:12
+#: gallery/templates/admin/django_templates/registration/password_reset_done.html:16
+#: main/templates/admin/django_templates/registration/password_reset_done.html:12
+#: main/templates/admin/django_templates/registration/password_reset_done.html:16
+msgid "Password reset successful"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_done.html:18
+#: gallery/templates/admin/django_templates/registration/password_reset_done.html:18
+#: main/templates/admin/django_templates/registration/password_reset_done.html:18
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_email.html:2
+#: gallery/templates/admin/django_templates/registration/password_reset_email.html:2
+#: main/templates/admin/django_templates/registration/password_reset_email.html:2
+#: templates/accounts/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_email.html:4
+#: gallery/templates/admin/django_templates/registration/password_reset_email.html:4
+#: main/templates/admin/django_templates/registration/password_reset_email.html:4
+#: templates/accounts/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_email.html:8
+#: gallery/templates/admin/django_templates/registration/password_reset_email.html:8
+#: main/templates/admin/django_templates/registration/password_reset_email.html:8
+#: templates/accounts/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_email.html:10
+#: gallery/templates/admin/django_templates/registration/password_reset_email.html:10
+#: main/templates/admin/django_templates/registration/password_reset_email.html:10
+#: templates/accounts/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_email.html:12
+#: gallery/templates/admin/django_templates/registration/password_reset_email.html:12
+#: main/templates/admin/django_templates/registration/password_reset_email.html:12
+#: templates/accounts/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:18
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:18
+#: main/templates/admin/django_templates/registration/password_reset_form.html:18
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll e-mail "
+"instructions for setting a new one."
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:22
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:22
+#: main/templates/admin/django_templates/registration/password_reset_form.html:22
+msgid "E-mail address:"
+msgstr ""
+
+#: accounts/templates/admin/django_templates/registration/password_reset_form.html:22
+#: gallery/templates/admin/django_templates/registration/password_reset_form.html:22
+#: main/templates/admin/django_templates/registration/password_reset_form.html:22
+msgid "Reset my password"
+msgstr ""
+
+#: albums/forms.py:5
+msgid "public"
+msgstr "公开"
+
+#: albums/forms.py:5
+msgid "only friend"
+msgstr "仅朋友"
+
+#: albums/forms.py:5
+msgid "only family"
+msgstr "仅家人"
+
+#: albums/forms.py:8
+msgid "Album name"
+msgstr "相册名称"
+
+#: albums/forms.py:11 albums/models.py:41
+msgid "permission"
+msgstr "权限"
+
+#: albums/forms.py:13
+msgid "No comment"
+msgstr ""
+
+#: albums/forms.py:16
+msgid "Album description"
+msgstr ""
+
+#: albums/models.py:39
+msgid "gallery name"
+msgstr "相册名称"
+
+#: albums/models.py:42
+msgid "allow comment"
+msgstr "允许评论"
+
+#: albums/models.py:43
+msgid "photo number"
+msgstr ""
+
+#: albums/models.py:44
+msgid "cover number"
+msgstr ""
+
+#: albums/models.py:45
+msgid "date created"
+msgstr ""
+
+#: albums/models.py:46
+msgid "last updated"
+msgstr "最近更新"
+
+#: albums/models.py:54
+msgid "photo name"
+msgstr "照片名称"
+
+#: albums/models.py:55
+msgid "photo path"
+msgstr "照片路径"
+
+#: albums/models.py:56
+msgid "thumbnail"
+msgstr "缩略图1"
+
+#: albums/models.py:57
+msgid "thumbnail2"
+msgstr "缩略图2"
+
+#: albums/models.py:58
+msgid "square thumb"
+msgstr "封面"
+
+#: albums/models.py:60
+msgid "description"
+msgstr "相册描述"
+
+#: albums/models.py:61
+msgid "tags"
+msgstr "标签"
+
+#: albums/models.py:62
+msgid "upload date"
+msgstr "上传日期"
+
+#: broadcast/models.py:11
+msgid "saying"
+msgstr "吐嘈"
+
+#: broadcast/models.py:12 broadcast/models.py:21
+msgid "pub_date"
+msgstr "发布日期"
