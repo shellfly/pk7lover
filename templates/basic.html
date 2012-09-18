@@ -28,7 +28,7 @@
   </ul>
 {% else %}
  <ul class="unstyled">
-    <li style="display:inline" ><i class="icon-globe"></i><a href = "/about">浏览</a></li>
+    <li style="display:inline" ><i class="icon-globe"></i><a href = "/browse/">浏览</a></li>
     <li style="display:inline" ><i class="icon-user"></i><a href = "/accounts/login/">登录</li>
     <li style="display:inline"><i class="icon-heart"></i><a href="/accounts/signup">加入小7</a></li>
   </ul>
@@ -63,7 +63,7 @@
           <a href="{% url 7profile %}">我的资料</a>
         </li>
         <li class="divider"></li>
-        <li class="nav-header">导航头</li>
+        
       </ul>      
     </li>
     <li>
@@ -73,6 +73,6 @@
     </li>
   </ul>
 {% else %}
-<p>觉得不错的话，就一起来玩把</p>
+<p></p>
 {% endif %}
 {% endblock 7header_nav %}

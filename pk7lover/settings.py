@@ -6,7 +6,7 @@ if socket.gethostname()=='arch':
     DEBUG = True
 else:
     DEBUG = False
-print socket.gethostname()
+
 TEMPLATE_DEBUG = DEBUG
 
 EMAIL_HOST = 'smtp.google.com'
@@ -106,6 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'albums.middleware.UploadifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

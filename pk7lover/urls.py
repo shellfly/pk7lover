@@ -13,6 +13,7 @@ urlpatterns = patterns('',
                        url(r'^accounts/',include('accounts.urls')),
                        url(r'^albums/',include('albums.urls')),
                        url(r'^broadcast/',include('broadcast.urls')),
+                       url(r'^browse/$','pk7lover.views.browse'),
                        url(r'^$','pk7lover.views.home',name='home'),
 )
 

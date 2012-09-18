@@ -106,7 +106,7 @@ def upload(request,username,album_id=0):
     squarepath = filepath + '.square'
    
     if not os.path.exists(fold):
-        os.makedirs(fold)   
+        os.makedirs(fold,)   
     
     image = Image.open(ufile)        
     image.save(os.path.join(MEDIA_ROOT,filepath))
@@ -160,11 +160,12 @@ def upload(request,username,album_id=0):
 @login_required
 def edit(request,username,album_id):
     
-    id = int(album_id)
-    gallery = Gallery.objects.get(pk=id)
-    cover_photo = gallery.photo_set.get(index=request.POST['cover'])
-    gallery.cover = cover_photo.square
-    gallery.save()
+    id = int(request.POST['album_id'])
+    gallery = get_object_or_404(Gallery,pk=id)
+    if 'cover' in request.POST:
+        cover_photo = gallery.photo_set.get(index=request.POST['cover'])
+        gallery.cover = cover_photo.square
+        gallery.save()
     [Photo.objects.filter(gallery_id=id,index=key).update(desc=request.POST[key])
     for key in request.POST.keys() if key.isdigit()] 
     return HttpResponseRedirect(reverse('7single_album',args=[request.user.username,id]))
@@ -192,7 +193,7 @@ def album(request,username,album_id):
     sum_pages = Photo.objects.filter(gallery_id=album_id).count() / 31 + 1
     pp = page-1
     np = page+1
-    photos = Photo.objects.filter(gallery_id=album_id)[page*31-31:page*31-1] #(page-1)*31:(page-1)*31+30
+    photos = Photo.objects.filter(gallery_id=album_id)[(page-1)*31:page*31-1] #(page-1)*31:(page-1)*31+30
     return render_to_response('albums/album.html',
                               locals(),
                               RequestContext(request))

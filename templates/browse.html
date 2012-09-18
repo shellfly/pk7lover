@@ -1,0 +1,64 @@
+{% extends 'basic.html' %}
+{% block content%}
+  <div class="7photo-boxs">
+    {% for photo in photos %}
+      <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">
+        <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
+          <a href="/albums/photos/{{ photo.id }}">
+          <img src="{{MEDIA_URL}}{{ photo.thumb128 }}" /></a>
+        </div>
+        <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
+          <p><small>{{photo.desc}}</small></p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <nav id="7page-nav" style="display:none">
+    {# infinite scroll's next page must have a '2'!!!#}
+     <span class="7page-prev">
+           {% if not pp < 1 %}
+             <a href="?p={{pp}}">前一页</a>
+           {% else %}
+             前一页
+           {% endif %}
+     </span>
+
+     <span class="7page-next" >
+       {% if np < sum_pages|add:"1"%}
+         <a href="?p={{np}}">后一页</a>
+       {% else %}后一页
+     {% endif %}
+     </span>   
+  </nav>
+<script src="{{STATIC_URL}}js/jquery.infinitescroll.min.js"></script>
+<script>
+  $(function(){
+  var $photoboxs = $('.7photo-boxs')
+  $photoboxs.infinitescroll({
+  navSelector  : 'span.7page-next',    // selector for the paged navigation
+  nextSelector : 'span.7page-next a',  // selector for the NEXT link (to page 2)
+  itemSelector : '.7photo-box',     // selector for all items you'll retrieve
+  debug:true,
+  loading: {
+  finishedMsg: 'No more pages to load.',
+  msgText: "<em>Loading the next set of photos...</em>",
+  img: 'http://i.imgur.com/6RMhx.gif'
+  }},
+  
+  // trigger Masonry as a callback
+  function( newElements ) {
+  // hide new items while they are loading
+  var $newElems = $( newElements ).css({ opacity: 0 });
+  // ensure that images load before adding to masonry layout
+  $newElems.imagesLoaded(function(){
+  // show elems now they're ready
+  $newElems.animate({ opacity: 1 });
+  $photoboxs.masonry( 'appended', $newElems, true );
+  });
+  });
+  });
+</script>
+
+
+{% endblock content%}

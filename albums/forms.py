@@ -11,7 +11,7 @@ class CreateAlbum(forms.Form):
                                    label=_('permission'))
     comment = forms.CharField(widget=forms.CheckboxInput(attrs={'name':'comment','value':'no'}),
                                label=_('No comment'))
-    description = forms.CharField(widget=forms.Textarea,
+    description = forms.CharField(widget=forms.Textarea(attrs={'cols': 40, 'rows': 7}),
                                   required=False,
                                  label=_('Album description'))
 

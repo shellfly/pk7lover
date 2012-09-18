@@ -15,7 +15,7 @@ $(function(){
   //  $('<a href="#edit"><i class="icon-pencil"></i></a>').appendTo('.7photo-desc p')
     $('ul li').css('display','inline');
     $('header').css('margin-bottom','13px');
-    $('.thislink').css({'color':'white','background':'#83BF73'});
+    $('.thislink a').css({'color':'white','background':'#83BF73'});
     $('#id_username').focus();
     $('.helptext').css('display','none');
 });

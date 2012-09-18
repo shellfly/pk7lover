@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 from accounts.models import Circle
 from broadcast.models import Saying,PhotoSaying as B_Photo
@@ -77,5 +78,12 @@ def home(request,show_text=True):
     tag = 1
     return render_to_response('index_text.html',RequestContext(request,locals()))
 
-
-
+@csrf_exempt
+def browse(request):
+   
+    page = 1 if not 'p' in request.GET  else int(request.GET['p'])
+    sum_pages = Photo.objects.all().count() / 43 + 1
+    pp = page-1
+    np = page+1
+    photos = Photo.objects.all()[(page-1)*43:page*43-1] #(page-1)*31:(page-1)*31+30
+    return render_to_response('browse.html',RequestContext(request,locals()))
