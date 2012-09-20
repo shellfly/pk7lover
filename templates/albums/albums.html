@@ -10,7 +10,7 @@
      {% for album in albums %}
        <li >
          <div class="7album span2">
-         <a href="{% url 7single_album people.username album.id %}">
+         <a href="{% url 7single_album album.id %}">
            {% if album.cover %}
              <img src="{{MEDIA_URL}}{{ album.cover }}"  class="img-polaroid"/>
            {% else %}

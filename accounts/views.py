@@ -46,7 +46,7 @@ def login(request,template_name='accounts/login.html',
           redirect_field_name = REDIRECT_FIELD_NAME,
           current_app=None):
 
-    redirect_to = request.GET[redirect_field_name] if request.GET.has_key(redirect_field_name) else '/'
+    redirect_to = request.REQUEST.get(redirect_field_name,'/')
 
     if request.user.is_authenticated():
         return HttpResponseRedirect(redirect_to)
@@ -78,7 +78,7 @@ def login(request,template_name='accounts/login.html',
     return TemplateResponse(request,template_name,context,current_app=current_app)
     
 def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
-    redirect_to = request.GET[redirect_field_name] if request.GET.has_key(redirect_field_name) else '/'
+    redirect_to = request.REQUEST.get(redirect_field_name,'/')
     auth_logout(request)
     return HttpResponseRedirect(redirect_to)
 

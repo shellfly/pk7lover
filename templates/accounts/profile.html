@@ -5,14 +5,13 @@
 {% load gravatar %}
 
 </div>
-<div class="7profile">
+<div class="7profile span7">
   <form action="" method="POST">
     {% csrf_token %}
     <div class="control-group">
-    <label class="control-label">头像</label>
-    <img src="{% gravatar_url user.email %}">
     <div class="controls">
-      <p>默认使用你的<a href="http://en.gravatar.com/" target="_blank">Gravatar</a>头像,猛击<a href="http://jandan.net/2010/03/03/gravatar.html" target="_blank">这里</a>获得帮助</p>
+    <img src="{% gravatar_url user.email 64%}">
+      <p><small>默认使用你的<a href="http://en.gravatar.com/" target="_blank">Gravatar</a>头像,猛击<a href="http://jandan.net/2010/03/03/gravatar.html" target="_blank">这里</a>获得帮助</small></p>
     </div>
     </div>
     <table

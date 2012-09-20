@@ -24,8 +24,8 @@
   <div class="utility span7">
     <ul>
       {% if not OTHER %}
-      <li><a href="upload" style="display:inline"><button class="btn btn-small">上传照片</button></a></li>
-      <li><a href="property" style="display:inline"><button class="btn btn-small">修改属性</button></a></li>
+      <li><a href="{% url 7upload_photo gallery.id %}" style="display:inline"><button class="btn btn-small">上传照片</button></a></li>
+      <li><a href="{% url 7property_photo gallery.id %}" style="display:inline"><button class="btn btn-small">修改属性</button></a></li>
       <li><a href="{% url 7albums people.username %}" style="display:inline"><button class="btn btn-small">我的所有相册</button></a></li>
       {% else %}
       <li><a href="{% url 7albums people.username %}"><button class="btn btn-small">

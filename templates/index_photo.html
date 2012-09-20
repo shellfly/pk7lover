@@ -8,7 +8,7 @@
         <div class="row">
           <div class="7avatar span1">
             <a href="{% url 7people photosaying.user.username %}">
-              <img src="{% gravatar_url photosaying.user.email 40%}" />
+              <img src="{% gravatar_url photosaying.user.email%}" />
             </a>
           </div>
           <div class="7photo offset1">
@@ -16,7 +16,7 @@
               {% firstof photosaying.user.first_name photosaying.user.username %} 
             </a> 
             上传了{{ photosaying.num }}张照片 到 
-            <a href="{% url 7single_album photosaying.user.username photosaying.gallery.id%}">
+            <a href="{% url 7single_album  photosaying.gallery.id%}">
               {{ photosaying.gallery.name }}:
             </a>
             <br />

@@ -14,7 +14,7 @@ import urllib, hashlib
 register = template.Library()
 
 class GravatarUrlNode(template.Node):
-    def __init__(self, email, size=32):
+    def __init__(self, email, size=40):
         self.email = template.Variable(email)
         self.size = size
     def render(self, context):

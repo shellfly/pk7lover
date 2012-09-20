@@ -16,9 +16,9 @@
   <div class="7photowin span7">
     <div class="7photonav">
       <div class="pull-left">
-        <a href = "{% url 7single_album people.username album_id %}">&gt;返回相册</a>
+        <a href = "{% url 7single_album  album_id %}">&gt;返回相册</a>
         {% if not OTHER %}
-        <a href = "/albums/setcover/{{ photo.id }}">&gt;设为封面</a>
+        <a href = "{% url 7setcover photo.id %}">&gt;设为封面</a>
         {% endif %}
         <small>({{photo.index}}/{{album.photo_num}})</small>
       </div>

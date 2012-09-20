@@ -10,7 +10,7 @@
                     {% if id == 0 %}
                       {% url 7albums user.username %}
                     {% else %}
-                      {% url 7single_album user.username id%}
+                      {% url 7single_album id%}
                     {% endif %}">
       -返回相册</a></div>
       <div class="pull-right"><a href="{% url 7create_album %}" >+创建新相册</a></div>

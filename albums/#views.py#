@@ -105,7 +105,7 @@ def upload(request,album_id=0):
     if not os.path.exists(fold):
         os.makedirs(fold)   
     
-    print 'in uplaod'+path
+    print 'in uplaod :'+path
     image = Image.open(ufile)        
     image.save(os.path.join(MEDIA_ROOT,filepath))
    
@@ -122,6 +122,7 @@ def upload(request,album_id=0):
     gallery = Gallery.objects.get(pk=gallery.pk)
     index = gallery.photo_num
     
+    print 'in uplaod :'+
     print index,gallery.photo_num
     photo = Photo.objects.create(gallery_id=id,
                          index = index,

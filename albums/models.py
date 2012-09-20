@@ -23,15 +23,12 @@ def photo_deleted(sender,gallery,index,**kwargs):
     print 'signal: delete photo'
 
     if index != gallery.photo_num:
-        
         num = gallery.photo_num
         for i in range(index,num+1):
-            print i
             gallery.photo_set.filter(index=i).update(index=F('index')-1)
 
     gallery.photo_num=F('photo_num')-1
     gallery.save()
-    print 'signal:deleted'
 user_delete_photo.connect(photo_deleted)    
         
 class Gallery(models.Model):
@@ -59,6 +56,8 @@ class Photo(models.Model):
     
     desc = models.CharField(_('description'),max_length=225)
     tags = models.CharField(_('tags'),max_length=256)
+    votes = models.IntegerField(_('votes'),default=0)
+    stars = models.IntegerField(_('stars'),default=0)
     upload_date = models.DateTimeField(_('upload date'),default=timezone.now)
     
     def __unicode__(self):
