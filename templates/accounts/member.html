@@ -71,7 +71,7 @@
           <ul class="unstyled">
             {% for lf in left_friends %}
               <li>
-                <div class="span1">
+                <div class="span1 7minigravatar">
                   <a href="{% url 7people lf.friend.username %}">
                     <img src="{% gravatar_url lf.friend.email %}" /><br />
                 {% firstof lf.friend.first_name lf.friend.username %}</a>
@@ -86,7 +86,7 @@
            <ul class="unstyled">
             {% for rf in right_friends %}
               <li> 
-                <div class="span1">
+                <div class="span1 7minigravatar">
                   <img src="{% gravatar_url rf.friend.email %}" /><br />
                   <a href="{% url 7people rf.friend.username %}">
                 {% firstof rf.friend.first_name rf.friend.username %}</a>

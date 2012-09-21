@@ -18,6 +18,7 @@ $(function(){
     $('.thislink a').css({'color':'white','background':'#83BF73'});
     $('#id_username').focus();
     $('.helptext').css('display','none');
+    $('.7minigravatar').css({'width':'48px','margin-left':'10px'})
 });
 
 $(function() {

@@ -2,26 +2,34 @@
 {% block 7news %}
 {%load gravatar%}
   <ul class="unstyled">
+    {% if sayings|length > 0%}
     {% for saying in sayings %}
+    {% with first=saying|first %}
+    
       <li> 
         <div class="row">
           <div class="7avatar span1">
-            <a href="{% url 7people saying.user.username %}">
-             <img src="{% gravatar_url saying.user.email %}" />
+            <a href="{% url 7people first.user.username %}">
+             <img src="{% gravatar_url first.user.email %}" />
             </a>
           </div>
           <div class="7text offset1">
-            <a href="{% url 7people saying.user.username %}">
-              {% firstof saying.user.firstname saying.user.username%} 
+            <a href="{% url 7people first.user.username %}">
+              {% firstof first.user.firstname first.user.username%} 
               </a>:
               <br />
+              {% for s in saying %} 
               <blockquote>
-                {{ saying.text }}
+                {{ s.text }}
               </blockquote>
               <hr />
+              {% endfor %}
           </div>
         </div>
       </li>
+     
+      {% endwith %}
     {% endfor %}
+     {% endif %}
   </ul>
   {% endblock 7news %}

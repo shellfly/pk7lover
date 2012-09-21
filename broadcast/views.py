@@ -1,4 +1,4 @@
-
+from django.utils import timezone
 from broadcast.models import Saying
 from django.http import HttpResponseRedirect
 
@@ -9,6 +9,6 @@ def say(request):
     except:
         print 'not saying'
     else:
-        saying = Saying.objects.create(user=request.user,text=text)
+        saying = Saying.objects.create(user=request.user,text=text,pub_date=timezone.now())
        # saying.save()
     return HttpResponseRedirect('/')

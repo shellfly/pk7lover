@@ -73,7 +73,7 @@
           <li style="display:inline">
             <div class="7user span1">
               <a href="{% url 7people neighbour.username %}">
-                <img src="{% gravatar_url neighbour.email %}" />
+                <img src="{% gravatar_url neighbour.email 48%}" />
                 <br />
               {% firstof neighbour.first_name neighbour.username%}
               </a>        
@@ -88,7 +88,7 @@
           <li style="display:inline">
             <div class="7user span1">
               <a href="{% url 7people active.username %}">
-                <img src="{% gravatar_url active.email %}" />
+                <img src="{% gravatar_url active.email 48 %}" />
                 <br />
               {% firstof active.first_name active.username%}
               </a>        

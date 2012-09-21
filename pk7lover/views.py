@@ -1,5 +1,5 @@
 # Create your views here.
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
 from django.db.models import Q
@@ -17,16 +17,21 @@ def home(request,show_text=True):
     if not 'p' in request.GET:
         page = 0
     else:
-        page = int(request.GET['p'])
+        try:
+            page = int(request.GET['p'])
+        except:
+            page = 0
 
-    #actives are User object,distinct(filename) just available in
+    #actives are User object,distinct(fieldname) only available in
     #postgresql,so mannul...
     acs = Saying.objects.order_by('-pub_date')
     actives = []  #used for display activly users
-    for i in range(8):
-        for ac in acs:
-            if not ac.user in actives:
-                actives.append(ac.user)
+    for ac in acs:
+        if not ac.user in actives:
+            actives.append(ac.user)
+            if len(actives) >= 12:
+                break #only show the first 12 people
+
     try:
         circle = Circle.objects.get(user_id=request.user.id)
     except:
@@ -35,11 +40,13 @@ def home(request,show_text=True):
     lfs = circle.leftright_set.filter(friend_type='left')
     friends = circle.leftright_set.all()
     neighbours=[]
-    for f in friends[:16]:
+    for f in friends:
         if f.friend not in neighbours:
             neighbours.append(f.friend)
+            if len(neighbours) >=12:
+                break
        
-      
+    # all my left-friends and i 
     q_user = Q(user_id = request.user.id) #for retrive syaings,and photo_sayings
     for lf in lfs:
         q_user = q_user | Q(user_id = lf.friend.id) 
@@ -47,6 +54,7 @@ def home(request,show_text=True):
     if 'tag' in request.GET and request.GET['tag'] != '1':
         show_text = False
 
+        # all my leftfriends' gallerys and mine s
         gallerys = Gallery.objects.filter(q_user)
         q_gallery = Q()
         for gallery in gallerys:
@@ -54,36 +62,45 @@ def home(request,show_text=True):
         
         photos={} #key is every photo_saying,and value is a list of correlation photos
         if len(q_gallery) != 0:
-            sum_pages =  B_Photo.objects.filter(q_gallery).order_by('-pub_date').count()
-            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')[page*7:page*7+7]
+            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
+            sum_pages = photosayings.count() / 8
+            photosayings = photosayings[page*7:page*7+7]
             for ps in photosayings:
                 num = 7 if ps.num > 7 else ps.num
                 photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
         else:
             sum_pages=0
-
-        pp = page -1
-        np = page +1
-        sum_pages /= 8
-
         tag = 2
-        return render_to_response('index_photo.html',RequestContext(request,locals()))
+    else:
+        sayings = Saying.objects.filter(q_user).order_by('-pub_date')
+        sum_pages = sayings.count() / 14
 
-    sum_pages = Saying.objects.filter(q_user).order_by('-pub_date').count()
-    sayings = Saying.objects.filter(q_user).order_by('-pub_date')[page*14:page*14+13]
+        sayings = sayings[page*13:page*13+13]
+        
+        ss = s = []
+        for saying in sayings:
+            if len(s) == 0 or saying.user_id != s[-1].user_id:
+                if len(s) != 0:
+                    ss.append(s)
+                s = list((saying,))
+            else:
+                s.append(saying)
+        if len(s) != 0: ss.append(s)
+        sayings = ss # tranfer to 2-d list,row/ per user
+        tag =1
+
+    if page > sum_pages:
+        raise Http404()
+    template = 'index_text.html' if tag==1 else 'index_photo.html'
     pp = page-1
     np = page+1
-    sum_pages /= 14
-    
-    tag = 1
-    return render_to_response('index_text.html',RequestContext(request,locals()))
+    return render_to_response(template,RequestContext(request,locals()))
 
 @csrf_exempt
 def browse(request):
-   
     page = 1 if not 'p' in request.GET  else int(request.GET['p'])
-    sum_pages = Photo.objects.all().count() / 43 + 1
+    sum_pages = Photo.objects.all().count() / 43
     pp = page-1
     np = page+1
-    photos = Photo.objects.all()[(page-1)*43:page*43-1] #(page-1)*31:(page-1)*31+30
+    photos = Photo.objects.all()[(page-1)*42:page] #(page-1)*42:(page-1)*42+42
     return render_to_response('browse.html',RequestContext(request,locals()))
