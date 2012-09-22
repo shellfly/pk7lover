@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'accounts',
     'broadcast',
     'albums',
+    'activity',
 )
 
 # A sample logging configuration. The only tangible logging

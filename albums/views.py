@@ -194,7 +194,7 @@ def album(request,album_id):
 
     sum_pages = Photo.objects.filter(gallery_id=album_id).count() / 31
     pp,np = page-1,page+1
-    photos = Photo.objects.filter(gallery_id=album_id)[(page-1)*30:page*30] #(page-1)*31:(page-1)*30+30
+    photos = Photo.objects.filter(gallery_id=album_id)[(page-1)*30:page*30] #(page-1)*30:(page-1)*30+30
     return render_to_response('albums/album.html',
                               locals(),
                               RequestContext(request))
@@ -210,10 +210,8 @@ def albums(request,username):
 
 @login_required
 def setcover(request,id):
-    
     photo = get_object_or_404(Photo,id=id)
-    people = photo.gallery.user
-    if not request.user.is_authenticated() or request.user.id !=people.id:
+    if request.user.id !=photo.gallery.user.id:
         raise Http404()
 
     cover_url = photo.square
@@ -222,17 +220,12 @@ def setcover(request,id):
     gallery.save()
     
     return HttpResponseRedirect(reverse('7single_album',args=[photo.gallery.id]))
-    
-    
+       
     
 @login_required
 def del_album(request,album_id):
-
     gallery = get_object_or_404(Gallery,id=album_id)
-    people = gallery.user
-
-    OTHER = False
-    if not request.user.is_authenticated() or request.user.id !=people.id:
+    if  request.user.id !=gallery.user.id:
         raise Http404()
     
     gallery.delete()
@@ -241,12 +234,7 @@ def del_album(request,album_id):
 @login_required
 def del_photo(request,photo_id):
     photo = get_object_or_404(Photo,id=photo_id)
-    
-    OTHER = False
-    if not request.user.is_authenticated() or request.user.id !=photo.gallery.user.id:
-        OTHER = True
-    
-    if OTHER:
+    if request.user.id !=photo.gallery.user.id:
         raise Http404()
 
     index = photo.index

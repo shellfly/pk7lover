@@ -1,0 +1,10 @@
+{% extends 'basic.html' %}
+{% block content %}
+{{form.media}}
+<form>
+{% csrf_token %}
+  <table>
+  {{ form.as_table }}
+  </table>
+</form>
+{% endblock %}
