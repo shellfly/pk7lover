@@ -20,23 +20,23 @@ from PIL import Image
 
 @login_required
 def create(request):
-    if request.method != 'POST':
-        form = CreateAlbum(initial={'permission':'0'})
-        return render_to_response('albums/create.html',RequestContext(request,{'form':form}))
+    form = CreateAlbum(initial={'permission':'0'})
+    if request.method == 'POST':
+        form = CreateAlbum(request.POST )
+        if form.is_valid():
+            cd = form.cleaned_data
+            perm = int(cd['permission'])
+            comm = False if cd['comment'] == 'no' else True
+            gallery = Gallery.objects.create(user_id=request.user.id,
+                                             name=cd['name'],
+                                             desc=cd['description'],
+                                             perm=perm,
+                                             comment=comm)
+            return HttpResponseRedirect(reverse('7single_album',args=[gallery.id]))
+    
+    return render_to_response('albums/create.html',RequestContext(request,{'form':form}))
 
-    form = CreateAlbum(request.POST )
-    if form.is_valid():
-        cd = form.cleaned_data
-        perm = int(cd['permission'])
-        comm = False if cd['comment'] == 'no' else True
-        gallery = Gallery.objects.create(user_id=request.user.id,
-                          name=cd['name'],
-                          desc=cd['description'],
-                          perm=perm,
-                          comment=comm)
-        return HttpResponseRedirect(reverse('7single_album',args=[gallery.id]))
-
-        
+    
 
 def show_photo(request,id):
     photo = get_object_or_404(Photo,id=id)
@@ -75,7 +75,7 @@ def upload(request,album_id=0):
     has_gallery = gallerys.count() > 0
     if not has_gallery:
         return HttpResponseRedirect(reverse('7create_album'))
-        
+    
     if request.method != 'POST':
         response=render_to_response('albums/upload.html',RequestContext(request,locals()))
         response.set_cookie('upload_sessionid',upload_sessionid,httponly=False)
@@ -88,7 +88,7 @@ def upload(request,album_id=0):
 
     ufile = request.FILES[u'Filedata']
     id = int(request.POST['selected_album'])
-   
+    
     parent = str(id/10000)
     child = str(id%10000)
     
@@ -101,14 +101,14 @@ def upload(request,album_id=0):
     thumbpath = filepath + '.thumbnail'
     thumbpath2 = thumbpath+'2'
     squarepath = filepath + '.square'
-   
+    
     if not os.path.exists(fold):
         os.makedirs(fold)   
     
     print 'in uplaod :'+path
     image = Image.open(ufile)        
     image.save(os.path.join(MEDIA_ROOT,filepath))
-   
+    
     image_square = image.resize((100,100),Image.ANTIALIAS)
     image_square.save(os.path.join(MEDIA_ROOT,squarepath),'JPEG')
     image.thumbnail((128,128),Image.ANTIALIAS) 
@@ -125,12 +125,12 @@ def upload(request,album_id=0):
     print 'in uplaod :'
     print index,gallery.photo_num
     photo = Photo.objects.create(gallery_id=id,
-                         index = index,
-                         name = filename,
-                         path = filepath,
-                         thumb128 = thumbpath,
-                         thumb64 = thumbpath2,
-                         square = squarepath)
+                                 index = index,
+                                 name = filename,
+                                 path = filepath,
+                                 thumb128 = thumbpath,
+                                 thumb64 = thumbpath2,
+                                 square = squarepath)
     
     print 'after:',gallery.photo_num
     user_modify_gallery.send(sender=Photo,gallery=gallery)
@@ -154,7 +154,7 @@ def upload(request,album_id=0):
     from django.utils import simplejson
     data = {'thumb64':photo.thumb64,'index':photo.index}
     return HttpResponse(simplejson.dumps(data))
- 
+
 
 @login_required
 def edit(request,album_id):
@@ -168,7 +168,7 @@ def edit(request,album_id):
         gallery.cover = cover_photo.square
         gallery.save()
     [Photo.objects.filter(gallery_id=id,index=key).update(desc=request.POST[key])
-    for key in request.POST.keys() if key.isdigit()] 
+     for key in request.POST.keys() if key.isdigit()] 
     return HttpResponseRedirect(reverse('7single_album',args=[id]))
 
 @login_required
@@ -220,8 +220,8 @@ def setcover(request,id):
     gallery.save()
     
     return HttpResponseRedirect(reverse('7single_album',args=[photo.gallery.id]))
-       
-    
+
+
 @login_required
 def del_album(request,album_id):
     gallery = get_object_or_404(Gallery,id=album_id)
@@ -230,7 +230,7 @@ def del_album(request,album_id):
     
     gallery.delete()
     return HttpResponseRedirect(reverse('7albums',args=[people.username]))
-    
+
 @login_required
 def del_photo(request,photo_id):
     photo = get_object_or_404(Photo,id=photo_id)
@@ -240,7 +240,7 @@ def del_photo(request,photo_id):
     index = photo.index
     gallery = photo.gallery
     photo.delete()
-   
+    
     user_delete_photo.send(sender=Photo,gallery=gallery,index=index)
     if gallery.photo_num == 0:
         return HttpResponseRedirect(reverse('7single_album',args=[gallery.id]))
@@ -250,6 +250,6 @@ def del_photo(request,photo_id):
         index = index-1
     photo = gallery.photo_set.get(index=index)
     return HttpResponseRedirect(reverse('7single_photo',args=[photo.id]))
-    
 
- 
+
+

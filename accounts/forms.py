@@ -14,7 +14,7 @@ class SignupForm(UserCreationForm):
         'password_mismatch': _("The two password fields didn't match."),
     }
     
-    email = forms.EmailField(label=_("E-mail"),max_length=40)
+    email = forms.EmailField(label=_("Email"),max_length=40)
     
     def as_table(self):
         "Returns this form rendered as HTML <tr>s -- excluding the <table></table>."
@@ -45,5 +45,5 @@ class ProfileFrom(forms.Form):
     nickname = forms.CharField(label=_("Nickname"),
                                max_length=7,
                                help_text='设置后可代替用户名在小7上显示',required=False)
-    email = forms.EmailField(label=_("E-mail"),help_text="用于登陆或者密码重置")
+    email = forms.EmailField(label=_("Email"),help_text="用于登陆或者密码重置")
     

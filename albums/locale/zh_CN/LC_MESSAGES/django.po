@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-23 23:04+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: forms.py:5
+msgid "public"
+msgstr "公开"
+
+#: forms.py:5
+msgid "only friend"
+msgstr "仅朋友"
+
+#: forms.py:5
+msgid "only family"
+msgstr "仅家人"
+
+#: forms.py:8
+msgid "Album name"
+msgstr " 相册名称"
+
+#: forms.py:11 models.py:38
+msgid "permission"
+msgstr "权限"
+
+#: forms.py:13
+msgid "No comment"
+msgstr "不允许评论"
+
+#: forms.py:16
+msgid "Album description"
+msgstr "相册描述"
+
+#: models.py:36
+msgid "gallery name"
+msgstr "相册名称"
+
+#: models.py:39
+msgid "allow comment"
+msgstr "允许评论"
+
+#: models.py:40
+msgid "photo number"
+msgstr "照片数"
+
+#: models.py:41
+msgid "cover number"
+msgstr "封面索引"
+
+#: models.py:42
+msgid "date created"
+msgstr "创建日期"
+
+#: models.py:43
+msgid "last updated"
+msgstr "上次更新"
+
+#: models.py:51
+msgid "photo name"
+msgstr "照片名称"
+
+#: models.py:52
+msgid "photo path"
+msgstr "照片路径"
+
+#: models.py:53
+msgid "thumbnail"
+msgstr "缩略图"
+
+#: models.py:54
+msgid "thumbnail2"
+msgstr "缩略图2"
+
+#: models.py:55
+msgid "square thumb"
+msgstr "封面缩略图"
+
+#: models.py:57
+msgid "description"
+msgstr "描述"
+
+#: models.py:58
+msgid "tags"
+msgstr "标签"
+
+#: models.py:59
+msgid "votes"
+msgstr "投票"
+
+#: models.py:60
+msgid "stars"
+msgstr "喜欢"
+
+#: models.py:61
+msgid "upload date"
+msgstr "上传日期"

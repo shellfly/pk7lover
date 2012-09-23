@@ -17,8 +17,10 @@ $(function(){
     $('header').css('margin-bottom','13px');
     $('.thislink a').css({'color':'white','background':'#83BF73'});
     $('#id_username').focus();
-    $('.helptext').css('display','none');
-    $('.7minigravatar').css({'width':'48px','margin-left':'10px'})
+    //$('.helptext').css('display','none');
+    $('.helptext').addClass('muted');
+    $('.7minigravatar').css({'width':'48px','margin-left':'10px'})  
+    $('.vDateField').datePicker().val(new Date().asString()).trigger('change');
 });
 
 $(function() {

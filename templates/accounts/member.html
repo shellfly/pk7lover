@@ -99,7 +99,11 @@
 
   <div id="activity" class="span3 pull-right">
     <div class="row">
-    <h5><a href="{% url 7activities %}">活动</a></h5>
+    <h5><a href="{% url 7activities %}">
+     {% if OTHER %}
+      {% firstof people.first_name people.username %}
+      {% else %}
+      我{% endif %}的活动</a></h5>
     </div>
   </div>
 </div><!-- end span3 left-->

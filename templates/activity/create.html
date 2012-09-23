@@ -1,10 +1,14 @@
 {% extends 'basic.html' %}
 {% block content %}
-{{form.media}}
-<form>
+
+<form action="" method="POST">
 {% csrf_token %}
   <table>
   {{ form.as_table }}
+  <tr>
+    <th></th><td><button type="submit" class="btn btn-success
+  btn-small"> 创建活动</button></td>
+  </tr>
   </table>
 </form>
 {% endblock %}

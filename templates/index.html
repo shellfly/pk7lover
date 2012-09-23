@@ -82,7 +82,8 @@
           {% endfor %}
           </ul>
       </div>
-      <div class="row 7active">
+
+      <div class="row " id="7active">
         <h5>小7活跃用户</h5>
          {% for active in actives %}
           <li style="display:inline">
@@ -96,6 +97,12 @@
           </li>
           {% endfor %}
       </div>
+
+      <div id="activity" class="row">
+        <h5><a href="{% url 7activities %}">推荐活动</a></h5>
+       
+      </div>
+
     </div>
   </div>
 {% endblock content %}
