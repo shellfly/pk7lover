@@ -10,63 +10,71 @@
       <a href="." class="btn">取消</a>
       <a href="delete" class="btn btn-primary">删除</a>
     </div>
-  </div>
+ </div>
 
-<div calss="row">
-  <div class="7photowin span7">
-    <div class="7photonav">
-      <div class="pull-left">
-        <a href = "{% url 7single_album  album_id %}">&gt;返回相册</a>
-        {% if not OTHER %}
-        <a href = "{% url 7setcover photo.id %}">&gt;设为封面</a>
-        {% endif %}
-        <small>({{photo.index}}/{{album.photo_num}})</small>
-      </div>
+ <div class="7photowin span7">
+   <div class="7photonav">
+     <div class="pull-left">
+       <a href = "{% url 7single_album  album_id %}">&gt;返回相册</a>
+       {% if not OTHER %}
+         <a href = "{% url 7setcover photo.id %}">&gt;设为封面</a>
+       {% endif %}
+       <small>({{photo.index}}/{{album.photo_num}})</small>
+     </div>
 
-      <div class="pull-right">
-        <a href = "/albums/photos/{{ pp.id }}">
-          <button class="btn btn-mini">
-            <i class="icon-arrow-left"></i>前一张
-          </button>
-        </a>
-        <a href="#">
-          <button class="btn btn-mini">
-            <i class="icon-resize-full"></i>
-          </button></a>
-        <a href = "/albums/photos/{{ np.id}}">
-          <button class="btn btn-mini">
-            后一张<i class="icon-arrow-right"></i>
-          </button></a>
-      </div>
+     <div class="pull-right">
+       <a href = "{% url 7single_photo pp.id %}">
+         <button class="btn btn-mini">
+           <i class="icon-arrow-left"></i>前一张
+         </button>
+       </a>
+       <a href="#">
+         <button class="btn btn-mini">
+           <i class="icon-resize-full"></i>
+       </button></a>
+       <a href = "{% url 7single_photo np.id %}">
+         <button class="btn btn-mini">
+           后一张<i class="icon-arrow-right"></i>
+       </button></a>
+     </div>
 
-    </div>
-    <div class="7photo">
-      <a href = "/albums/photos/{{ np.id}}">
-      <img src="{{MEDIA_URL}}{{ photo.path }}" width="720" height="550"
-           class="img-polaroid"/>
-      </a>
-    </div>
-    <div class="7photobottom row">
-      <br />
-      <p class="muted"><small>上传于
-      {{photo.upload_date|date:'Y-m-d'}} 
-      {% if not OTHER %}
-      <a  data-toggle="modal" href="#deleteModal">删除照片</a></small></p>
-      {% endif %}
-    </div>
-  </div>
+   </div>
+   <div class="7photo">
+     <a href = "{% url 7single_photo np.id %}">
+       <img src="{{MEDIA_URL}}{{ photo.path }}" width="720" height="550"
+            class="img-polaroid"/>
+     </a>
+   </div>
+   <div class="7photobottom row">
+     <br />
+     <p class="muted">
+       <small>上传于
+       {{photo.upload_date|date:'Y-m-d'}} 
+       {% if not OTHER %}
+         <a  data-toggle="modal" href="#deleteModal">删除照片</a>
+       {% endif %}
+       </small>
+     </p>
+   
+   </div>
+ </div>
 
-   <div class="span3 pull-right">
-      <div id="person" class="span3 pull-right">
-        <img src="{% gravatar_url user.email %}">{% firstof people.first_name people.username %}<br/>
-        {% if user.is_authenticated %}
-          {% if neighbour and neighbour_off %}
-            <a href="{% url accounts_eyeon people.username %}">关注此人</a>
-            {% elif neighbour %}
-            已关注
-          {% endif %}
-        {% endif %}
-      </div>
-  </div>
-  </div>
+ <div class="span4 pull-right">
+   <div id="person" class="span4 pull-right">
+     <h5>作者信息</h5>
+     <img src="{% gravatar_url user.email 24 %}">
+     <a href="{% url 7people people.username %}">
+       {% firstof people.first_name people.username %}
+     </a>
+    
+     {% if user.is_authenticated %}
+       {% if neighbour and neighbour_off %}
+         <a href="{% url accounts_eyeon people.username %}">关注此人</a>
+         {% elif neighbour %}
+         已关注
+       {% endif %}
+     {% endif %}
+   </div>
+ </div>
+
 {% endblock content %}

@@ -2,8 +2,8 @@
 
 {% block content %}
 {%load gravatar %}
-<div class="span9">
-  <div class="7photos pull-left span9">
+<div class="span8">
+  <div class="7photos row">
     <h5>最近上传</h5>
     <div class="7photo-boxs">
       {% for photo in photos %}
@@ -20,14 +20,14 @@
     </div>
   </div>
 
-  <div  class="span9 7albums pull-left">   
-    <h5><a href="{% url 7albums people.username %}">
+  <div  class="7albums row">   
+    <h5>
       {% if OTHER %}
       {% firstof people.first_name people.username %}
       {% else %}
       我
       {% endif %}
-      的相册({{albums.count}})</a>
+      的相册(<a href="{% url 7albums people.username%}"><small>{{albums.count}}个</small></a>)
     </h5>
     <div class="album">
       <ul class="unstyled">
@@ -67,43 +67,49 @@
 
   <div id="circle" class="span3 pull-right">
     <div class="7eyeon row">
-      <h5>左邻({{ left_friends.count|default:0 }})</h5>
-      <ul class="unstyled">
-        {% for lf in left_friends %}
-        <li>
-          <div class="span1 7minigravatar">
-            <a href="{% url 7people lf.friend.username %}">
-              <img src="{% gravatar_url lf.friend.email %}" /><br />
-            {% firstof lf.friend.first_name lf.friend.username %}</a>
-          </div>
-        </li>
+      <div class="span3 pull-right">
+        <h5>左邻({{ left_friends.count|default:0 }})</h5>
+        <ul class="unstyled">
+          {% for lf in left_friends %}
+          <li>
+            <div class="span1 7minigravatar">
+              <a href="{% url 7people lf.friend.username %}">
+                <img src="{% gravatar_url lf.friend.email %}" /><br />
+              {% firstof lf.friend.first_name lf.friend.username %}</a>
+            </div>
+          </li>
         {% endfor %}
-      </ul>
+        </ul>
+      </div>
     </div>
     
     <div class="7oneye row">
-      <h5>右舍({{ right_friends.count|default:0 }})</h5>
-      <ul class="unstyled">
-        {% for rf in right_friends %}
-        <li> 
-          <div class="span1 7minigravatar">
-            <img src="{% gravatar_url rf.friend.email %}" /><br />
-            <a href="{% url 7people rf.friend.username %}">
-            {% firstof rf.friend.first_name rf.friend.username %}</a>
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </div><!-- end oneye-->
+      <div class="span3 pull-right">
+        <h5>右舍({{ right_friends.count|default:0 }})</h5>
+        <ul class="unstyled">
+          {% for rf in right_friends %}
+          <li> 
+            <div class="span1 7minigravatar">
+              <img src="{% gravatar_url rf.friend.email %}" /><br />
+              <a href="{% url 7people rf.friend.username %}">
+              {% firstof rf.friend.first_name rf.friend.username %}</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div><!-- end oneye-->
+    </div>
   </div><!-- end circle-->
 
   <div id="activity" class="span3 pull-right">
     <div class="row">
-    <h5><a href="{% url 7activities %}">
+      <div class="span3 pull-right">
+    <h5>
      {% if OTHER %}
       {% firstof people.first_name people.username %}
       {% else %}
-      我{% endif %}的活动</a></h5>
+      我{% endif %}的活动(<small><a href="{% url 7activities %}">全部</small></a>)</h5>
+    </div>
     </div>
   </div>
 </div><!-- end span3 left-->

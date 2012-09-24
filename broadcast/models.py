@@ -4,7 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from albums.models import Gallery
-# Create your models here.
+from activity.models import Activity
+
 
 class Saying(models.Model):
     user = models.ForeignKey(User)
@@ -18,7 +19,15 @@ class PhotoSaying(models.Model):
     user = models.ForeignKey(User)
     gallery = models.ForeignKey(Gallery)
     num = models.IntegerField(default=0)
-    pub_date = models.DateTimeField(_('pub_date'),default=timezone.now())
+    pub_date = models.DateTimeField(_('pub_date'),default=timezone.now)
 
     def __unicode__(self):
         return self.gallery.name
+
+class ActivitySaying(models.Model):
+    user = models.ForeignKey(User)
+    activity = models.ForeignKey(Activity)
+    pub_date = models.DateTimeField(_('pub_date'),default=timezone.now)
+
+    def __unicode__(self):
+        return self.activity.name

@@ -13,6 +13,7 @@ $(function(){
     }); 
 
   //  $('<a href="#edit"><i class="icon-pencil"></i></a>').appendTo('.7photo-desc p')
+    $('.content').css({'margin-left':'auto','margin-right':'auto'})
     $('ul li').css('display','inline');
     $('header').css('margin-bottom','13px');
     $('.thislink a').css({'color':'white','background':'#83BF73'});
@@ -21,6 +22,11 @@ $(function(){
     $('.helptext').addClass('muted');
     $('.7minigravatar').css({'width':'48px','margin-left':'10px'})  
     $('.vDateField').datePicker().val(new Date().asString()).trigger('change');
+    $('.7activity').hover(function(){
+        $(this).css('background','#EFEFEF');
+    },function(){
+        $(this).css('background','');
+    });
 });
 
 $(function() {

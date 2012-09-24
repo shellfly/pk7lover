@@ -1,7 +1,7 @@
 {% extends 'basic.html' %}
 {% block content %}
 {% load i18n %}
-<div class="span7">
+<div class="span9">
   <div class="row">
     <div class="pull-left">
     <h5>所有活动</h5>
@@ -14,33 +14,30 @@
   <div class="7activities">
   	<ul class="unstyled">
   		{% for activity in activities %}
-           <div class="row 7activity">
-  			<li>
+  			<li class="7activity ">
                 <div>
                   <p> <a href="{% url 7activity activity.id %}">{{activity.name}}</a>
-                  <br /><small class="muted">{{activity.photo_num}}人参加</small></p>
+                  <br /><small>{{activity.photo_num}}人参加</small></p>
                 </div>
                 <div class="7listphotos">
-                  {% load keyvalue %}
+                  {%load keyvalue%}
                   <ul class="unstyled">
-                    {% for photo in photos|keyvalue:activity %}
-                      <li style="display:inline">
-                        <a href="{% url 7show photo.id %}">
-                        <img src="{{MEDIA_URL}}{{ photo.thumb64 }}" /></a>
-                      </li>
-                    {% endfor %}
-                  </ul>
+                    {% for photo in photos|keyvalue:photosaying %}
+                    <li style="display:inline">
+                      <a href="{% url 7single_photo photo.id %}">
+                      <img src="{{MEDIA_URL}}{{ photo.thumb64 }}" /></a>
+                    </li>
+                  {% endfor %}
+              </ul>
                 </div>
-             
+                
   			</li>
-            <hr />
-           </div>
   		{% endfor%}
   	</ul>
   </div>
 </div>
 
-<div class="span4 pull-right">
+<div class="span3 pull-right">
 
 </div>
 {% endblock content %}

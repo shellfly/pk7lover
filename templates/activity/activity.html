@@ -1,0 +1,111 @@
+{% extends 'basic.html' %}
+{% block content %}
+{% load gravatar %}
+
+<div class="modal" id="deleteModal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h4>删除活动 {{ activity.name }}</h4>
+    </div>
+    <div class="modal-body">
+      <p><strong>所有此活动的照片都将被删除！</strong>确定删除？</p>
+    </div>
+    <div class="modal-footer">
+      <a href="." class="btn">取消</a>
+      <a href="{% url 7delete_activity activity.id%}" class="btn btn-primary">删除</a>
+    </div>
+</div>
+
+<div class="span8">
+  <div class="row">
+    <div class="7activity_cover pull-left">
+      <img src="http://placehold.it/100x100"/>
+    </div>
+    <div class="7activity_info offset2">
+      <small class="muted">开始时间:</small> <small>{{activity.beg_date}}</small>
+      <br />
+      <small class="muted">结束时间:</small> <small> {{activity.end_date}}</small>
+      <br />
+      <small class="muted">活动标签:</small> <small> {{activity.tags}}</small>
+      <br />
+      <small>13500人参加</small>{% if user.id == activity.author.id %}
+        <a href="#deleteModal" data-toggle="modal" ><small class="muted">删除活动</small></a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <h5>活动主题</h5>
+    <p>{{activity.subject}}</p>
+  </div>
+
+  <div class="row">
+    <h5>前7名</h5>
+    
+  </div>
+
+  <div class="row">
+    <h5>最新上传(<small>全部作品</small>)</h5>
+    <div class="7photos">
+      <ul class="unstyled">
+      {% for photo in photos %}
+        <li class="7photo" style="margin-bottom:7px;broder:1px solid #DDD">
+          <div class="span2">
+          <a href="{% url 7show photo.id%}">
+          <img src="{{ MEDIA_URL}}{{photo.thumb128}}" />
+          </a>
+          <br />
+          <small class="muted">
+            作者:<a href="{% url 7people photo.author.username %}">
+          {% firstof photo.author.first_name photo.author.username %}</a>
+          </small>
+          </div>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="span3 pull-right">
+  <div class="row">
+  <div class="span3 pull-right">
+    <h5>发起人</h5>
+     <img src="{% gravatar_url activity.author.email 24%}">
+     <a href="{% url 7people activity.author.username %}">
+       {% firstof activity.author.firstname activity.author.username %}
+     </a>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="span3 pull-right">
+    <h5>活动参与者</h5>
+    
+  </div>
+  </div>
+
+   
+    <div class="row">
+      <div class="span3 pull-right">
+      <h6>我要参加</h6>
+      {% if user.is_authenticated and not participanted %}
+      <div class="pull-left">
+        <form action="{% url 7anticipate activity.id %}" method="POST"
+              enctype="multipart/form-data" accept="image/png, image/jpeg,image/bmp" >
+          {%csrf_token%}
+          <input type="file" name="work" class="7iputfile" />
+          <button type="submit" class="btn btn-success btn-mini">上传作品</button>
+        </form>
+      </div>
+      {% elif user.is_authenticated %}
+      <small>已上传过一个作品</small>
+      {% else%}
+        <p class="muted">
+          <a href="{% url 7login %}?next={% url 7activity activity.id%}">登陆</a>后才能参加活动<br />
+        还没有账号?<a href="{% url 7singup%}">加入小7</a></p>
+      {% endif %}
+      </div>
+    </div>
+</div>
+{% endblock content%}

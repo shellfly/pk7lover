@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('text', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2012, 9, 19, 0, 0))),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2012, 9, 25, 0, 0))),
         ))
         db.send_create_signal('broadcast', ['Saying'])
 
@@ -23,9 +23,18 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('gallery', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['albums.Gallery'])),
             ('num', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2012, 9, 19, 0, 0))),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
         ))
         db.send_create_signal('broadcast', ['PhotoSaying'])
+
+        # Adding model 'ActivitySaying'
+        db.create_table('broadcast_activitysaying', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('activity', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['activity.Activity'])),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+        ))
+        db.send_create_signal('broadcast', ['ActivitySaying'])
 
 
     def backwards(self, orm):
@@ -35,8 +44,22 @@ class Migration(SchemaMigration):
         # Deleting model 'PhotoSaying'
         db.delete_table('broadcast_photosaying')
 
+        # Deleting model 'ActivitySaying'
+        db.delete_table('broadcast_activitysaying')
+
 
     models = {
+        'activity.activity': {
+            'Meta': {'object_name': 'Activity'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
+            'beg_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
+            'end_date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
+            'photo_num': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'subject': ('django.db.models.fields.TextField', [], {}),
+            'tags': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
         'albums.gallery': {
             'Meta': {'object_name': 'Gallery'},
             'comment': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -79,18 +102,25 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
+        'broadcast.activitysaying': {
+            'Meta': {'object_name': 'ActivitySaying'},
+            'activity': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['activity.Activity']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+        },
         'broadcast.photosaying': {
             'Meta': {'object_name': 'PhotoSaying'},
             'gallery': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['albums.Gallery']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'num': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 9, 19, 0, 0)'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
         'broadcast.saying': {
             'Meta': {'object_name': 'Saying'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 9, 19, 0, 0)'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 9, 25, 0, 0)'}),
             'text': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },

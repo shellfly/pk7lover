@@ -122,15 +122,14 @@ def upload(request,album_id=0):
     gallery = Gallery.objects.get(pk=gallery.pk)
     index = gallery.photo_num
     
-    print 'in uplaod :'
-    print index,gallery.photo_num
-    photo = Photo.objects.create(gallery_id=id,
-                                 index = index,
-                                 name = filename,
-                                 path = filepath,
-                                 thumb128 = thumbpath,
-                                 thumb64 = thumbpath2,
-                                 square = squarepath)
+    photo = Photo.objects.create(
+        gallery_id=id,
+        index = index,
+        name = filename,
+        path = filepath,
+        thumb128 = thumbpath,
+        thumb64 = thumbpath2,
+        square = squarepath)
     
     print 'after:',gallery.photo_num
     user_modify_gallery.send(sender=Photo,gallery=gallery)
@@ -225,6 +224,7 @@ def setcover(request,id):
 @login_required
 def del_album(request,album_id):
     gallery = get_object_or_404(Gallery,id=album_id)
+    people = gallery.user
     if  request.user.id !=gallery.user.id:
         raise Http404()
     
@@ -232,8 +232,8 @@ def del_album(request,album_id):
     return HttpResponseRedirect(reverse('7albums',args=[people.username]))
 
 @login_required
-def del_photo(request,photo_id):
-    photo = get_object_or_404(Photo,id=photo_id)
+def del_photo(request,id):
+    photo = get_object_or_404(Photo,id=id)
     if request.user.id !=photo.gallery.user.id:
         raise Http404()
 

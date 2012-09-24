@@ -56,7 +56,6 @@ class Photo(models.Model):
     
     desc = models.CharField(_('description'),max_length=225)
     tags = models.CharField(_('tags'),max_length=256)
-    votes = models.IntegerField(_('votes'),default=0)
     stars = models.IntegerField(_('stars'),default=0)
     upload_date = models.DateTimeField(_('upload date'),default=timezone.now)
     

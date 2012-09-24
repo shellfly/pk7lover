@@ -1,0 +1,63 @@
+{% extends 'basic.html' %}
+{% load gravatar %}
+{% block content %}
+
+<div class="7photowin span7">
+  <div class="7photonav row">
+    <div class="pull-left">
+      <a href = "{% url 7activity  activity.id %}">&gt;返回活动首页</a>
+      <small>({{photo.index}}/{{activity.photo_num}})</small>
+    </div>
+    <div class="pull-right">
+       <a href = "{% url 7show pp.id %}">
+         <button class="btn btn-mini">
+           <i class="icon-arrow-left"></i>前一张
+         </button>
+       </a>
+       <a href="#">
+         <button class="btn btn-mini">
+           <i class="icon-resize-full"></i>
+       </button></a>
+       <a href = "{% url 7show np.id %}">
+         <button class="btn btn-mini">
+           后一张<i class="icon-arrow-right"></i>
+       </button></a>
+    </div>
+  </div>
+  <div class="7photo">
+    <a href = "{% url 7show np.id %}">
+      <img src="{{MEDIA_URL}}{{ photo.path }}" width="720"
+           height="550" class="img-polaroid"/>
+    </a>
+  </div>
+</div>
+
+<div class="span4 pull-right">
+  <div id="7vote" class="span4 pull-right">
+   <h5>喜欢</h5>
+   
+   <small class="muted">{{photo.votes}}人 {% if not voted %}点我-->{% endif %}</small>
+   
+   {% if not voted %}<a href="{% url 7vote activity.id%}">{% endif%}
+   <button class="btn btn-mini"><i class="icon-heart"></i></button>
+   {% if not voted%}</a>{% endif %}
+  </div>
+  
+  <div id="person" class="span4 pull-right">
+    <h5>作者</h5>
+    <img src="{% gravatar_url user.email 24 %}" />
+    <a href="{% url 7people people.username %}">
+      {% firstof people.first_name people.username %}
+    </a>
+    
+    {% if user.is_authenticated %}
+    {% if neighbour and neighbour_off %}
+    <a href="{% url accounts_eyeon people.username %}"><small class="muted">加关注</small></a>
+    {% elif neighbour %}
+    已关注
+    {% endif %}
+    {% endif %}
+  </div>
+
+</div>
+{% endblock content %}

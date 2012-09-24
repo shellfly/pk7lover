@@ -35,6 +35,7 @@ class Migration(SchemaMigration):
             ('square', self.gf('django.db.models.fields.CharField')(max_length=225)),
             ('desc', self.gf('django.db.models.fields.CharField')(max_length=225)),
             ('tags', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('stars', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('upload_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
         ))
         db.send_create_signal('albums', ['Photo'])
@@ -71,6 +72,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'path': ('django.db.models.fields.CharField', [], {'max_length': '225'}),
             'square': ('django.db.models.fields.CharField', [], {'max_length': '225'}),
+            'stars': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'tags': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'thumb128': ('django.db.models.fields.CharField', [], {'max_length': '225'}),
             'thumb64': ('django.db.models.fields.CharField', [], {'max_length': '225'}),

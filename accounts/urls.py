@@ -3,9 +3,9 @@ from django.contrib.auth.views import password_change,password_reset, password_r
 
 urlpatterns = patterns('accounts.views', 
                        url(r'^profile/$','profile',name='7profile'),          
-                       url(r'^login/$','login'),
+                       url(r'^login/$','login',name="7login"),
                        url(r'^logout/$','logout'),
-                       url(r'^signup/$','signup'),
+                       url(r'^signup/$','signup',name="7singup"),
                        url(r'^update/$',password_change,
                            {'template_name':'accounts/password_change_form.html',
                             'post_change_redirect':'/accounts/profile/',

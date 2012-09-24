@@ -23,7 +23,7 @@
          {% block 7news %}
          {% endblock 7news %}
          
-         <div class="7page-nav span7 offset1">
+         <div class="7page-nav span8 offset1">
            <span class="7page-prev">
            {% if not pp < 0 %}
              <a href="/?tag={{tag}}&p={{pp}}">前一页</a>
@@ -65,7 +65,7 @@
     </div>
 
 
-    <div class="span4 pull-right personal">
+    <div class="span3 pull-right personal">
       <div class="row 7neighbour">
         <h5>我的邻居们</h5>
         <ul class="unstyled">
@@ -99,7 +99,7 @@
       </div>
 
       <div id="activity" class="row">
-        <h5><a href="{% url 7activities %}">推荐活动</a></h5>
+        <h5>推荐活动(<small><a href="{% url 7activities %}">全部</a></small>)</h5>
        
       </div>
 

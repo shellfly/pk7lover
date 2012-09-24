@@ -64,10 +64,10 @@ def home(request,show_text=True):
         if len(q_gallery) != 0:
             photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
             sum_pages = photosayings.count() / 8
+
             photosayings = photosayings[page*7:page*7+7]
             for ps in photosayings:
-                num = 7 if ps.num > 7 else ps.num
-                photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:num]
+                photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:7]
         else:
             sum_pages=0
         tag = 2
@@ -76,7 +76,6 @@ def home(request,show_text=True):
         sum_pages = sayings.count() / 14
 
         sayings = sayings[page*13:page*13+13]
-        
         ss = s = []
         for saying in sayings:
             if len(s) == 0 or saying.user_id != s[-1].user_id:

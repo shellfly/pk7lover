@@ -9,4 +9,4 @@ class ActivityForm(ModelForm):
             'beg_date':admin.widgets.AdminDateWidget,
             'end_date':admin.widgets.AdminDateWidget,
             }
-        exclude = ('author')
+        exclude = ('author','photo_num')
