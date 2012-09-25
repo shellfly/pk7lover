@@ -11,14 +11,14 @@
               <img src="{% gravatar_url photosaying.user.email%}" />
             </a>
           </div>
-          <div class="7photo offset1">
+          <div class="7photo offset1 common">
             <a href="{% url 7people photosaying.user.username %}">
-              {% firstof photosaying.user.first_name photosaying.user.username %} 
+              {% firstof photosaying.user.first_name photosaying.user.username%} 
             </a> 
             上传了{{ photosaying.num }}张照片 到 
             <a href="{% url 7single_album  photosaying.gallery.id%}">
-              {{ photosaying.gallery.name }}:
-            </a>
+              {{ photosaying.gallery.name}}</a>:
+           
             <br />
             <div class="7listphotos">
               {% load keyvalue %}

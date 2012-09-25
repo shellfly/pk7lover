@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 from accounts.models import Circle
 from broadcast.models import Saying,PhotoSaying as B_Photo
 from albums.models import Gallery,Photo
+from activity.models import Activity
+import random
 
 def home(request,show_text=True):
     if not request.user.is_authenticated():
@@ -24,7 +26,7 @@ def home(request,show_text=True):
 
     #actives are User object,distinct(fieldname) only available in
     #postgresql,so mannul...
-    acs = Saying.objects.order_by('-pub_date')
+    acs = B_Photo.objects.order_by('-pub_date')
     actives = []  #used for display activly users
     for ac in acs:
         if not ac.user in actives:
@@ -39,61 +41,45 @@ def home(request,show_text=True):
     
     lfs = circle.leftright_set.filter(friend_type='left')
     friends = circle.leftright_set.all()
-    neighbours=[]
-    for f in friends:
-        if f.friend not in neighbours:
-            neighbours.append(f.friend)
-            if len(neighbours) >=12:
-                break
+    friends = [f.friend for f in friends]
+    if len(friends) < 10:
+        s = 0
+    elif len(friends) < 20:
+        s = random.randint(0,5)
+    else:
+        s= random.randint(0,len(friends)-5)
+    neighbours=friends[s:s+10]
        
     # all my left-friends and i 
     q_user = Q(user_id = request.user.id) #for retrive syaings,and photo_sayings
     for lf in lfs:
         q_user = q_user | Q(user_id = lf.friend.id) 
   
-    if 'tag' in request.GET and request.GET['tag'] != '1':
-        show_text = False
-
-        # all my leftfriends' gallerys and mine s
-        gallerys = Gallery.objects.filter(q_user)
-        q_gallery = Q()
-        for gallery in gallerys:
-            q_gallery = q_gallery | Q(gallery_id = gallery.id)
+    # all my leftfriends' gallerys and mine s
+    gallerys = Gallery.objects.filter(q_user)
+    q_gallery = Q()
+    for gallery in gallerys:
+        q_gallery = q_gallery | Q(gallery_id = gallery.id)
         
-        photos={} #key is every photo_saying,and value is a list of correlation photos
-        if len(q_gallery) != 0:
-            photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
-            sum_pages = photosayings.count() / 8
+    photos={} #key is every photo_saying,and value is a list of correlation photos
+    if len(q_gallery) != 0:
+        photosayings = B_Photo.objects.filter(q_gallery).order_by('-pub_date')
+        sum_pages = photosayings.count() / 8
 
-            photosayings = photosayings[page*7:page*7+7]
-            for ps in photosayings:
-                photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:7]
-        else:
-            sum_pages=0
-        tag = 2
+        photosayings = photosayings[page*7:page*7+7]
+        for ps in photosayings:
+            photos[ps] = Photo.objects.filter(gallery_id=ps.gallery_id).order_by('-upload_date')[:7]
     else:
-        sayings = Saying.objects.filter(q_user).order_by('-pub_date')
-        sum_pages = sayings.count() / 14
-
-        sayings = sayings[page*13:page*13+13]
-        ss = s = []
-        for saying in sayings:
-            if len(s) == 0 or saying.user_id != s[-1].user_id:
-                if len(s) != 0:
-                    ss.append(s)
-                s = list((saying,))
-            else:
-                s.append(saying)
-        if len(s) != 0: ss.append(s)
-        sayings = ss # tranfer to 2-d list,row/ per user
-        tag =1
+        sum_pages=0
 
     if page > sum_pages:
         raise Http404()
-    template = 'index_text.html' if tag==1 else 'index_photo.html'
+    
     pp = page-1
     np = page+1
-    return render_to_response(template,RequestContext(request,locals()))
+
+    activities = Activity.objects.order_by('-photo_num')[:4]
+    return render_to_response('index_photo.html',RequestContext(request,locals()))
 
 @csrf_exempt
 def browse(request):

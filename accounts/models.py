@@ -21,3 +21,7 @@ class Leftright(models.Model):
     friend = models.ForeignKey(User)
     friend_type = models.CharField(max_length=5,choices=TYPE_CHOICE)
    
+class Personal(models.Model):
+    user = models.OneToOneField(User)
+    desc = models.TextField(default="")
+    

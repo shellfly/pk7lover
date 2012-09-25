@@ -8,53 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Activity'
-        db.create_table('activity_activity', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('photo_num', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('subject', self.gf('django.db.models.fields.TextField')()),
-            ('beg_date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime.now)),
-            ('end_date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime.now)),
-            ('tags', self.gf('django.db.models.fields.CharField')(max_length=64)),
-        ))
-        db.send_create_signal('activity', ['Activity'])
-
-        # Adding model 'Photograph'
-        db.create_table('activity_photograph', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('activity', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['activity.Activity'])),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('index', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('path', self.gf('django.db.models.fields.CharField')(max_length=225)),
-            ('thumb128', self.gf('django.db.models.fields.CharField')(max_length=225)),
-            ('thumb64', self.gf('django.db.models.fields.CharField')(max_length=225)),
-            ('join_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('votes', self.gf('django.db.models.fields.IntegerField')(default=1)),
-        ))
-        db.send_create_signal('activity', ['Photograph'])
-
-        # Adding model 'VoteUsers'
-        db.create_table('activity_voteusers', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('activity', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['activity.Activity'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('voted', self.gf('django.db.models.fields.BooleanField')(default=True)),
-        ))
-        db.send_create_signal('activity', ['VoteUsers'])
+        # Adding field 'VoteUsers.ph'
+        db.add_column('activity_voteusers', 'ph',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['activity.Photograph']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Activity'
-        db.delete_table('activity_activity')
-
-        # Deleting model 'Photograph'
-        db.delete_table('activity_photograph')
-
-        # Deleting model 'VoteUsers'
-        db.delete_table('activity_voteusers')
+        # Deleting field 'VoteUsers.ph'
+        db.delete_column('activity_voteusers', 'ph_id')
 
 
     models = {
@@ -86,6 +48,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'VoteUsers'},
             'activity': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['activity.Activity']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'ph': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['activity.Photograph']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"}),
             'voted': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },

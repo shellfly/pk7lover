@@ -3,7 +3,7 @@
 
 {% block 7header_info %}
 {%if user.is_authenticated %}
-  <ul class="unstyled">
+  <ul class="unstyled common">
     <li style="display:inline">
       {% if 7hour >= 0 and 7hour < 6 %}
         熬夜对身体不好,
@@ -27,7 +27,7 @@
     <li style="display:inline"><i class="icon-off"></i><a href="/accounts/logout">退出</a></li>   
   </ul>
 {% else %}
- <ul class="unstyled">
+ <ul class="unstyled common">
     <li style="display:inline" ><i class="icon-globe"></i><a href = "/browse/">浏览</a></li>
     <li style="display:inline" ><i class="icon-user"></i><a href = "/accounts/login/">登录</li>
     <li style="display:inline"><i class="icon-heart"></i><a href="/accounts/signup">加入小7</a></li>
@@ -38,7 +38,7 @@
 
 {% block 7header_nav %}
 {% if user.is_authenticated %}
-  <ul class="unstyled nav-tabs ">
+  <ul class="unstyled nav-tabs">
     <li><a href="/"><i class="icon-home"></i>首页</a></li>
     <li><a href="/accounts/{{user.username}}"><i class="icon-th-large"></i>我的小7</a></li>
     <li class="dropdown" >
@@ -47,23 +47,32 @@
         <b class="caret"></b>
       </a>
       <ul class="dropdown-menu">
-
-        <li>
-          <a href="{% url 7upload_photo 0 %}">上传照片</a>
-        </li>
+        <li class="nav-header">照片</li>
         <li>
           <a href="{% url 7create_album %}">新建相册</a>
         </li>
         <li>
           <a href="{% url 7albums user.username %}">我的相册</a>
         </li>
-        
-        <li class="divider"></li>
         <li>
-          <a href="{% url 7profile %}">我的资料</a>
+          <a href="{% url 7upload_photo 0 %}">上传</a>
+        </li>
+        <li class="nav-header">活动</li>
+        <li>
+          <a href="{% url 7activities %}">所有活动</a>
+        </li>
+        <li>
+          <a href="{% url 7myactivities %}">我参加的活动</a>
+        </li>
+       
+        <li>
+          <a href="{% url 7create_activity %}">创建新活动</a>
         </li>
         <li class="divider"></li>
-        
+         <li>
+          <a href="{% url 7profile %}">个人信息</a>
+        </li>
+        <li class="divider"></li>
       </ul>      
     </li>
     <li>

@@ -46,4 +46,8 @@ class ProfileFrom(forms.Form):
                                max_length=7,
                                help_text='设置后可代替用户名在小7上显示',required=False)
     email = forms.EmailField(label=_("Email"),help_text="用于登陆或者密码重置")
+    desc = forms.CharField(label=_("personal"),
+                           help_text="设置后会出显示在头像旁边",
+                           required=False,
+                           widget=forms.Textarea(attrs={'rows':'7','cols':'20'}))
     

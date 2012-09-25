@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 21:46+0800\n"
+"POT-Creation-Date: 2012-09-25 08:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: models.py:10
+#: models.py:11
 msgid "activity name"
 msgstr "活动名称"
 
-#: models.py:12
+#: models.py:14
 msgid "subject"
 msgstr "活动主题"
 
-#: models.py:13
+#: models.py:15
 msgid "begin date"
 msgstr "开始日期"
 
-#: models.py:14
+#: models.py:16
 msgid "end date"
 msgstr "截止日期"
 
-#: models.py:15
+#: models.py:17
 msgid "activity tags"
 msgstr "活动标签"
+
+#: models.py:26
+msgid "photo name"
+msgstr "照片名称"
+
+#: models.py:27
+msgid "photo path"
+msgstr ""
+
+#: models.py:28
+msgid "thumbnail"
+msgstr ""
+
+#: models.py:29
+msgid "thumbnail2"
+msgstr ""

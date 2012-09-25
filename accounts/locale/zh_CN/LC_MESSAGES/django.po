@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 21:50+0800\n"
+"POT-Creation-Date: 2012-09-25 23:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,10 @@ msgstr "邮箱"
 #: forms.py:45
 msgid "Nickname"
 msgstr "名号"
+
+#: forms.py:49
+msgid "personal"
+msgstr "个人介绍"
 
 #: templates/admin/404.html:4 templates/admin/404.html.py:8
 #: templates/admin/django_templates/admin/404.html:4

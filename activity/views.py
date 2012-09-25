@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse,Http404,HttpResponseBadRequest
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import F
+from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from activity.forms import ActivityForm
@@ -35,22 +37,59 @@ def create(request):
 def activity(request,activity_id):
     id = int(activity_id)
     activity = get_object_or_404(Activity,id=id)
-    photos = Photograph.objects.filter(activity_id=id)
+    photos = Photograph.objects.filter(activity_id=id).order_by('-join_date')
+    
     authors=[photo.author for photo in photos]
     if request.user in authors:
         participanted = True
     
-    photos = photos.order_by('-join_date')[:12]
+    photos = photos[:12]
+    authors = authors[:12]
+    f7 = Photograph.objects.filter(activity_id=id).order_by('-votes')[:7]
     return render_to_response('activity/activity.html',RequestContext(request,locals()))
 
-def activities(request):
-    activities = Activity.objects.all().order_by('-photo_num')
+def activities(request,t=0):
+    if t != 0 and t != 1:
+        raise Http404()
+    if int(t) == 0:
+        activities = Activity.objects.all().order_by('-photo_num')
+    else:
+        phs = Photograph.objects.filter(author=request.user).order_by('-join_date')
+        activities = [ph.activity for ph in phs]
+        mine = True
+
+    if not 'p' in request.GET:
+        page = 0
+    else:
+        try:
+            page = int(request.GET['p'])
+        except:
+            page = 0
+    sum_pages = len(activities)/8
+    activities = activities[page*7:page*7+7]
+    print page,len(activities)
+    print sum_pages
+    if page > sum_pages:
+        raise Http404()
+
+    pp,np = page-1,page+1
+
     photos={}
     for activity in activities:
         photos[activity] = Photograph.objects.filter(activity_id=activity.id)[:7]
 
     return render_to_response('activity/activities.html',RequestContext(request,locals()))
     
+def allwork(request,activity_id):
+    activity = get_object_or_404(Activity,id=activity_id)
+    photos = Photograph.objects.filter(activity_id=activity.id)
+
+    page = 1 if not 'p' in request.GET  else int(request.GET['p'])
+    sum_pages = photos.count() / 43
+    pp,np = page-1,page+1
+    photos = photos[(page-1)*42:page*42]
+    return render_to_response('activity/allwork.html',RequestContext(request,locals()))
+
 @login_required
 def delete(request,activity_id):
     activity = get_object_or_404(Activity,id=activity_id)
@@ -65,14 +104,15 @@ def vote(request,id):
     ph = get_object_or_404(Photograph,id=id)
     people = ph.author
     activity = ph.activity
-    voteusers = VoteUsers.objects.filter(activity = activity)
+    voteusers = VoteUsers.objects.filter(ph = ph)
     voteusers = [vu.user for vu in voteusers]
     if request.user in voteusers:
         voted = True
         return HttpResponseBadRequest("^_^")
     VoteUsers.objects.create(
         user=request.user,
-        activity=activity)
+        activity=activity,
+        ph = ph)
     ph.votes = F('votes')+1
     ph.save()
     return HttpResponseRedirect(reverse('7show',args=[id]))
@@ -84,7 +124,8 @@ def show(request,id):
     people = photo.author
     activity = photo.activity
 
-    voteusers = VoteUsers.objects.filter(activity = activity)
+    OTHER = True if people.id != request.user.id else False
+    voteusers = VoteUsers.objects.filter(ph = photo)
     voteusers = [vu.user for vu in voteusers]
     print voteusers
     if request.user in voteusers:
@@ -121,7 +162,7 @@ def show(request,id):
 @login_required
 def anticipate(request,activity_id):
     if request.method != 'POST' or request.FILES == None or 'work' not in request.FILES:
-        return HttpResponseBadRequest("must post a photo")
+        return HttpResponseBadRequest('must choose a photo')
 
     id = int(activity_id)
     activity = get_object_or_404(Activity,id=id)
@@ -131,7 +172,7 @@ def anticipate(request,activity_id):
         participanted = True
         return HttpResponseBadRequest('^-^')
 
-    ufile = request.FILES['work']
+    ufile = request.FILES['work']    
     parent = str(id/10000)
     child = str(id%10000)
 
@@ -146,7 +187,10 @@ def anticipate(request,activity_id):
     if not os.path.exists(fold):
         os.makedirs(fold)   
 
-    image = Image.open(ufile)        
+    try:
+        image = Image.open(ufile)
+    except:
+        return HttpResponseBadRequest("请选择正确的图片参加活动")
     image.save(os.path.join(MEDIA_ROOT,filepath))
     image.thumbnail((128,128),Image.ANTIALIAS) 
     image.save(os.path.join(MEDIA_ROOT,thumbpath),'JPEG')
@@ -169,7 +213,8 @@ def anticipate(request,activity_id):
     
     VoteUsers.objects.create(
         user=request.user,
-        activity=activity)
+        activity=activity,
+        ph = pg)
 
     ActivitySaying.objects.create(
         user = request.user,

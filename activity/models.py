@@ -29,12 +29,14 @@ class Photograph(models.Model):
     thumb64 = models.CharField(_('thumbnail2'),max_length=225)
     join_date = models.DateTimeField(default=timezone.now)
     votes = models.IntegerField(default=1)
+    desc = models.CharField(default="",max_length=255)
 
     def __unicode__(self):
         return self.name
 
 class VoteUsers(models.Model):
     activity = models.ForeignKey(Activity)
+    ph = models.ForeignKey(Photograph)
     user = models.ForeignKey(User)
     voted = models.BooleanField(default=True)
 

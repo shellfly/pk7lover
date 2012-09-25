@@ -1,2 +1,46 @@
+header{
+    margin-bottom:13px;
+}
+h5,h6{
+    color:#060;
+}
+ul li{display:inline;}
 
+a:link{text-decoration:none;} 
+a:hover{text-decoration:none}
 
+.content{
+    margin-left:auto;
+    margin-right:auto;
+}
+.common a:hover{
+    background:#08c;
+    color:white;
+}
+.thislink a{
+    color:white;
+    background:#83BE73;
+}
+
+.7minigravatar{
+    width:48px;
+    margin-left:10px;
+}
+
+.7activity.hover{
+    background:#EFEFEF;
+}
+
+.bd,.person{
+    word-wrap: break-word;
+    padding: 4px 9px;
+    background: #FFF6ED;
+    border: 1px solid #FAEFE3;
+    border-width: 0 1px;
+}
+
+.upload_form{
+    border:1px solid #FAEFE3;
+    border-width:0 1px;
+    background:#FFF6EF;
+}

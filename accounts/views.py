@@ -12,10 +12,11 @@ from django.contrib.auth.views import login as auth_login,logout as auth_logout,
 from django.contrib.sites.models import get_current_site
 
 from accounts.models import UserProfile
-from django.utils.encoding import smart_str
 from django.contrib.auth.forms import AuthenticationForm,PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
+
 from django.contrib.auth.models import User
+from activity.models import Photograph,Activity
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -23,20 +24,35 @@ from django.db.models import Q
 from django.core.mail import send_mail
 
 from albums.models import Gallery,Photo
-from accounts.models import Circle,Leftright
+from accounts.models import Circle,Leftright,Personal
 from accounts.forms import SignupForm,ProfileFrom
 
 
 @login_required
 def profile(request):
     if request.method != 'POST':
+        try:
+            personal = Personal.objects.get(user_id=request.user.id)
+        except:
+            desc = ""
+        else:
+            desc = personal.desc
+
         form = ProfileFrom(initial={'email':request.user.email,
-                                    'nickname':request.user.first_name})
+                                    'nickname':request.user.first_name,
+                                    'desc':desc})
     else:
         form = ProfileFrom(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.filter(id=request.user.id).update(first_name=cd['nickname'],email=cd['email'])
+            try:
+                p = Personal.objects.get(user_id=request.user.id)
+            except:
+                Personal.objects.create(user=request.user,desc=cd['desc'])
+            else:
+                p.desc = cd['desc']
+                p.save()
     return render_to_response('accounts/profile.html',{'form':form},RequestContext(request))
 
     
@@ -161,6 +177,10 @@ def confirm(request,activation_key):
 
 def people(request,username):
     people = get_object_or_404(User,username=username)
+
+    phs = Photograph.objects.filter(author=people).order_by('-join_date')
+    activities = [ph.activity for ph in phs][:4]
+    
     albums = Gallery.objects.filter(user_id=people.id)
     q = Q()
     for album in albums:

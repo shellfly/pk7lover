@@ -106,22 +106,26 @@ def upload(request,album_id=0):
         os.makedirs(fold)   
     
     print 'in uplaod :'+path
-    image = Image.open(ufile)        
-    image.save(os.path.join(MEDIA_ROOT,filepath))
     
+    image = Image.open(ufile)       
+    print image.info,filepath
+    image.save(os.path.join(MEDIA_ROOT,filepath))
+    print 'first save'
     image_square = image.resize((100,100),Image.ANTIALIAS)
     image_square.save(os.path.join(MEDIA_ROOT,squarepath),'JPEG')
     image.thumbnail((128,128),Image.ANTIALIAS) 
     image.save(os.path.join(MEDIA_ROOT,thumbpath),'JPEG')
     image.thumbnail((64,64),Image.ANTIALIAS)
     image.save(os.path.join(MEDIA_ROOT,thumbpath2),'JPEG')
-    
+
     gallery = Gallery.objects.select_for_update().get(id=id)
     gallery.photo_num = F('photo_num')+1
     gallery.save()
+   
     gallery = Gallery.objects.get(pk=gallery.pk)
+   
     index = gallery.photo_num
-    
+    print 'index:',gallery.photo_num
     photo = Photo.objects.create(
         gallery_id=id,
         index = index,
@@ -228,6 +232,16 @@ def del_album(request,album_id):
     if  request.user.id !=gallery.user.id:
         raise Http404()
     
+    id = int(album_id)
+    parent = str(id/10000)
+    child = str(id%10000)
+
+    path = parent +'/' + child + '/'
+    fold = os.path.join(MEDIA_ROOT,path)
+    print 'in del_album :'+fold
+    cmd = "rm -r " + fold
+    print cmd
+    os.system(cmd)
     gallery.delete()
     return HttpResponseRedirect(reverse('7albums',args=[people.username]))
 
@@ -239,10 +253,23 @@ def del_photo(request,id):
 
     index = photo.index
     gallery = photo.gallery
+    for file in [photo.path,photo.thumb128,photo.thumb64,photo.square]:
+        cmd = 'rm ' + MEDIA_ROOT + file
+        os.system(cmd)
     photo.delete()
     
-    user_delete_photo.send(sender=Photo,gallery=gallery,index=index)
+    if index != gallery.photo_num:
+        num = gallery.photo_num
+        for i in range(index,num+1):
+            gallery.photo_set.filter(index=i).update(index=F('index')-1)
+
+    gallery.photo_num=F('photo_num')-1
+    gallery.save()
+    gallery = Gallery.objects.get(pk=gallery.pk)
+    
     if gallery.photo_num == 0:
+        gallery.cover=""
+        gallery.save()
         return HttpResponseRedirect(reverse('7single_album',args=[gallery.id]))
 
     #the photo be deleted is the last photo in gallery

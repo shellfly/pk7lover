@@ -5,60 +5,13 @@
   <div class="row">
     <div class="span8 7boardcast">
        <h4>小7广播 <i class="icon-volume-up"></i></h4>
-       <div class="7tucao">
-       <form class="7saying form-vertical" action="{% url 7broadcast_say %}" method="post" >
-         {% csrf_token%}
-        <textarea class="span8" rows='1' name="saying" placeholder="有什么不开心的事，说出来让大家开心一下.."></textarea>
-       </form>
-       </div>
-
-       <div class="7nav">
-         <ul class="nav nav-tabs">
-           <li {% if show_text %}class="active"{% endif %}><a href="{% url home %}?tag=1">吐嘈</a></li>
-           <li {% if not show_text%} class="active"{% endif %}><a href="{% url home %}?tag=2">照片</a></li>
-         </ul>
-       </div>
        
        <div class="7news">
          {% block 7news %}
          {% endblock 7news %}
          
          <div class="7page-nav span8 offset1">
-           <span class="7page-prev">
-           {% if not pp < 0 %}
-             <a href="/?tag={{tag}}&p={{pp}}">前一页</a>
-           {% else %}
-             前一页
-           {% endif %}
-           </span>
-           
-           {% if 0 < pp %}                         {# first page #}
-           <a href="/?tag={{tag}}&p=0">1</a>  
-           {% if 1 < pp %}..{% endif%}
-           {% endif%}
-
-           {% if not pp < 0 %}                    {# the privous of current page #}
-             <a href="/?tag={{tag}}&p={{pp}}">{{pp|add:"1"}}</a>
-           {% endif %}
-
-           <span class="thislink">                   {# current page #}
-             <a href="/?tag={{tag}}&p={{page}}">{{page|add:"1"}}</a>
-           </span>
-
-           {% if not np > sum_pages %}            {# the next of current page #}
-             <a href="/?tag={{tag}}&p={{np}}">{{np|add:"1"}}</a>
-           {% endif %}
- 
-           {% if sum_pages > np %}               {# last page #}
-           {% if sum_pages > np|add:"1" %}...{% endif %}
-           <a href="/?tag={{tag}}&p={{sum_pages}}">{{sum_pages|add:"1"}}</a>
-         {% endif %}
-
-           <span class="7page-next">
-           {% if np < sum_pages|add:"1"%}
-             <a href="/?tag={{tag}}&p={{np}}">后一页</a>
-           {% else %}后一页
-         {% endif %}</span>
+          {% include "pages.html" %}
          </div>
        </div>
        
@@ -99,8 +52,23 @@
       </div>
 
       <div id="activity" class="row">
-        <h5>推荐活动(<small><a href="{% url 7activities %}">全部</a></small>)</h5>
-       
+        <h5>推荐活动(<small class="common"><a href="{% url 7activities %}">全部</a></small>)</h5>
+        <ul class="unstyled common">
+          {% for activity in activities%}
+          <li>
+            <a href="{% url 7activity activity.id %}">
+              {{activity.name}}
+            </a>
+          <br />
+          <small>{{activity.photo_num}}人参加</small>
+          <br />
+          <small>时间:{{activity.beg_date|date:"Y-m-d"}} -
+          {{activity.end_date|date:"Y-m-d"}}</small>
+          <div class="ul" style="border-bottom:1px dashed #DDD;line-height:100%;clear:both"></div>
+          <br />
+          </li>
+          {% endfor %}
+          </ul>
       </div>
 
     </div>

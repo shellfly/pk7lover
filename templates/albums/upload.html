@@ -74,9 +74,10 @@ $(function() {
             $(html).appendTo('.7uploaded_success');
         },
         'onQueueComplete':function(){
+        if ($('button:submit').length <= 0 ){
             $('<input type="hidden" name="album_id" value="'+$('.selected_data').val()+'" />').appendTo('.7uploaded_success');
             $('<button type="submit" class="btn btn-success btn-small"> 保存更改</button>').appendTo('.7uploaded_success');
-        }
+        }}
     });
 }); 
 </script>

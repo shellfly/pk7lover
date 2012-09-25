@@ -1,0 +1,35 @@
+ <span class="7page-prev common">
+           {% if not pp < 0 %}
+             <a href="?&p={{pp}}">前一页</a>
+           {% else %}
+             前一页
+           {% endif %}
+           </span>
+           
+           {% if 0 < pp %}                         {# first page #}
+           <a href="?&p=0">1</a>  
+           {% if 1 < pp %}..{% endif%}
+           {% endif%}
+
+           {% if not pp < 0 %}                    {# the privous of current page #}
+             <a href="?&p={{pp}}">{{pp|add:"1"}}</a>
+           {% endif %}
+
+           <span class="thislink">                   {# current page #}
+             <a href="?&p={{page}}">{{page|add:"1"}}</a>
+           </span>
+
+           {% if not np > sum_pages %}            {# the next of current page #}
+             <a href="?&p={{np}}">{{np|add:"1"}}</a>
+           {% endif %}
+ 
+           {% if sum_pages > np %}               {# last page #}
+           {% if sum_pages > np|add:"1" %}...{% endif %}
+           <a href="?&p={{sum_pages}}">{{sum_pages|add:"1"}}</a>
+         {% endif %}
+
+           <span class="7page-next common">
+           {% if np < sum_pages|add:"1"%}
+             <a href="?&p={{np}}">后一页</a>
+           {% else %}后一页
+         {% endif %}</span>
