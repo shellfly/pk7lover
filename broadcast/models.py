@@ -4,30 +4,33 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from albums.models import Gallery
-from activity.models import Activity
+from activity.models import Activity,Photograph
 
 
 class Saying(models.Model):
     user = models.ForeignKey(User)
-    text = models.CharField(_('saying'),max_length=255)
-    pub_date = models.DateTimeField(_('pub_date'),default=timezone.now())
-
-    def __unicode__(self):
-        return self.text
-
-class PhotoSaying(models.Model):
-    user = models.ForeignKey(User)
-    gallery = models.ForeignKey(Gallery)
-    num = models.IntegerField(default=0)
     pub_date = models.DateTimeField(_('pub_date'),default=timezone.now)
 
+    class Meta:
+        abstract = True
+
+class PhotoSaying(Saying):
+    gallery = models.ForeignKey(Gallery)
+    num = models.IntegerField(default=0)
+    style = models.CharField(default='1',max_length=1)
     def __unicode__(self):
         return self.gallery.name
 
-class ActivitySaying(models.Model):
-    user = models.ForeignKey(User)
+class ActivitySaying(Saying):
     activity = models.ForeignKey(Activity)
-    pub_date = models.DateTimeField(_('pub_date'),default=timezone.now)
-
+    style = models.CharField(default='2',max_length=1)
     def __unicode__(self):
         return self.activity.name
+
+class PartSaying(Saying):
+    activity = models.ForeignKey(Activity)
+    work = models.ForeignKey(Photograph)
+    style = models.CharField(default='3',max_length=1)
+    def __unicode__(self):
+        return self.photo.name
+

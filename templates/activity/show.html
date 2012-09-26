@@ -15,28 +15,30 @@
 
 <div class="7photowin span7">
   <div class="7photonav row">
-    <span class="pull-left">
-      <a href="{% url 7allwork activity.id%}">>浏览所有照片</a>
-      <a href = "{% url 7activity  activity.id %}">&gt;活动首页</a>
-      <small>({{photo.index}}/{{activity.photo_num}})</small>
-    </span>
-    <span class="pull-right">
-       <a href = "{% url 7show pp.id %}">
-         <button class="btn btn-mini">
-           <i class="icon-arrow-left"></i>前一张
-         </button>
-       </a>
-       <a href="#">
-         <button class="btn btn-mini">
-           <i class="icon-resize-full"></i>
-       </button></a>
-       <a href = "{% url 7show np.id %}">
-         <button class="btn btn-mini">
-           后一张<i class="icon-arrow-right"></i>
-       </button></a>
-    </span>
+      <div class="pull-left">
+        <a href="{% url 7allwork activity.id%}"><button class="btn btn-mini"> 浏览所有照片</button></a>
+        <a href = "{% url 7activity  activity.id %}"><button class="btn btn-mini">活动首页</button></a>
+      </div>
+      <small class="pull-left">({{photo.index}}/{{activity.photo_num}})</small>
+
+      <div class="pull-right">
+        <a href = "{% url 7show pp.id %}">
+        <button class="btn btn-mini">
+          <i class="icon-arrow-left"></i>前一张
+        </button></a>
+         
+         <a href="#">
+        <button class="btn btn-mini">
+         <i class="icon-resize-full"></i>
+        </button></a>
+        
+        <a href = "{% url 7show np.id %}">
+        <button class="btn btn-mini">
+          后一张<i class="icon-arrow-right"></i>
+        </button></a>
+      </div>
   </div>
-  <div class="7box">
+  <div class="7box row">
     <div class="7photo">
       <a href = "{% url 7show np.id %}">
         <center>
@@ -56,7 +58,16 @@
       </p>
     </div>
   </div>
-  </div>
+
+   <div class="row">
+     {% load comments %}
+     {% render_comment_list for photo %}
+     {% if user.is_authenticated %}
+     {% render_comment_form for photo %}
+     {% endif %}
+   </div>
+
+</div>
 <div class="span4 pull-right">
   <div id="7vote" class="span4 pull-right">
    <h5>喜欢</h5>
@@ -77,9 +88,8 @@
     
     {% if user.is_authenticated %}
     {% if neighbour and neighbour_off %}
-    <a href="{% url accounts_eyeon people.username %}"><small class="muted">加关注</small></a>
-    {% elif neighbour %}
-    已关注
+    <small class="muted common">
+    <a href="{% url accounts_eyeon people.username %}">加关注</a></small>
     {% endif %}
     {% endif %}
   </div>

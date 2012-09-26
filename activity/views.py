@@ -8,9 +8,11 @@ from django.db.models import F
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from activity.forms import ActivityForm
 from activity.models import Activity,Photograph,VoteUsers
-from broadcast.models import ActivitySaying
+from broadcast.models import ActivitySaying,PartSaying
 
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
 import os
@@ -25,12 +27,17 @@ def create(request):
         form = ActivityForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            ac = Activity.objects.create(name=cd['name'],
-                                    author=request.user,
-                                    subject = cd['subject'],
-                                    beg_date = cd['beg_date'],
-                                    end_date = cd['end_date'],
-                                    tags = cd['tags'])
+            ac = Activity.objects.create(
+                name=cd['name'],
+                author=request.user,
+                subject = cd['subject'],
+                beg_date = cd['beg_date'],
+                end_date = cd['end_date'],
+                tags = cd['tags'])
+            ActivitySaying.objects.create(
+                user = request.user,
+                activity = ac,
+                pub_date = timezone.now())
             return HttpResponseRedirect(reverse('7activity',args=[ac.id]))
     return render_to_response('activity/create.html',RequestContext(request,locals()))   
 
@@ -62,22 +69,15 @@ def activities(request,t=0):
         activities = [ph.activity for ph in phs]
         mine = True
 
-    if not 'p' in request.GET:
-        page = 0
-    else:
-        try:
-            page = int(request.GET['p'])
-        except:
-            page = 0
-    sum_pages = len(activities)/8
-    activities = activities[page*7:page*7+7]
-    print page,len(activities)
-    print sum_pages
-    if page > sum_pages:
-        raise Http404()
-
-    pp,np = page-1,page+1
-
+    paginator = Paginator(activities,7)
+    page = request.GET.get('p')
+    try:
+        activities = paginator.page(page)
+    except PageNotAnInteger:
+        activities = paginator.page(1)
+    except EmptyPage:
+        activities = paginator.page(paginator.num_pages)
+        
     photos={}
     for activity in activities:
         photos[activity] = Photograph.objects.filter(activity_id=activity.id)[:7]
@@ -242,9 +242,10 @@ def anticipate(request,activity_id):
         activity=activity,
         ph = pg)
 
-    ActivitySaying.objects.create(
+    PartSaying.objects.create(
         user = request.user,
         activity = activity,
+        work = pg,
         pub_date = timezone.now())
 
     return HttpResponseRedirect(reverse('7activity',args=[activity_id]))

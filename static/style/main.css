@@ -1,8 +1,14 @@
+.body{
+    font-family:Verdana,Geneva,Arial,Helvetica,sans-serif
+}
 header{
     margin-bottom:13px;
 }
 h5,h6{
     color:#060;
+}
+ul{
+    display:block;
 }
 ul li{display:inline;}
 .comment textarea{
@@ -10,7 +16,9 @@ ul li{display:inline;}
 }
 a:link{text-decoration:none;} 
 a:hover{text-decoration:none}
-
+.btn a{
+    color:black;
+}
 .content{
     min-height:420px;
     margin-left:auto;

@@ -202,6 +202,7 @@ def album(request,album_id):
 
     gallery = get_object_or_404(Gallery,id=album_id)
     people = gallery.user
+    albums = Gallery.objects.filter(user_id=people.id)
     #OTHER is used in template,for identify 
     OTHER = False 
     if not request.user.is_authenticated() or request.user.id != people.id:
@@ -241,7 +242,7 @@ def setcover(request,id):
     gallery.cover = cover_url
     gallery.save()
     
-    return HttpResponseRedirect(reverse('7single_album',args=[photo.gallery.id]))
+    return HttpResponseRedirect(reverse('7single_photo',args=[photo.id]))
 
 
 @login_required

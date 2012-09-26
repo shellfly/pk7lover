@@ -44,11 +44,26 @@
   		{% endfor%}
   	</ul>
   </div>
-  <div class="span7 7pages offset1">
-    {% if sum_pages > 1%}
-    {% include "pages.html" %}
-    {% endif %}
+ 
+  {% if activities.paginator.num_pages > 1%}
+   
+  <div class="pagination">
+    <span class="step-links">
+        {% if activities.has_previous %}
+            <a href="?p={{ activities.previous_page_number }}">prev</a>
+        {% endif %}
+            
+
+        <span class="current">
+            Page {{ activities.number }} of {{ activities.paginator.num_pages }}.
+        </span>
+
+        {% if activities.has_next %}
+            <a href="?p={{ activities.next_page_number }}">next</a>
+        {% endif %}
+    </span>
   </div>
+  {% endif %}
 </div>
 
 <div class="span4 pull-right">

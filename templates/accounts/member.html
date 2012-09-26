@@ -63,7 +63,11 @@
         {{ people.username }}
         {% if user.is_authenticated %}
           {% if neighbour and neighbour_off %}
-            <span class="common"><a href="{% url accounts_eyeon people.username %}">关注此人</a></span>
+            <span class="common">
+              <a href="{% url accounts_eyeon people.username %}">
+            加关注
+            </a>
+            </span>
             {% elif neighbour %}
             <small class="muted"> 已关注</small>
           {% endif %}
@@ -80,27 +84,24 @@
      </div>
       </div>
   
-
-  <div id="circle" class="row">
-    <div class="7eyeon">
-        <h5>左邻({{ left_friends.count|default:0 }})</h5>
-        <ul class="unstyled">
-          {% for lf in left_friends %}
-          <li>
-            <div class="span1 7minigravatar">
-              <a href="{% url 7people lf.friend.username %}">
-                <img src="{% gravatar_url lf.friend.email %}" /><br />
-              {% firstof lf.friend.first_name lf.friend.username %}</a>
-            </div>
-          </li>
+    <div class="7eyeon row">
+      <h5>左邻({{ left_friends.count|default:0 }})</h5>
+      <ul class="unstyled">
+        {% for lf in left_friends %}
+        <li>
+          <div class="span1 7minigravatar common">
+            <a href="{% url 7people lf.friend.username %}">
+              <img src="{% gravatar_url lf.friend.email %}" /><br />
+            {% firstof lf.friend.first_name lf.friend.username %}</a>
+          </div>
+        </li>
         {% endfor %}
-        </ul>
+      </ul>
     </div>
     
-    <div class="7oneye">
+    <div class="7oneye row">
       <h6>右舍({{ right_friends.count|default:0 }})</h6>
     </div><!-- end oneye-->
-  </div><!-- end circle-->
 
   <div id="activity" class="row">
         <h5>

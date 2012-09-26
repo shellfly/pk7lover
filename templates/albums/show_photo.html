@@ -15,26 +15,33 @@
  <div class="7photowin span7">
    <div class="7photonav">
      <div class="pull-left">
-       <a href = "{% url 7single_album  album_id %}">&gt;返回相册</a>
-       {% if not OTHER %}
-         <a href = "{% url 7setcover photo.id %}">&gt;设为封面</a>
-       {% endif %}
-       <small>({{photo.index}}/{{album.photo_num}})</small>
-     </div>
-
-     <div class="pull-right">
-       <a href = "{% url 7single_photo pp.id %}">
-         <button class="btn btn-mini">
-           <i class="icon-arrow-left"></i>前一张
-         </button>
-       </a>
-       <a href="#">
-         <button class="btn btn-mini">
-           <i class="icon-resize-full"></i>
+       <a href = "{% url 7single_album  album_id %}">
+       <button class="btn btn-mini">
+       返回相册
        </button></a>
-       <a href = "{% url 7single_photo np.id %}">
+       {% if not OTHER %}
+       <a href = "{% url 7setcover photo.id %}">
          <button class="btn btn-mini">
-           后一张<i class="icon-arrow-right"></i>
+           设为封面
+         </button></a>
+       {% endif %}
+     </div>
+      <small class="pull-left">({{photo.index}}/{{album.photo_num}})</small>
+
+     <div class=" pull-right">
+        <a href = "{% url 7single_photo pp.id %}">
+        <button class="btn btn-mini">
+        <i class="icon-arrow-left"></i>前一张
+       </button> </a>
+        
+       <a href="#">
+       <button class="btn btn-mini">
+         <i class="icon-resize-full"></i>
+       </button></a>
+       
+       <a href = "{% url 7single_photo np.id %}">
+       <button class="btn btn-mini">
+         后一张<i class="icon-arrow-right"></i>
        </button></a>
      </div>
 
@@ -50,7 +57,7 @@
    <div class="7photobottom row">
      <br />
      <p class="muted">
-       <small>上传于
+       <small class="common">上传于
        {{photo.upload_date|date:'Y-m-d'}} 
        {% if not OTHER %}
          <a  data-toggle="modal" href="#deleteModal">删除照片</a>
@@ -74,6 +81,7 @@
  </div>
 
  <div class="span4 pull-right">
+   {% if OTHER %}
    <div id="person" class="span4 pull-right">
      <h5>作者</h5>
      <img src="{% gravatar_url user.email 24 %}">
@@ -88,7 +96,7 @@
        {% endif %}
      {% endif %}
    </div>
-   
+   {% endif %}
    <div id="album" class="span4 pull-right">
      <h5>相册</h5>
       <img src="{{MEDIA_URL}}{{album.cover}}" width="64" height="64" class="img-polaroid"/>

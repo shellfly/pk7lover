@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.views import login,logout
 from django.conf import settings
+from django.views.generic.simple import direct_to_template
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -14,7 +15,7 @@ urlpatterns = patterns('',
                        url(r'^albums/',include('albums.urls')),
                        url(r'^broadcast/',include('broadcast.urls')),
                        url(r'^activity/',include('activity.urls')),
-                       url(r'^browse/$','pk7lover.views.browse'),
+                       url(r'^browse/$',direct_to_template,{'template':'browse.html'}),
                        url(r'^$','pk7lover.views.home',name='home'),                   
 )
 
