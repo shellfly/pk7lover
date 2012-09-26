@@ -45,11 +45,32 @@
   	</ul>
   </div>
   <div class="span7 7pages offset1">
+    {% if sum_pages > 1%}
     {% include "pages.html" %}
+    {% endif %}
   </div>
 </div>
 
 <div class="span4 pull-right">
-
+  <div class="row">
+  <h5>最新活动</h5>
+  </div>
+  	<ul class="unstyled">
+  		{% for activity in news %}
+           <div class="row 7activity">
+  			<li>
+                <div>
+                  <p class="common"><strong><a href="{% url 7activity activity.id %}"> {{activity.name}}</a></strong>
+                  <br />
+                  <small class="muted">时间:{{activity.beg_date|date:"Y-m-d"}} - {{activity.end_date|date:"Y-m-d"}}
+                  <br />
+                  {{activity.photo_num}}人参加</small></p>
+                </div>
+  			</li>
+            <hr />
+           </div>
+  		{% endfor%}
+  	</ul>
+  
 </div>
 {% endblock content %}

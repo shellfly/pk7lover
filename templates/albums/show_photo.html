@@ -41,8 +41,10 @@
    </div>
    <div class="7photo">
      <a href = "{% url 7single_photo np.id %}">
-       <img src="{{MEDIA_URL}}{{ photo.path }}" width="720" height="550"
+       <center>
+       <img src="{{MEDIA_URL}}{{ photo.path }}" max-width="530px"
             class="img-polaroid"/>
+       </center>
      </a>
    </div>
    <div class="7photobottom row">
@@ -56,23 +58,49 @@
        </small>
      </p>
    </div>
+   
+   <div class="row">
+     {% load comments %}
+     {% render_comment_list for photo %}
+     {% if not album.comment %}
+     <small class="muted">该相册不允许评论</small>
+     {% else %}
+     {% if user.is_authenticated %}
+     {% render_comment_form for photo %}
+   {% endif %}
+   {% endif %}
+   </div>
+
  </div>
 
  <div class="span4 pull-right">
    <div id="person" class="span4 pull-right">
-     <h5>作者信息</h5>
+     <h5>作者</h5>
      <img src="{% gravatar_url user.email 24 %}">
      <a href="{% url 7people people.username %}">
        {% firstof people.first_name people.username %}
      </a>
-    
      {% if user.is_authenticated %}
        {% if neighbour and neighbour_off %}
-         <a href="{% url accounts_eyeon people.username %}">关注此人</a>
-         {% elif neighbour %}
-         已关注
+      <small class="common"> 
+         <a href="{% url accounts_eyeon people.username %}">加关注</a>
+         </small>
        {% endif %}
      {% endif %}
+   </div>
+   
+   <div id="album" class="span4 pull-right">
+     <h5>相册</h5>
+      <img src="{{MEDIA_URL}}{{album.cover}}" width="64" height="64" class="img-polaroid"/>
+       <br />
+     <small class="common">  
+       <a href="{% url 7single_album album.id %}"> {{album.name}}</a>
+       <br />
+       {{album.photo_num}}张照片
+       <br />
+       {{album.update_date|date:"Y-m-d"}}更新
+     </small>
+     
    </div>
  </div>
 

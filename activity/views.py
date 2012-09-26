@@ -43,6 +43,8 @@ def activity(request,activity_id):
     if request.user in authors:
         participanted = True
     
+    if activity.end_date < timezone.now().date():
+        exceed = True
     photos = photos[:12]
     authors = authors[:12]
     f7 = Photograph.objects.filter(activity_id=id).order_by('-votes')[:7]
@@ -51,8 +53,10 @@ def activity(request,activity_id):
 def activities(request,t=0):
     if t != 0 and t != 1:
         raise Http404()
+
+    news = Activity.objects.all().order_by('-beg_date')[:7]
     if int(t) == 0:
-        activities = Activity.objects.all().order_by('-photo_num')
+        activities = Activity.objects.filter(end_date__gte = timezone.now()).order_by('-photo_num')
     else:
         phs = Photograph.objects.filter(author=request.user).order_by('-join_date')
         activities = [ph.activity for ph in phs]
@@ -117,7 +121,28 @@ def vote(request,id):
     ph.save()
     return HttpResponseRedirect(reverse('7show',args=[id]))
     
+  
+def deletework(request,id):
+    photo = get_object_or_404(Photograph,id=id)
+    if request.user.id !=photo.author.id:
+        raise Http404()
+
+    index = photo.index
+    activity = photo.activity
+    for file in [photo.path,photo.thumb128,photo.thumb64]:
+        cmd = 'rm ' + MEDIA_ROOT + file
+        os.system(cmd)
+    photo.delete()
+    if index != activity.photo_num:
+        num = gallery.photo_num
+        for i in range(index,num+1):
+            activity.photograph_set.filter(index=i).update(index=F('index')-1)
+
+    activity.photo_num=F('photo_num')-1
+    activity.save()
+    activity = Activity.objects.get(pk=activity.pk)
     
+    return HttpResponseRedirect(reverse('7activity',args=[activity.id]))
     
 def show(request,id):
     photo = get_object_or_404(Photograph,id=id)
@@ -127,13 +152,14 @@ def show(request,id):
     OTHER = True if people.id != request.user.id else False
     voteusers = VoteUsers.objects.filter(ph = photo)
     voteusers = [vu.user for vu in voteusers]
-    print voteusers
+   
     if request.user in voteusers:
         voted = True
-    print 'any'   
+    if activity.end_date < timezone.now().date():
+        exceed = True
+
     if people.id != request.user.id:
         neighbour = 1
-        
         #if people not in my circle's left friend,eyeon him
         try:
             my_circle = Circle.objects.get(user_id=request.user.id)

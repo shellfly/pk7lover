@@ -5,11 +5,14 @@ h5,h6{
     color:#060;
 }
 ul li{display:inline;}
-
+.comment textarea{
+    width:78%;
+}
 a:link{text-decoration:none;} 
 a:hover{text-decoration:none}
 
 .content{
+    min-height:420px;
     margin-left:auto;
     margin-right:auto;
 }
@@ -43,4 +46,8 @@ a:hover{text-decoration:none}
     border:1px solid #FAEFE3;
     border-width:0 1px;
     background:#FFF6EF;
+}
+
+.commentinfo{
+    background:#E9F4E9;
 }

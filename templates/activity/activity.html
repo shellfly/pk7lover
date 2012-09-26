@@ -116,27 +116,33 @@
     <div class="row">
       <div class="span3 pull-right ">
       <h5>我要参加</h5>
-      {% if user.is_authenticated and not participanted %}
-      <div class="pull-left">
-        <form action="{% url 7anticipate activity.id %}" method="POST"
-              enctype="multipart/form-data" 
-              accept="image/png,image/jpeg,image/bmp" 
-              onsubmit="return getValue()"
-              class="upload_form">
-          {%csrf_token%}
-          <input type="file" name="work" id="7inputfile"/>
-          <label ><small class="muted">作品描述:</small></label>
-          <textarea name="desc" rows="2" placeholder="说点什么"></textarea>
-          <button type="submit" class="btn btn-success btn-small">上传作品</button>
-        </form>
-      </div>
-      {% elif user.is_authenticated %}
-      <small>已上传过一个作品到这个活动</small>
+      {% if exceed %}
+        <small class="common">
+          活动已截止，请选择其他活动参加，或者自己<a href="{% url 7create_activity %}">创建</a>喜欢的活动
+        </small>
       {% else%}
-        <p class="muted">
-          <a href="{% url 7login %}?next={% url 7activity activity.id%}">登陆</a>后才能参加活动<br />
-        还没有账号?<a href="{% url 7singup%}">加入小7</a></p>
-      {% endif %}
+        {% if user.is_authenticated and not participanted %}
+          <div class="pull-left">
+            <form action="{% url 7anticipate activity.id %}" method="POST"
+                  enctype="multipart/form-data" 
+                  accept="image/png,image/jpeg,image/bmp" 
+                  onsubmit="return getValue()"
+                  class="upload_form">
+              {%csrf_token%}
+              <input type="file" name="work" id="7inputfile"/>
+              <label ><small class="muted">作品描述:</small></label>
+              <textarea name="desc" rows="2" placeholder="说点什么"></textarea>
+              <button type="submit" class="btn btn-success btn-small">上传作品</button>
+            </form>
+          </div>
+          {% elif user.is_authenticated %}
+          <small>已上传过一个作品到这个活动</small>
+        {% else%}
+          <p class="muted">
+            <a href="{% url 7login %}?next={% url 7activity activity.id%}">登陆</a>后才能参加活动<br />
+          还没有账号?<a href="{% url 7singup%}">加入小7</a></p>
+        {% endif %}
+      {%endif%}
       </div>
     </div>
 </div>
@@ -148,7 +154,7 @@ function getValue(){
         alert("请选择要上传的文件");
         return false;
     }else {
-        type = x.substring(x.lastIndexOf(".")+1)
+        type = x.substring(x.lastIndexOf(".")+1).lower()
         if (type != 'jpg'&& type!="png" && type!="bmp") {
             alert("请选择图片格式的文件上传")
             return false;

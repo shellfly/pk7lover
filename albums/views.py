@@ -161,9 +161,10 @@ def upload(request,album_id=0):
 
 @login_required
 def edit(request,album_id):
-
     id = int(request.POST['album_id'])
     gallery = get_object_or_404(Gallery,pk=id,user=request.user)
+    if request.user.id != gallery.user.id:
+        raise Http404()
 
     #cover is index of a photo
     if 'cover' in request.POST:
@@ -176,7 +177,25 @@ def edit(request,album_id):
 
 @login_required
 def property(request,album_id):
-    pass
+    id = int(album_id)
+    gallery = get_object_or_404(Gallery,pk=id,user=request.user)
+    if request.user.id != gallery.user.id:
+        raise Http404()
+    print request.POST
+    if 'comment' in request.POST and request.POST['comment'] == 'no':
+        comm = False
+    else:
+        comm = True
+
+    if request.POST.has_key('permission'):
+        perm = int(request.POST['permission'])
+    else:
+        perm = 0
+    gallery.comment = comm
+    gallery.perm = perm
+    gallery.save()
+
+    return HttpResponseRedirect(reverse('7single_album',args=[id]))
 
 @csrf_exempt
 def album(request,album_id):

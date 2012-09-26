@@ -1,0 +1,20 @@
+{% load gravatar%}
+<div id="comments">
+  {% for comment in comment_list %}
+    <div id="c{{ comment.id }}" class="row">
+      <div class="7avatar span1">
+        <img src="{% gravatar_url comment.email 32%}" />
+      </div>
+      <div class="7comment_content pull-left">
+        <small class="commentinfo common">
+          <a href="{% url 7people comment.name %}">
+            {% firstof comment.user.first_name comment.user.username%}
+            </a> {{ comment.submit_date|date:"Y-m-d H:i:s" }}
+        </small>
+        
+        <p>{{ comment.comment }}</p>
+        <br />
+      </div>
+    </div>
+  {% endfor %}
+</div>

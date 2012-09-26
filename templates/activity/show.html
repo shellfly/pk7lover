@@ -2,6 +2,17 @@
 {% load gravatar %}
 {% block content %}
 
+ <div class="modal" id="deleteModal" style="display:none">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h4>确定要删除照片吗</h4>
+    </div>
+    <div class="modal-footer">
+      <a href="." class="btn">取消</a>
+      <a href="{% url 7deletework photo.id %}" class="btn btn-primary">删除</a>
+    </div>
+ </div>
+
 <div class="7photowin span7">
   <div class="7photonav row">
     <span class="pull-left">
@@ -28,8 +39,10 @@
   <div class="7box">
     <div class="7photo">
       <a href = "{% url 7show np.id %}">
-        <img src="{{MEDIA_URL}}{{ photo.path }}" width="720"
-             height="550" class="img-polaroid"/>
+        <center>
+        <img src="{{MEDIA_URL}}{{ photo.path }}" max-width="530"
+             class="img-polaroid"/>
+        </center>
       </a>
     </div>
     <div class="7photobottom">
@@ -48,11 +61,11 @@
   <div id="7vote" class="span4 pull-right">
    <h5>喜欢</h5>
    
-   <small class="muted">{{photo.votes}}人 {% if not voted %}点我-->{% endif %}</small>
+   <small class="muted">{{photo.votes}}人 {% if not voted and not exceed%}点我-->{% endif %}</small>
    
-   {% if not voted %}<a href="{% url 7vote photo.id%}">{% endif%}
+   {% if not voted and not exceed %}<a href="{% url 7vote photo.id%}">{% endif%}
    <button class="btn btn-mini"><i class="icon-heart"></i></button>
-   {% if not voted%}</a>{% endif %}
+   {% if not voted and not exceed %}</a>{% endif %}
   </div>
   
   <div id="person" class="span4 pull-right">

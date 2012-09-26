@@ -1,11 +1,23 @@
 {% extends 'basic.html' %}
 {% block content%}
 {% load gravatar %}
-  <div class="span7">
-    {% if  not OTHER  %}
-  <p class="text-info"><a href="../create/" ><button class="btn
-  btn-success btn-small">+创建新相册</button></a></p>
-  {% endif %}
+<div class="span8">
+  <div id="person" class="span7 pull-left common">
+   <h4> 
+     <img src="{% gravatar_url people.email 32 %}">
+       <a href="{% url 7people people.username%}">
+         {% firstof people.first_name people.username %}
+         </a>的相册
+       </h4>
+      {% if albums.count == 0%}
+        {% if OTHER %}
+          <small><br />他还没有创建相册，先到其他页面转转</small>
+        {% else %}
+          <small><br />开始<a href="{% url 7create_album %}">创建</a>自己第一个相册</small>
+        {% endif %}
+      {% endif %}
+    </div>
+
     <ul class="unstyled">
      {% for album in albums %}
        <li >
@@ -23,19 +35,12 @@
        </li>
      {% endfor %}
     </ul>
-  </div>
+</div>
 
-
+{% if  not OTHER  %}
   <div class="span3 pull-right">
-      <div id="person" class="span3 pull-right">
-        <img src="{% gravatar_url user.email %}">{% firstof people.first_name people.username %}<br/>
-        {% if user.is_authenticated %}
-          {% if neighbour and neighbour_off %}
-            <a href="{% url accounts_eyeon people.username %}">关注此人</a>
-            {% elif neighbour %}
-            已关注
-          {% endif %}
-        {% endif %}
-      </div>
+    <a href="../create/" >
+    <button class="btn btn-success btn-small">+创建新相册</button></a>
   </div>
+{% endif %}
 {% endblock content %}

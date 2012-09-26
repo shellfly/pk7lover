@@ -8,7 +8,7 @@ urlpatterns = patterns('albums.views',
                        url(r'^(?P<album_id>\d+)/upload/$','upload',name='7upload_photo'),
                        url(r'^(?P<album_id>\d+)/delete/$','del_album',name='7del_album'),
                        url(r'^(?P<album_id>\d+)/edit/$','edit',name='7edit_photo'),
-                       url(r'^(?P<album_id>\d+)/property/$','property',name='7property_photo'),
+                       url(r'^(?P<album_id>\d+)/property/$','property',name='7property_album'),
                        url(r'^(?P<album_id>\d+)/$','album',name='7single_album'),
                        url(r'^(?P<username>\w+)/$','albums',name='7albums'),                      
 )

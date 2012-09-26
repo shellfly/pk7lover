@@ -5,6 +5,7 @@ from django.template.context import RequestContext
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 from accounts.models import Circle
 from broadcast.models import Saying,PhotoSaying as B_Photo
@@ -78,7 +79,7 @@ def home(request,show_text=True):
     pp = page-1
     np = page+1
 
-    activities = Activity.objects.order_by('-photo_num')[:4]
+    activities = Activity.objects.filter(end_date__gte=timezone.now()).order_by('-photo_num')[:4]
     return render_to_response('index_photo.html',RequestContext(request,locals()))
 
 @csrf_exempt

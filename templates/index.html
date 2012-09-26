@@ -11,7 +11,9 @@
          {% endblock 7news %}
          
          <div class="7page-nav span8 offset1">
+           {% if sum_pages > 1%}
           {% include "pages.html" %}
+          {% endif %}
          </div>
        </div>
        
