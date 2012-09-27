@@ -41,7 +41,6 @@ def create(request):
 def show_photo(request,id):
     photo = get_object_or_404(Photo,id=id)
     album = photo.gallery
-    album_id=album.id
     people = album.user
     
     OTHER = False 
@@ -58,8 +57,9 @@ def show_photo(request,id):
         p = photo.gallery.photo_num
     if n > photo.gallery.photo_num:
         n = 1
-    pp = Photo.objects.filter(gallery_id = album_id).get(index=p)
-    np = Photo.objects.filter(gallery_id = album_id).get(index=n)
+    pp = Photo.objects.filter(gallery_id = album.id).get(index=p)
+    np = Photo.objects.filter(gallery_id = album.id).get(index=n)
+    next = reverse('7single_photo',args=[photo.id])
     return render_to_response('albums/show_photo.html',
                               locals(),
                               RequestContext(request))
@@ -181,7 +181,7 @@ def property(request,album_id):
     gallery = get_object_or_404(Gallery,pk=id,user=request.user)
     if request.user.id != gallery.user.id:
         raise Http404()
-    print request.POST
+    
     if 'comment' in request.POST and request.POST['comment'] == 'no':
         comm = False
     else:
@@ -191,6 +191,10 @@ def property(request,album_id):
         perm = int(request.POST['permission'])
     else:
         perm = 0
+
+    if request.POST.has_key('name'):
+        name = request.POST['name']
+    gallery.name = name
     gallery.comment = comm
     gallery.perm = perm
     gallery.save()
@@ -213,7 +217,7 @@ def album(request,album_id):
     if gallery.perm != 0 and OTHER:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
-                                  RequestContext(request)) 
+                                  RequestContext(request,locals())) 
 
     sum_pages = Photo.objects.filter(gallery_id=album_id).count() / 31
     pp,np = page-1,page+1

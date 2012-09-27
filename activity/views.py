@@ -13,6 +13,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from activity.forms import ActivityForm
 from activity.models import Activity,Photograph,VoteUsers
 from broadcast.models import ActivitySaying,PartSaying
+from accounts.models import Circle
 
 from pk7lover.settings import MEDIA_ROOT,MEDIA_URL
 import os
@@ -55,6 +56,8 @@ def activity(request,activity_id):
     photos = photos[:12]
     authors = authors[:12]
     f7 = Photograph.objects.filter(activity_id=id).order_by('-votes')[:7]
+    commentlabel = '活动讨论'
+    next = reverse('7activity',args=[activity.id])
     return render_to_response('activity/activity.html',RequestContext(request,locals()))
 
 def activities(request,t=0):
@@ -161,13 +164,9 @@ def show(request,id):
     if people.id != request.user.id:
         neighbour = 1
         #if people not in my circle's left friend,eyeon him
-        try:
-            my_circle = Circle.objects.get(user_id=request.user.id)
-        except:
+        my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
+        if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
             neighbour_off = 1
-        else:
-            if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
-                neighbour_off = 1
 
     
     p,n = photo.index-1,photo.index+1

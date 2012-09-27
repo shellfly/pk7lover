@@ -10,11 +10,23 @@
          {% block 7news %}
          {% endblock 7news %}
          
-         <div class="7page-nav span8 offset1">
-           {% if sum_pages > 1%}
-          {% include "pages.html" %}
-          {% endif %}
+         {% if sayings.paginator.num_pages > 1%}
+         <div class="pagination">
+           <span class="step-links">
+             {% if sayings.has_previous %}
+             <a href="?p={{ sayings.previous_page_number }}">prev</a>
+             {% endif %}
+            
+             <span class="current">
+               Page {{ sayings.number }} of {{ sayings.paginator.num_pages }}.
+             </span>
+
+             {% if sayings.has_next %}
+             <a href="?p={{ sayings.next_page_number }}">next</a>
+             {% endif %}
+           </span>
          </div>
+         {% endif %}
        </div>
        
     </div>
@@ -23,13 +35,13 @@
     <div class="span3 pull-right personal">
       <div class="row 7neighbour">
         <h5>我的邻居们</h5>
-        <ul class="unstyled">
+        <ul class="unstyled common">
           {% for neighbour in neighbours %}
           <li style="display:inline">
             <div class="7user span1">
-              <a href="{% url 7people neighbour.username %}">
-                <img src="{% gravatar_url neighbour.email 48%}" />
+              <img src="{% gravatar_url neighbour.email 48%}" />
                 <br />
+                <a href="{% url 7people neighbour.username %}">
               {% firstof neighbour.first_name neighbour.username%}
               </a>        
             </div>
@@ -42,10 +54,10 @@
         <h5>小7活跃用户</h5>
          {% for active in actives %}
           <li style="display:inline">
-            <div class="7user span1">
-              <a href="{% url 7people active.username %}">
+            <div class="7user span1 common">
                 <img src="{% gravatar_url active.email 48 %}" />
                 <br />
+                <a href="{% url 7people active.username %}">
               {% firstof active.first_name active.username%}
               </a>        
             </div>

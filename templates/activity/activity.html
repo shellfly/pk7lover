@@ -82,7 +82,16 @@
       </ul>
     </div>
   </div>
-
+<p>...</p>
+   <div class="row">
+     {% load comments %}
+     {% render_comment_list for activity %}
+     
+     {% if user.is_authenticated %}
+     {% render_comment_form for activity %}
+   {% endif %}
+  
+   </div>
 </div>
 
 <div class="span3 pull-right">
@@ -91,7 +100,7 @@
     <h5>发起人</h5>
      <img src="{% gravatar_url activity.author.email 24%}">
      <span class="common"><a href="{% url 7people activity.author.username %}">
-       {% firstof activity.author.firstname activity.author.username %}
+       {% firstof activity.author.first_name activity.author.username %}
      </a></span>
   </div>
   </div>
@@ -102,10 +111,10 @@
     <ul class="unstyled">
           {% for author in authors %}
           <li>
-            <div class="span1 7minigravatar">
-              <a href="{% url 7people author.username %}">
-                <img src="{% gravatar_url author.email %}" /><br />
-              {% firstof lf.friend.first_name author.username %}</a>
+            <div class="span1 7minigravatar common">
+              <img src="{% gravatar_url author.email %}" /><br />
+               <a href="{% url 7people author.username %}">
+              {% firstof author.first_name author.username %}</a>
             </div>
           </li>
         {% endfor %}
@@ -131,8 +140,7 @@
                   class="upload_form">
               {%csrf_token%}
               <input type="file" name="work" id="7inputfile"/>
-              <label ><small class="muted">作品描述:</small></label>
-              <textarea name="desc" rows="2" placeholder="说点什么"></textarea>
+              <textarea name="desc" rows="2" placeholder="作品描述"></textarea>
               <button type="submit" class="btn btn-success btn-small">上传作品</button>
             </form>
           </div>

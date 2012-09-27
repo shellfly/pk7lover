@@ -18,8 +18,7 @@ class PhotoSaying(Saying):
     gallery = models.ForeignKey(Gallery)
     num = models.IntegerField(default=0)
     style = models.CharField(default='1',max_length=1)
-    def __unicode__(self):
-        return self.gallery.name
+    
 
 class ActivitySaying(Saying):
     activity = models.ForeignKey(Activity)

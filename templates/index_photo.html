@@ -3,35 +3,55 @@
 {% block 7news%}
 {% load gravatar %}
   <ul class="unstyled">
-    {% for photosaying in photosayings %}
+    {% if sayings|length == 0%}
+    <small class="common">当前还没有广播，你可以
+    <a href="{% url 7create_album%}">创建</a>一个相册上传自己的照片<br/>
+    或者到<a href="{% url 7activities %}">活动</a>页面参加自己喜欢的活动</small>
+    {% endif %}
+    {% for saying in sayings %}
       <li> 
         <div class="row">
           <div class="7avatar span1">
-            <a href="{% url 7people photosaying.user.username %}">
-              <img src="{% gravatar_url photosaying.user.email%}" />
+            <a href="{% url 7people saying.user.username %}">
+              <img src="{% gravatar_url saying.user.email%}" />
             </a>
           </div>
-          <div class="7photo offset1 common">
-            <a href="{% url 7people photosaying.user.username %}">
-              {% firstof photosaying.user.first_name photosaying.user.username%} 
+
+          <div class="7saying offset1 common">
+            <a href="{% url 7people saying.user.username %}">
+              {% firstof saying.user.first_name saying.user.username%} 
             </a> 
-            上传了{{ photosaying.num }}张照片 到 
-            <a href="{% url 7single_album  photosaying.gallery.id%}">
-              {{ photosaying.gallery.name}}</a>:
-           
-            <br />
+            {% if saying.style == '1'%}
+            上传了{{ saying.num }}张照片 到 
+            <a href="{% url 7single_album saying.gallery.id%}">
+              {{ saying.gallery.name}}
+              </a>:
+              <br />
             <div class="7listphotos">
               {% load keyvalue %}
               <ul class="unstyled">
-                 {% for photo in photos|keyvalue:photosaying %}
+                 {% for photo in photos|keyvalue:saying %}
                     <li style="display:inline">
                       <a href="{% url 7single_photo photo.id %}">
                       <img src="{{MEDIA_URL}}{{ photo.thumb64 }}" /></a>
                     </li>
                   {% endfor %}
               </ul>
+              {% elif saying.style == '2' %}
+              创建了活动<a href="{% url 7activity saying.activity.id %}">{{saying.activity.name}}</a>:<br />
+              {{saying.activity.subject}}
+              <br /><small class="muted">时间{{saying.activity.beg_date|date:"Y-m-d"}}~{{saying.activity.end_date|date:"Y-m-d"}}</small>
+              {% elif saying.style == '3' %}
+              在活动
+              <a href="{% url 7activity saying.activity.id %}">
+                {{saying.activity.name}}
+                </a> 
+                中上传了一个作品:<br />
+              <a href="{% url 7show saying.work.id %}">
+                      <img src="{{MEDIA_URL}}{{ saying.work.thumb64 }}" /></a>
+              {% endif %}
+              <hr />
             </div>
-            <hr />
           {% endfor %}
         </ul>
       {% endblock 7news%}

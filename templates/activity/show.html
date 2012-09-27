@@ -79,7 +79,7 @@
    {% if not voted and not exceed %}</a>{% endif %}
   </div>
   
-  <div id="person" class="span4 pull-right">
+  <div id="person" class="span4 pull-right common">
     <h5>作者</h5>
     <img src="{% gravatar_url user.email 24 %}" />
     <a href="{% url 7people people.username %}">
@@ -89,7 +89,7 @@
     {% if user.is_authenticated %}
     {% if neighbour and neighbour_off %}
     <small class="muted common">
-    <a href="{% url accounts_eyeon people.username %}">加关注</a></small>
+    <a href="{% url accounts_eyeon people.username %}?next={% url 7show photo.id%}">加关注</a></small>
     {% endif %}
     {% endif %}
   </div>

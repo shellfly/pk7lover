@@ -36,7 +36,7 @@ class SignupForm(UserCreationForm):
     def save(self,commit=True):
         user = super(SignupForm,self).save(commit=False)
         user.email = self.cleaned_data['email']
-        user.is_active = True;
+        user.is_active = False;
         if commit:
             user.save();
         return user;

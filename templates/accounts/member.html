@@ -57,19 +57,20 @@
   <div id="person">
       <div class="row person">
         <div class="pull-left">
-          <img src="{% gravatar_url people.email 64 %}">
+          <img src="{% gravatar_url people.email 140 %}">
         </div>
         <div class="pull-left">
-        {{ people.username }}
-        {% if user.is_authenticated %}
-          {% if neighbour and neighbour_off %}
-            <span class="common">
+          <small class="common muted">
+            {% firstof people.first_name people.username %}<br />
+            {% if user.is_authenticated %}
+            {% if neighbour and neighbour_off %}
+            
               <a href="{% url accounts_eyeon people.username %}">
-            加关注
-            </a>
-            </span>
+                加关注
+              </a>
+            
             {% elif neighbour %}
-            <small class="muted"> 已关注</small>
+            已关注</small>
           {% endif %}
         {% endif %}
         </div>

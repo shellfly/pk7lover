@@ -9,10 +9,10 @@ else:
 
 TEMPLATE_DEBUG = DEBUG
 
-EMAIL_HOST = 'smtp.google.com'
-EMAIL_PORT = 465
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shell0fly@gmail.com'
-EMAIL_HOST_PASSWORD = 'shEllfly333666'
+EMAIL_HOST_PASSWORD = 'mzatedbdjgpmykvk'
 EMAIL_USE_TLS = True
 SESSION_SAVE_EVERY_REQUEST=True
 

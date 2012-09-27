@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 23:00+0800\n"
+"POT-Creation-Date: 2012-09-27 13:00+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,10 @@ msgstr "邮箱"
 #: accounts/forms.py:45
 msgid "Nickname"
 msgstr "名号"
+
+#: accounts/forms.py:49
+msgid "personal"
+msgstr ""
 
 #: accounts/templates/admin/404.html:4 accounts/templates/admin/404.html:8
 #: accounts/templates/admin/django_templates/admin/404.html:4
@@ -759,17 +763,22 @@ msgid "upload date"
 msgstr "上传日期"
 
 #: broadcast/models.py:12
-msgid "saying"
-msgstr "吐嘈"
-
-#: broadcast/models.py:13 broadcast/models.py:22 broadcast/models.py:30
 msgid "pub_date"
 msgstr "发布日期"
 
-#: templates/accounts/signup.html:3
-msgid "Create an account"
-msgstr "创建新用户"
+#: templates/accounts/password_reset_form.html:11
+#: templates/accounts/profile.html:21
+msgid "modify"
+msgstr "修改"
 
-#: templates/accounts/signup.html:23
-msgid "singup"
-msgstr "注册"
+#: templates/accounts/profile.html:19
+msgid "password"
+msgstr "密码"
+
+#: templates/accounts/profile.html:26
+msgid "update profile"
+msgstr "更新资料"
+
+#: templates/comments/form.html:24
+msgid "Post"
+msgstr ""

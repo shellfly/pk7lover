@@ -46,14 +46,12 @@
   </div>
  
   {% if activities.paginator.num_pages > 1%}
-   
-  <div class="pagination">
-    <span class="step-links">
+    <div class="pagination">
+      <span class="step-links">
         {% if activities.has_previous %}
             <a href="?p={{ activities.previous_page_number }}">prev</a>
         {% endif %}
             
-
         <span class="current">
             Page {{ activities.number }} of {{ activities.paginator.num_pages }}.
         </span>

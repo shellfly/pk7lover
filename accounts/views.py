@@ -20,7 +20,7 @@ from activity.models import Photograph,Activity
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-
+from django.utils import timezone
 from django.core.mail import send_mail
 
 from albums.models import Gallery,Photo
@@ -154,7 +154,7 @@ def signup(request,usercreation_form=SignupForm):
             user = form.save();
             circle = Circle(user_id=user.id)
             circle.save()
-            #check_email(user)
+            check_email(user)
             return render_to_response('accounts/signup.html',
                                       RequestContext(request,{'submitinfo':True,'form':form}))
     else:
@@ -168,13 +168,15 @@ def confirm(request,activation_key):
         return render_to_response('confirm.html', {'has_account': True})
     user_profile = get_object_or_404(UserProfile,
                                      activation_key=activation_key)
-    if user_profile.key_expires < datetime.datetime.today():
+    if user_profile.key_expires < timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()):
         return render_to_response('confirm.html', {'expired': True})
     user_account = user_profile.user
-    user_account.is_active = True
-    user_account.save()
-    return render_to_response('confirm.html', {'success': True})
-
+    if activation_key == user_profile.activation_key:
+        user_account.is_active = True
+        user_account.save()
+        success = True
+    return render_to_response('confirm.html', {'success': success})
+    
 def people(request,username):
     people = get_object_or_404(User,username=username)
 
@@ -230,4 +232,6 @@ def eyeon(request,username):
         rf = Leftright.objects.create(circle=he_circle,
                                       friend=request.user,
                                       friend_type='right')
+    if request.GET.has_key('next'):
+        return HttpResponseRedirect(request.GET['next'])
     return HttpResponseRedirect(reverse('7people',args=[username]))

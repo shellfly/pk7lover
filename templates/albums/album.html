@@ -1,9 +1,9 @@
 {% extends 'basic.html' %}
 {% block content %}
   {% if perm_err %}
-    <p class="error_msg">
-      Sorry,but you have no permission to view these photos
-    </p>
+    <small class="error_msg common">
+      该相册的主人对相册设置了访问权限，请联系相册<a href="{%url 7people people.username %}">主人</a>查看
+    </small>
 {% else %}
 
   <div class="modal" id="deleteModal" style="display:none">
@@ -29,6 +29,9 @@
       
       <form action="{% url 7property_album gallery.id %}" method="POST" class="form-inline">
         {%csrf_token%}
+        <label>相册名称:</label>
+        <input type="text" name="name" value="{{gallery.name}}"/>
+        <br /><br />
         <label>权限:</label>
         <input type="radio" id="id_permission_0" value="0"
                name="permission">公开
@@ -39,11 +42,11 @@
                name="permission">仅家人
         <br />
         <br />
-        <label>是否允许评论:</label>
-        <input type="radio" name="comment" value="yes"
-               id="id_comment">是
-        <input type="radio" name="comment" value="no"
-               id="id_comment">否
+        <label>不允许评论:</label>
+        <input type="checkbox" name="comment" value="no"
+               id="id_comment" 
+               {% if not gallery.comment %}checked="checked}" {%endif%}>
+
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>

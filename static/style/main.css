@@ -1,21 +1,63 @@
-.body{
+body{
     font-family:Verdana,Geneva,Arial,Helvetica,sans-serif
 }
 header{
     margin-bottom:13px;
 }
-h5,h6{
+h4,h5,h6{
     color:#060;
 }
 ul{
     display:block;
 }
 ul li{display:inline;}
-.comment textarea{
-    width:78%;
+section {
+  padding-top: 30px;
 }
 a:link{text-decoration:none;} 
 a:hover{text-decoration:none}
+
+.bs-docs-sidenav > li:first-child > a {
+  -webkit-border-radius: 6px 6px 0 0;
+     -moz-border-radius: 6px 6px 0 0;
+          border-radius: 6px 6px 0 0;
+}
+.bs-docs-sidenav > li:last-child > a {
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+}
+.bs-docs-sidenav > li > a {
+  display: block;
+  *width: 190px;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+}
+.comment textarea{
+    width:78%;
+}
+.feature{
+    background:#F7F7F7;
+    
+}
+.feature:hover{
+    background:#EFEFEF;
+}
+
+.7photo-box{
+  width: 220px;
+  margin: 10px;
+  float: left;
+}
+
+.7photo-desc{
+    background-color:gray;
+}
+.upload_form textarea{
+    width:95%;
+}
+
 .btn a{
     color:black;
 }
@@ -42,18 +84,12 @@ a:hover{text-decoration:none}
     background:#EFEFEF;
 }
 
-.bd,.person{
+.bd,.person,.upload_form{
     word-wrap: break-word;
     padding: 4px 9px;
     background: #FFF6ED;
     border: 1px solid #FAEFE3;
     border-width: 0 1px;
-}
-
-.upload_form{
-    border:1px solid #FAEFE3;
-    border-width:0 1px;
-    background:#FFF6EF;
 }
 
 .commentinfo{

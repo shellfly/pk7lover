@@ -20,7 +20,7 @@ urlpatterns = patterns('accounts.views',
                            password_reset_confirm,
                            {'template_name':'accounts/password_reset_email.html'},
                            name='password_reset_confirm'),
-                       url(r'^confirm/$','confirm'),
+                       url(r'^confirm/(?P<activation_key>\w+)$','confirm'),
                        url(r'^(?P<username>\w+)/$','people',name='7people'),
                        url(r'^eyeon/(?P<username>\w+)/$','eyeon',name="accounts_eyeon")
 )
