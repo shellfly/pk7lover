@@ -196,13 +196,13 @@ def anticipate(request,activity_id):
     if request.user in authors:
         participanted = True
         return HttpResponseBadRequest('^-^')
-
+    desc = request.POST.get('desc')
     ufile = request.FILES['work']    
     parent = str(id/10000)
     child = str(id%10000)
 
     path = '/'.join(['activity',parent,child])
-
+    
     fold = os.path.join(MEDIA_ROOT,path)
     filename = str(random.randint(1,1000))+'_'+ufile.name
     filepath = path+filename
@@ -234,7 +234,8 @@ def anticipate(request,activity_id):
         name = filename,
         path = filepath,
         thumb128 = thumbpath,
-        thumb64 = thumbpath2)
+        thumb64 = thumbpath2,
+        desc=desc)
     
     VoteUsers.objects.create(
         user=request.user,

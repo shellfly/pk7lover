@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-27 13:00+0800\n"
+"POT-Creation-Date: 2012-09-28 16:59+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -546,6 +546,7 @@ msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_change_form.html:49
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:27
+#: templates/accounts/password_reset_confirm.html:19
 msgid "Change my password"
 msgstr ""
 
@@ -555,6 +556,7 @@ msgstr ""
 #: accounts/templates/admin/django_templates/registration/password_reset_form.html:8
 #: accounts/templates/admin/django_templates/registration/password_reset_form.html:12
 #: accounts/templates/admin/django_templates/registration/password_reset_form.html:16
+#: templates/accounts/password_reset_confirm.html:4
 msgid "Password reset"
 msgstr ""
 
@@ -572,28 +574,34 @@ msgid "Password reset confirmation"
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:18
+#: templates/accounts/password_reset_confirm.html:10
 msgid "Enter new password"
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:20
+#: templates/accounts/password_reset_confirm.html:12
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:24
+#: templates/accounts/password_reset_confirm.html:16
 msgid "New password:"
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:26
+#: templates/accounts/password_reset_confirm.html:18
 msgid "Confirm password:"
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:32
+#: templates/accounts/password_reset_confirm.html:24
 msgid "Password reset unsuccessful"
 msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_confirm.html:34
+#: templates/accounts/password_reset_confirm.html:26
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
@@ -601,6 +609,8 @@ msgstr ""
 
 #: accounts/templates/admin/django_templates/registration/password_reset_done.html:12
 #: accounts/templates/admin/django_templates/registration/password_reset_done.html:16
+#: templates/accounts/password_reset_done.html:4
+#: templates/accounts/password_reset_done.html:8
 msgid "Password reset successful"
 msgstr ""
 
@@ -766,16 +776,16 @@ msgstr "上传日期"
 msgid "pub_date"
 msgstr "发布日期"
 
-#: templates/accounts/password_reset_form.html:11
-#: templates/accounts/profile.html:21
+#: templates/accounts/password_reset_form.html:12
+#: templates/accounts/profile.html:23
 msgid "modify"
 msgstr "修改"
 
-#: templates/accounts/profile.html:19
+#: templates/accounts/profile.html:21
 msgid "password"
 msgstr "密码"
 
-#: templates/accounts/profile.html:26
+#: templates/accounts/profile.html:28
 msgid "update profile"
 msgstr "更新资料"
 
