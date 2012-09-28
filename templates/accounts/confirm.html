@@ -1,0 +1,12 @@
+{% extends 'basic.html' %}
+{% block content %}
+  {% if success %}
+    <h4>账户激成功</h4>
+    <p class="common">
+      现在你可以正常访问小7了..<a href="{% url 7login%}">立即登陆</a></p>
+    {% elif has_account %}
+      <p>账户已登陆..</p>
+    {% elif expired %}
+      <p class="common">激活信息已过期，请重新<a href="{% url 7singup %}">注册</a></p>
+{% endif %}
+{% endblock %}

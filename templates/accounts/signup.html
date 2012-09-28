@@ -6,7 +6,9 @@
   {% if submitinfo %}
     <p>你的邮箱里应该已经收到了一封激活信息，请点击里面的链接来激活你
     的账户，否则可能无法正常登陆</p>
-    <p><small>开玩笑的，马上去体验小7吧</small></p>
+    <small>如果收件箱里没有邮件，可能是被误认为垃圾邮件,请检查下,<br />如果还是
+    没有，可以把你的用户名发送给我，记得表明 激活账户,我的邮箱是shell0fly#gmail.com</small>
+    
   {% else %}
     {% if not  user.is_authenticated %}
       <h5><i class="icon-star-empty"></i>欢迎加入小7<i class="icon-star-empty"></i></h5>

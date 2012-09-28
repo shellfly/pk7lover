@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
 <div class="span6">
-<form action="" method="POST">
+<form action="" method="POST" class="common">
   {% csrf_token %}
   <table>
   {{form.as_table}}

@@ -99,36 +99,6 @@ def logout(request,redirect_field_name = REDIRECT_FIELD_NAME):
     return HttpResponseRedirect(redirect_to)
 
 
-def passwd_reset(request,
-                 template_name='accounts/password_reset_form.html',
-                 password_reset_form = PasswordResetForm,
-                 token_generator = default_token_generator,
-                 from_email = None,
-                 current_app = None,
-                 extra_context = None):
-
-    if request.method == 'POST':
-        form = password_reset_form(request.POST)
-        if form.is_valid():
-            opts = {
-                'use_https': request.is_secure(),
-                'token_generator': token_generator,
-                'from_email': from_email,
-                'email_template_name': email_template_name,
-                'subject_template_name': subject_template_name,
-                'request': request,
-                }
-            if is_admin_site:
-                opts = dict(opts, domain_override=request.META['HTTP_HOST'])
-            form.save(**opts)
-            return HttpResponseRedirect('/accounts/profile')
-    else:
-        form = password_reset_form()
-    context = {'form':form,}
-    if extra_context is not None:
-        context.update(extra_context)
-    return TemplateResponse(request,template_name,context,current_app=current_app)
-
 
 def check_email(user):
     salt = sha.new(str(random.random())).hexdigest()[:5]
@@ -136,18 +106,16 @@ def check_email(user):
     key_expires = datetime.datetime.today() + datetime.timedelta(2)
     new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
     new_profile.save()
-    email_subject = 'Your new pk7lover.net account confirmation'
-    email_body = '''Hello, %s, and thanks for signing up for an        
-pk7lover.com account!\n\nTo activate your account, click this link within 48 
-hours:\n\nhttp://localhost:8000/accounts/confirm/%s''' % (
-                user.username,
-                new_profile.activation_key)
+    email_subject = u'Pk7lover 账户激活'
+    email_body = u'你好, %s, 感谢你注册Pklover的账户!\n\n请在48小时内点击下面的链接，以激活你的账户(如果不能点击，请手动复制地址到浏览器的地址栏访问):\n\nhttp://localhost:8000/accounts/confirm/%s' % (user.username, new_profile.activation_key)
     send_mail(email_subject,
               email_body,
               'shell0fly@gmail.com',
               [user.email])
     
 def signup(request,usercreation_form=SignupForm): 
+    submitinfo = False
+    form = usercreation_form()
     if request.method == 'POST':
         form = usercreation_form(data = request.POST)
         if form.is_valid():
@@ -155,27 +123,27 @@ def signup(request,usercreation_form=SignupForm):
             circle = Circle(user_id=user.id)
             circle.save()
             check_email(user)
-            return render_to_response('accounts/signup.html',
-                                      RequestContext(request,{'submitinfo':True,'form':form}))
-    else:
-        form = usercreation_form()
-
-    return render_to_response('accounts/signup.html',RequestContext(request,{'form':form}))
+            submitinfo = True
+    return render_to_response('accounts/signup.html',RequestContext(request,{'submitinfo':submitinfo,'form':form}))
 
 
 def confirm(request,activation_key):
     if request.user.is_authenticated():
-        return render_to_response('confirm.html', {'has_account': True})
-    user_profile = get_object_or_404(UserProfile,
-                                     activation_key=activation_key)
-    if user_profile.key_expires < timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()):
-        return render_to_response('confirm.html', {'expired': True})
+        return render_to_response('accounts/confirm.html', {'has_account': True},RequestContext(request))
+    user_profile = get_object_or_404(
+        UserProfile,
+        activation_key=activation_key)
     user_account = user_profile.user
+    if user_profile.key_expires < timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()):
+        user_account.delete()
+        return render_to_response('accounts/confirm.html', {'expired': True},RequestContext(request))
+   
+    success = False
     if activation_key == user_profile.activation_key:
         user_account.is_active = True
         user_account.save()
         success = True
-    return render_to_response('confirm.html', {'success': success})
+    return render_to_response('accounts/confirm.html', {'success':success},RequestContext(request))
     
 def people(request,username):
     people = get_object_or_404(User,username=username)
