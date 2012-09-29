@@ -25,7 +25,7 @@ class Leftright(models.Model):
     friend_type = models.CharField(max_length=5,choices=TYPE_CHOICE)
 
     def __unicode__(self):
-        return self.friend.username
+        return self.friend.username 
    
 class Personal(models.Model):
     user = models.OneToOneField(User)
