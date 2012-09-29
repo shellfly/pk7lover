@@ -19,12 +19,45 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from activity.models import Photograph,Activity
 from albums.models import Gallery,Photo
 from accounts.models import Circle,Leftright,Personal,UserProfile
 from accounts.forms import SignupForm,ProfileFrom
 
+def leftrights(request,username,friend_type="left"):
+    people = get_object_or_404(User,username=username)
+    circle = Circle.objects.get_or_create(user=people)[0]
+    friends = circle.leftright_set.filter(friend_type=friend_type)
+    paginator = Paginator(friends,42)
+    page = request.GET.get('p')
+    try:
+        friends = paginator.page(page)
+    except PageNotAnInteger:
+        friends = paginator.page(1)
+    except EmptyPage:
+        friends = paginator.page(paginator.num_pages)
+
+    OTHER = False
+    if not request.user.is_authenticated() or request.user.id !=people.id:
+        OTHER = True 
+
+    return render_to_response('accounts/leftrights.html',RequestContext(request,locals()))
+
+def group(request,id):
+    if request.method != 'POST':
+        return HttpResponseRedirect(reverse('7people',args=[request.user.username]))
+    friend = request.POST.get('friend',0)
+    family = request.POST.get('family',0)
+
+    people = get_object_or_404(User,id=id)
+    my_circle = Circle.objects.get_or_create(user=request.user)[0]
+    lr = get_object_or_404(Leftright,circle=my_circle,friend=people,friend_type="left")
+    lr.group = int(friend) + int(family)
+    lr.save()
+
+    return HttpResponseRedirect(reverse('7people',args=[people.username]))
 
 @login_required
 def profile(request):
@@ -166,13 +199,12 @@ def people(request,username):
         neighbour = 1
         
         #if people not in my circle's left friend,eyeon him
+        my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
         try:
-            my_circle = Circle.objects.get(user_id=request.user.id)
+            lr = my_circle.leftright_set.get(friend=people,friend_type="left")
+            print lr.group
         except:
             neighbour_off = 1
-        else:
-            if not my_circle.leftright_set.filter(friend=people,friend_type="left"):
-                neighbour_off = 1
     try:
         circle = Circle.objects.get(user_id=people.id)
     except:
@@ -185,19 +217,33 @@ def people(request,username):
 
 
 def eyeon(request,username):
-    try:
-        friend = User.objects.get(username=username)
-        he_circle = Circle.objects.get(user_id=friend.id)
-    except:
-        print "eyeon friend doesn't exist or he doesn't have a circle"
-    else:
-        my_circle = Circle.objects.get(user_id=request.user.id)    
-        lf = Leftright.objects.create(circle=my_circle,
-                                              friend=friend,
-                                              friend_type='left')
-        rf = Leftright.objects.create(circle=he_circle,
-                                      friend=request.user,
-                                      friend_type='right')
+    friend = get_object_or_404(User,username=username)
+    my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
+    his_circle = Circle.objects.get_or_create(user_id=friend.id)[0]
+
+    lf = Leftright.objects.create(
+        circle=my_circle,
+        friend=friend,
+        friend_type='left')
+    rf = Leftright.objects.create(
+        circle=his_circle,
+        friend=request.user,
+        friend_type='right')
+
     if request.GET.has_key('next'):
         return HttpResponseRedirect(request.GET['next'])
     return HttpResponseRedirect(reverse('7people',args=[username]))
+
+def eyeoff(request,username):
+    friend = get_object_or_404(User,username=username)
+    my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0] 
+    his_circle = Circle.objects.get_or_create(user_id=friend.id)[0]
+    
+    lf = get_object_or_404(Leftright,circle=my_circle,friend=friend,friend_type="left")
+    lf.delete()
+    rf = get_object_or_404(Leftright,circle=his_circle,friend=request.user,friend_type="right")
+    rf.delete()
+
+    if request.GET.has_key('next'):
+        return HttpResponseRedirect(request.GET['next'])
+    return HttpResponseRedirect(reverse('7people',args=[request.user.username]))

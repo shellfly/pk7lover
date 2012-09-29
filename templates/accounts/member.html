@@ -65,12 +65,27 @@
             {% if user.is_authenticated %}
             {% if neighbour and neighbour_off %}
             
-              <a href="{% url accounts_eyeon people.username %}">
+              <a href="{% url 7eyeon people.username %}">
                 加关注
               </a>
-            
             {% elif neighbour %}
-            已关注</small>
+            <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              {% if lr.group == 0 %}
+              未分组
+              {% elif lr.group == 1%}
+              朋友
+              {% else %}
+              家人
+              {% endif %}
+             <b class="caret"></b> </a>
+              <form class="dropdown-menu" role="menu" aria-labelledby="dLabel" action="{% url 7group people.id %}" method="POST">
+               {%csrf_token%}
+                <input type="checkbox" name="friend" value="1" onclick="this.form.submit()"/>朋友
+                <input type="checkbox" name="family" value="2" onclick="this.form.submit()"/>家人
+              </form>
+            </div>
+            <a href="{% url 7eyeoff people.username %}">取消关注</a></small>
           {% endif %}
         {% endif %}
         </div>
@@ -80,13 +95,13 @@
      <div class="row person">
       <small class="muted">
          <br />
-        {{user.personal.desc|linebreaks}}
+        {{people.personal.desc|linebreaks}}
         </small>
      </div>
       </div>
   
-    <div class="7eyeon row">
-      <h5>左邻({{ left_friends.count|default:0 }})</h5>
+    <div class="7eyeon row common">
+      <h5>左邻(<a href="{% url 7lefts people.username %}">{{ left_friends.count|default:0}}</a>)</h5>
       <ul class="unstyled">
         {% for lf in left_friends %}
         <li>
@@ -100,8 +115,8 @@
       </ul>
     </div>
     
-    <div class="7oneye row">
-      <h6>右舍({{ right_friends.count|default:0 }})</h6>
+    <div class="7oneye row common">
+      <h6>右舍(<a href="{% url 7rights people.username %}">{{ right_friends.count|default:0 }}</a>)</h6>
     </div><!-- end oneye-->
 
   <div id="activity" class="row">
@@ -130,7 +145,14 @@
           </ul>
   </div>
 </div><!-- end span3 left-->
-
+<script>
+function check(){
+form.submit()
+};
+$(function(){
+$('.dropdown-toggle').dropdown()
+});
+</script>
 
 
 {% endblock content%}
