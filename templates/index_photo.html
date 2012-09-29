@@ -39,7 +39,7 @@
               </ul>
               {% elif saying.style == '2' %}
               创建了活动<a href="{% url 7activity saying.activity.id %}">{{saying.activity.name}}</a>:<br />
-              {{saying.activity.subject}}
+              <small>{{saying.activity.subject}}</small>
               <br /><small class="muted">时间{{saying.activity.beg_date|date:"Y-m-d"}}~{{saying.activity.end_date|date:"Y-m-d"}}</small>
               {% elif saying.style == '3' %}
               在活动
