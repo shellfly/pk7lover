@@ -1,4 +1,8 @@
 {% extends 'basic.html' %}
+{% block title %}
+{{title}}
+{% endblock %}
+
 {% block content %}
 
 <form action="" method="POST">
@@ -7,7 +11,7 @@
   {{ form.as_table }}
   <tr>
     <th></th><td><button type="submit" class="btn btn-success
-  btn-small"> 创建活动</button></td>
+  btn-small"> {{title}}</button></td>
   </tr>
   </table>
 </form>

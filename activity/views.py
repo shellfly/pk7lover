@@ -23,7 +23,7 @@ from PIL import Image
 @login_required
 def create(request):
     form = ActivityForm()
-
+    title = '创建活动'
     if request.method == 'POST':
         form = ActivityForm(request.POST)
         if form.is_valid():
@@ -106,6 +106,29 @@ def delete(request,activity_id):
     activity.delete()
     return HttpResponseRedirect(reverse('7people',args=[request.user.username]))
 
+
+def modify(request,activity_id):
+    activity = get_object_or_404(Activity,id=activity_id)
+    if  request.user.id !=activity.author.id:
+        raise Http404()
+    if request.method != 'POST':
+        data = Activity.objects.filter(id=activity.id).values('name','subject','beg_date','end_date','tags')[0]
+        form = ActivityForm(data)
+        title = '修改活动'
+       
+    else: 
+        form = ActivityForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            Activity.objects.filter(id=activity.id).update(
+                name=cd['name'],
+                subject=cd['subject'],
+                beg_date=cd['beg_date'],
+                end_date=cd['end_date'],
+                tags = cd['tags'])
+            return HttpResponseRedirect(reverse('7activity',args=[activity.id]))
+    return render_to_response('activity/create.html',RequestContext(request,locals()))
+    
 @login_required
 def vote(request,id):
     ph = get_object_or_404(Photograph,id=id)
