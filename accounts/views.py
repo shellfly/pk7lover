@@ -11,20 +11,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as auth_login,logout as auth_logout,REDIRECT_FIELD_NAME
 from django.contrib.sites.models import get_current_site
 
-from accounts.models import UserProfile
 from django.contrib.auth.forms import AuthenticationForm,PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 
-from django.contrib.auth.models import User
-from activity.models import Photograph,Activity
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.utils import timezone
 from django.core.mail import send_mail
 
+from activity.models import Photograph,Activity
 from albums.models import Gallery,Photo
-from accounts.models import Circle,Leftright,Personal
+from accounts.models import Circle,Leftright,Personal,UserProfile
 from accounts.forms import SignupForm,ProfileFrom
 
 
@@ -107,7 +105,7 @@ def check_email(user):
     new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
     new_profile.save()
     email_subject = u'Pk7lover 账户激活'
-    email_body = u'你好, %s, 感谢你注册Pklover的账户!\n\n请在48小时内点击下面的链接，以激活你的账户(如果不能点击，请手动复制地址到浏览器的地址栏访问):\n\nhttp://localhost:8000/accounts/confirm/%s' % (user.username, new_profile.activation_key)
+    email_body = u'你好, %s, 感谢你注册Pklover的账户!\n\n请在48小时内点击下面的链接，以激活你的账户(如果不能点击，请手动复制地址到浏览器的地址栏访问):\n\nhttp://pk7lover.com/accounts/confirm/%s' % (user.username, new_profile.activation_key)
     send_mail(email_subject,
               email_body,
               'shell0fly@gmail.com',
