@@ -84,7 +84,7 @@
    {% if OTHER %}
    <div id="person" class="span4 pull-right">
      <h5>作者</h5>
-     <img src="{% gravatar_url user.email 24 %}">
+     <img src="{% gravatar_url people.email 24 %}">
      <a href="{% url 7people people.username %}">
        {% firstof people.first_name people.username %}
      </a>
