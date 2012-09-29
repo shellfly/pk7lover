@@ -42,7 +42,11 @@ a:hover{text-decoration:none}
     
 }
 .feature:hover{
+    
     background:#EFEFEF;
+}
+.feature{
+    padding: 0 10px 3px; margin: 0 0 20px;
 }
 
 .7photo-box{
@@ -95,3 +99,4 @@ a:hover{text-decoration:none}
 .commentinfo{
     background:#E9F4E9;
 }
+

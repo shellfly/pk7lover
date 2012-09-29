@@ -89,7 +89,7 @@
     {% if user.is_authenticated %}
     {% if neighbour and neighbour_off %}
     <small class="muted common">
-    <a href="{% url accounts_eyeon people.username %}?next={% url 7show photo.id%}">加关注</a></small>
+    <a href="{% url 7eyeon people.username %}?next={% url 7show photo.id%}">加关注</a></small>
     {% endif %}
     {% endif %}
   </div>

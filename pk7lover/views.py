@@ -16,10 +16,10 @@ from activity.models import Activity
 import random
 
 def home(request):
+
     if not request.user.is_authenticated():
         return render_to_response('stranger.html',RequestContext(request))
-    
-    
+
     #actives are User object,distinct(fieldname) only available in
     #postgresql,so mannul...
     acs = B_Photo.objects.order_by('-pub_date')
