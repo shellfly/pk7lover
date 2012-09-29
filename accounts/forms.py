@@ -45,7 +45,7 @@ class ProfileFrom(forms.Form):
     nickname = forms.CharField(label=_("Nickname"),
                                max_length=7,
                                help_text='设置后可代替用户名在小7上显示',required=False)
-    email = forms.EmailField(label=_("Email"),help_text="用于登陆或者密码重置")
+    email = forms.EmailField(label=_("Email"),help_text="用于密码重置")
     desc = forms.CharField(label=_("personal"),
                            help_text="设置后会在头像旁边显示",
                            required=False,

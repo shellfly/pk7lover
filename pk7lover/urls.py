@@ -16,7 +16,8 @@ urlpatterns = patterns('',
                        url(r'^broadcast/',include('broadcast.urls')),
                        url(r'^activity/',include('activity.urls')),
                        url(r'^browse/$',direct_to_template,{'template':'browse.html'}),
-                       url(r'^$','pk7lover.views.home',name='home'),                   
+                       url(r'^$','pk7lover.views.home',name='home'),  
+                       url(r'^', include('social_auth.urls')),
 )
 
 urlpatterns += patterns('',

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{# basic.html ,be extended for auth users #}
 
 {% block 7header_info %}
 {%if user.is_authenticated %}
@@ -32,6 +31,9 @@
     <li style="display:inline" ><i class="icon-user"></i><a href = "/accounts/login/">登录</li>
     <li style="display:inline"><i class="icon-heart"></i><a href="/accounts/signup">注册</a></li>
   </ul>
+<div class="social pull-right">
+  <a href="{% url socialauth_begin 'douban2' %}">
+    <img src="{{STATIC_URL}}douban.png"></a> </div>
 
 {% endif %}
 {% endblock 7header_info %}
