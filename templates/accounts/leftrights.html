@@ -1,0 +1,47 @@
+{% extends 'basic.html' %}
+{% load gravatar %}
+{% block content %}
+<h4>
+{% if friend_type == 'left' %}
+  {% if OTHER %}{%firstof people.first_name people.username%}{%else%}你{%endif%}关注的人
+{% else %}
+  关注{% if OTHER %}{%firstof people.first_name people.username%}{%else%}你{%endif%}的人
+{% endif %}
+</h4>
+
+<div class="row nav">
+</div>
+
+<div class="7photo-boxs row">
+  {% for f in friends %}
+    <div class="span2 7photo-box person">
+      <div class="7photo-image img-polaroid" style="border:1px solid #DDD">
+          <a href="{% url 7people f.friend.username%}">
+          <img src="{% gravatar_url f.friend.email 128 %}" /></a>
+        </div>
+        <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
+          <small class="muted">{{f.friend.personal.desc|linebreaks}}</small>
+        </div>
+    </div>
+ {% endfor %}
+</div>
+
+ {% if friends.paginator.num_pages > 1%}
+    <div class="pagination">
+      <span class="step-links">
+        {% if friends.has_previous %}
+            <a href="?p={{ friends.previous_page_number }}">prev</a>
+        {% endif %}
+            
+        <span class="current">
+            Page {{ friends.number }} of {{ friends.paginator.num_pages }}.
+        </span>
+
+        {% if friends.has_next %}
+            <a href="?p={{ friends.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+  </div>
+  {% endif %}
+
+{% endblock content%}
