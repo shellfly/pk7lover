@@ -25,4 +25,3 @@ class Personal(models.Model):
     user = models.OneToOneField(User)
     desc = models.TextField(default="")
     tags = models.CharField(default="",max_length=255)
-    
