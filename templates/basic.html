@@ -31,9 +31,6 @@
     <li style="display:inline" ><i class="icon-user"></i><a href = "/accounts/login/">登录</li>
     <li style="display:inline"><i class="icon-heart"></i><a href="/accounts/signup">注册</a></li>
   </ul>
-<div class="social pull-right">
-  <a href="{% url socialauth_begin 'douban2' %}">
-    <img src="{{STATIC_URL}}douban.png"></a> </div>
 
 {% endif %}
 {% endblock 7header_info %}
@@ -84,6 +81,6 @@
     </li>
   </ul>
 {% else %}
-<p></p>
+<p</p>
 {% endif %}
 {% endblock 7header_nav %}

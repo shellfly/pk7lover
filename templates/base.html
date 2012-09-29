@@ -35,7 +35,6 @@
 <body>
 <!-- BEGIN container -->
 {% load gravatar %}
-{% load url from future %}
 {% load mytime %}
 {% current_time "%H" as 7hour %}
 {% current_time "%M" as 7minute%}
@@ -71,7 +70,10 @@
  
   <footer>
     <hr />
-    <span id="copy">&copy pk7lover 2012</span>
+    <div  class="copy pull-left">&copy pk7lover 2012</div>
+    <div class="social pull-right">
+  <a href="{% url socialauth_begin 'douban2' %}">
+    <img src="{{STATIC_URL}}douban.png"></a> </div>
   </footer>
    
 </div>
