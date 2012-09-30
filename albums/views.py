@@ -18,6 +18,15 @@ import os
 import random
 from PIL import Image
 
+def has_perm(group,perm):
+    if group == 0 and perm > 0:
+        return False
+    elif group == 1 and perm not in [0,3,7]:
+        return False
+    elif group == 2 and perm not in [0,5,7]:
+        return False
+    return True
+
 @login_required
 def create(request):
     form = CreateAlbum(initial={'permission':'0'})
@@ -35,22 +44,27 @@ def create(request):
             return HttpResponseRedirect(reverse('7single_album',args=[gallery.id]))
     
     return render_to_response('albums/create.html',RequestContext(request,{'form':form}))
-
-    
+  
 
 def show_photo(request,id):
     photo = get_object_or_404(Photo,id=id)
     album = photo.gallery
     people = album.user
     
-    OTHER = False 
+    OTHER,perm = False,True 
     if not request.user.is_authenticated() or people.id != request.user.id:
         OTHER = True
-
-    if album.perm != 0 and request.user.id != album.user_id:
+        try:
+            lr =  people.circle.leftright_set.get(friend=request.user,friend_type="left")
+        except:
+            pass
+        else:
+            perm = has_perm(lr.group,album.perm)
+                
+    if OTHER and not perm:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
-                                  RequestContext(request))
+                                  RequestContext(request,locals())) 
 
     p,n = photo.index-1,photo.index+1
     if p < 1:
@@ -208,17 +222,23 @@ def album(request,album_id):
     people = gallery.user
     albums = Gallery.objects.filter(user_id=people.id)
     #OTHER is used in template,for identify 
-    OTHER = False 
+    OTHER,perm = False,True 
     if not request.user.is_authenticated() or request.user.id != people.id:
         OTHER = True   
-
-    page = 1 if not 'p' in request.GET  else int(request.GET['p'])
-
-    if gallery.perm != 0 and OTHER:
+        try:
+            lr =  people.circle.leftright_set.get(friend=request.user,friend_type="left")
+        except:
+            pass
+        else:
+            perm = has_perm(lr.group,gallery.perm)
+                
+    
+    if OTHER and not perm:
         return render_to_response('albums/album.html',
                                   {'perm_err':True},
                                   RequestContext(request,locals())) 
 
+    page = 1 if not 'p' in request.GET  else int(request.GET['p'])
     sum_pages = Photo.objects.filter(gallery_id=album_id).count() / 31
     pp,np = page-1,page+1
     photos = Photo.objects.filter(gallery_id=album_id)[(page-1)*30:page*30] #(page-1)*30:(page-1)*30+30
