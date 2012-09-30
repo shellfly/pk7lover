@@ -115,7 +115,7 @@
     <ul class="unstyled">
           {% for author in authors %}
           <li>
-            <div class="span1 7minigravatar common">
+            <div class="span1 7minigravatar common" >
               <img src="{% gravatar_url author.email %}" /><br />
                <a href="{% url 7people author.username %}">
               {% firstof author.first_name author.username %}</a>

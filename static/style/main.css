@@ -78,6 +78,8 @@ a:hover{text-decoration:none}
 }
 
 .7minigravatar{
+    word-break:break-all;
+    word-wrap:break-word;
     width:48px;
     margin-left:10px;
 }

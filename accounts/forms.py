@@ -43,7 +43,7 @@ class SignupForm(UserCreationForm):
         
 class ProfileFrom(forms.Form):
     nickname = forms.CharField(label=_("Nickname"),
-                               max_length=7,
+                               max_length=10,
                                help_text='设置后可代替用户名在小7上显示',required=False)
     email = forms.EmailField(label=_("Email"),help_text="用于密码重置")
     desc = forms.CharField(label=_("personal"),
