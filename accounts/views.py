@@ -30,7 +30,7 @@ def leftrights(request,username,friend_type="left"):
     people = get_object_or_404(User,username=username)
     circle = Circle.objects.get_or_create(user=people)[0]
     friends = circle.leftright_set.filter(friend_type=friend_type)
-    paginator = Paginator(friends,42)
+    paginator = Paginator(friends,20)
     page = request.GET.get('p')
     try:
         friends = paginator.page(page)

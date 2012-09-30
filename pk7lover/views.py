@@ -31,8 +31,13 @@ def home(request):
                 break #only show the first 12 people
 
     circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
-    friends = circle.leftright_set.all().order_by('?')[:9]
-    neighbours = [f.friend for f in friends]
+    friends = circle.leftright_set.all().order_by('?')[:100]
+    neighbours =[]
+    for f in friends:
+        if not f.friend in neighbours:
+            neighbours.append(f.friend)
+            if len(neighbours) >= 9:
+                break
           
     # all my left-friends and i 
     lfs = circle.leftright_set.filter(friend_type='left')

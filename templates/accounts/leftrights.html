@@ -20,7 +20,8 @@
           <img src="{% gravatar_url f.friend.email 128 %}" /></a>
         </div>
         <div class="7photo-desc" style="padding:5px 4px 0px;border:1px solid #DDD" >
-          <small class="muted">{{f.friend.personal.desc|linebreaks}}</small>
+        <small class="muted">{%firstof f.friend.first_name f.friend.username%}
+        <br />{{f.friend.personal.desc|linebreaks}}</small>
         </div>
     </div>
  {% endfor %}
