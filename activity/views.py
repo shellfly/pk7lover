@@ -160,7 +160,7 @@ def deletework(request,id):
         os.system(cmd)
     photo.delete()
     if index != activity.photo_num:
-        num = gallery.photo_num
+        num = activity.photo_num
         for i in range(index,num+1):
             activity.photograph_set.filter(index=i).update(index=F('index')-1)
 
