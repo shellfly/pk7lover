@@ -7,7 +7,7 @@
       </div>
       <div class="7comment_content pull-left">
         <small class="commentinfo common">
-          <a href="{% url 7people comment.name %}">
+          <a href="{% url 7people comment.user.username %}">
             {% firstof comment.user.first_name comment.user.username%}
             </a> {{ comment.submit_date|date:"Y-m-d H:i:s" }}
         </small>
