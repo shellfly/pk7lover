@@ -1,7 +1,7 @@
 {% extends 'basic.html' %}
 {% block content %}
   {% if success %}
-    <h4>账户激成功</h4>
+    <h4>账户激活成功</h4>
     <p class="common">
       现在你可以正常访问小7了..<a href="{% url 7login%}">立即登陆</a></p>
     {% elif has_account %}
