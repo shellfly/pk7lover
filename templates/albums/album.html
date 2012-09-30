@@ -34,22 +34,21 @@
         </div>
         
         <div class="control-group">
-          <label class="control-label">权限:</label>
+          <label class="control-label">查看权限:</label>
           <div class="controls">
-            
             <input type="radio"  value="1" name="public" 
                    {% if gallery.perm >= 1 %}
                      checked="checked"
                    {%endif%}>仅自己
 
                    <br />
-            <span>&nbsp;&nbsp;<span><input type="checkbox" id="friend" value="2"
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;<span><input type="checkbox" id="friend" value="2"
                    name="friend" 
                    {% if gallery.perm == 3 or gallery.perm == 7 %}
                      checked="checked" 
                  {%endif%} onclick="select_radio(1)">朋友可见
                  <br />
-            <span>&nbsp;&nbsp;<span><input type="checkbox" id="family" value="4"
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;<span><input type="checkbox" id="family" value="4"
                    name="family" 
                    {% if gallery.perm == 5 or gallery.perm == 7 %}
                      checked="checked" 
@@ -60,9 +59,6 @@
                      checked="checked" 
                    {% endif %} onclick="select_radio(0)">公开
           </div>
-        </div>
-        
-        <div class="control-group">
           <label class="control-label">不允许评论:</label>
           <div class="controls">
             <input type="checkbox" name="comment" value="no"
@@ -70,7 +66,6 @@
                    {% if not gallery.comment %}checked="checked}" {%endif%}>
           </div>
         </div>
-        
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>

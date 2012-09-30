@@ -14,7 +14,7 @@
 
  <div class="7photowin span7">
    <div class="7photonav row">
-     <div class="pull-left">
+     <div class="pull-left btn-group">
        <a href = "{% url 7single_album  album.id %}">
        <button class="btn btn-mini">
        返回相册
@@ -28,7 +28,7 @@
      </div>
       <small class="pull-left">({{photo.index}}/{{album.photo_num}})</small>
 
-     <div class=" pull-right">
+     <div class=" pull-right btn-group">
         <a href = "{% url 7single_photo pp.id %}">
         <button class="btn btn-mini">
         <i class="icon-arrow-left"></i>前一张
