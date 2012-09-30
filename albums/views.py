@@ -182,18 +182,18 @@ def property(request,album_id):
     if request.user.id != gallery.user.id:
         raise Http404()
     
-    if 'comment' in request.POST and request.POST['comment'] == 'no':
+    name = request.POST.get('name','')
+    comm = request.POST.get('comment',True)
+    if comm == 'no':
         comm = False
-    else:
-        comm = True
-
-    if request.POST.has_key('permission'):
-        perm = int(request.POST['permission'])
-    else:
+    public = request.POST.get('public',0)
+    friend = request.POST.get('friend',0)
+    family = request.POST.get('family',0)
+    try:
+        perm = int(public)+int(friend) + int(family)
+    except:
         perm = 0
 
-    if request.POST.has_key('name'):
-        name = request.POST['name']
     gallery.name = name
     gallery.comment = comm
     gallery.perm = perm

@@ -38,15 +38,13 @@ a:hover{text-decoration:none}
     width:78%;
 }
 .feature{
+    padding: 0 10px 3px; margin: 0 0 20px;
     background:#F7F7F7;
     
 }
 .feature:hover{
-    width:
+   
     background:#EFEFEF;
-}
-.feature{
-    padding: 0 10px 3px; margin: 0 0 20px;
 }
 
 .7photo-box{
