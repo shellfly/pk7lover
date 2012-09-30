@@ -178,6 +178,7 @@ LOGGING = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'social_auth.backends.contrib.douban.DoubanBackend2',
+    'social_auth.backends.contrib.weibo.WeiboBackend',
     )
 
 DOUBAN2_CONSUMER_KEY = '0a2d72534ed7a1e61e8856f9ec86e5b2'

@@ -71,10 +71,12 @@
   <footer>
     <hr />
     <div  class="copy pull-left">&copy pk7lover 2012</div>
-    <div class="social pull-right">
 {% if not user.is_authenticated%}
-  <a href="{% url socialauth_begin 'douban2' %}">
-    <img src="{{STATIC_URL}}douban.png"></a> </div>
+    <div class="social pull-right">
+      <a href="{% url socialauth_begin 'douban2' %}">
+        <img src="{{STATIC_URL}}douban2.png" /></a>
+        <a href="{% url socialauth_begin 'weibo'%}"><img src="{{STATIC_URL}}weibo.png" /></a>
+      </div>
 {% endif %}
   </footer>
    
