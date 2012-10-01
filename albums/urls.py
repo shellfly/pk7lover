@@ -10,6 +10,7 @@ urlpatterns = patterns('albums.views',
                        url(r'^(?P<album_id>\d+)/edit/$','edit',name='7edit_photo'),
                        url(r'^(?P<album_id>\d+)/property/$','property',name='7property_album'),
                        url(r'^(?P<album_id>\d+)/slide/$','slide',name='7slide'),
+                       url(r'^(?P<album_id>\d+)/slide/(?P<index>\d+)$','slide',name='7slideindex'),
                        url(r'^(?P<album_id>\d+)/$','album',name='7single_album'),
                        url(r'^(?P<username>\w+)/$','albums',name='7albums'),                      
 )

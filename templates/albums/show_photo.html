@@ -34,9 +34,8 @@
         <i class="icon-arrow-left"></i>前一张
        </button> </a>
         
-       <a href="#">
-       <button class="btn btn-mini">
-        <a href="{% url 7slide album.id%}"> <i class="icon-resize-full"></i></a>
+     <a href="{% url 7slideindex album.id photo.index%}"> 
+       <button class="btn btn-mini"><i class="icon-resize-full"></i>
        </button></a>
        
        <a href = "{% url 7single_photo np.id %}">

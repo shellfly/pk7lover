@@ -216,10 +216,12 @@ def property(request,album_id):
 
     return HttpResponseRedirect(reverse('7single_album',args=[id]))
 
-def slide(request,album_id):
+def slide(request,album_id,index=0):
     gallery = get_object_or_404(Gallery,id=album_id)
     photos = gallery.photo_set.all()
-    print photos
+    index = int(index)-1
+
+    photos = photos[index:len(photos)] + photos[0:index]
     return render_to_response('albums/slide.html',RequestContext(request,locals()))
                 
 @csrf_exempt
