@@ -1,5 +1,7 @@
 {% extends 'basic.html' %}
-
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}uploadify/uploadify.css" />
+{% endblock customcss%}
 {% block content %}
 {% load upload_tags %}
 <div class="row">

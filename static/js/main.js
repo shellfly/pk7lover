@@ -22,23 +22,6 @@ $(function() {
     });
 });
 
-$(function(){
-    $('.vDateField').datePicker().val(new Date().asString()).trigger('change');
-})
-
-
-
-$(function(){
-    var $photoboxs = $('.7photo-boxs')
-    $photoboxs.imagesLoaded(function(){
-        $photoboxs.masonry({
-            itemSelector : '.7photo-box',
-            columnWidth : 10,
-            isAnimated: true,
-        });
-    });
-});
-
 
 
  

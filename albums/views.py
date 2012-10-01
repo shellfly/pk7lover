@@ -218,7 +218,6 @@ def property(request,album_id):
 
 def slide(request,album_id):
     gallery = get_object_or_404(Gallery,id=album_id)
-    people = gallery.user
     photos = gallery.photo_set.all()
     print photos
     return render_to_response('albums/slide.html',RequestContext(request,locals()))

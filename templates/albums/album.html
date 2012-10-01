@@ -1,4 +1,24 @@
 {% extends 'basic.html' %}
+
+{% block customjs%}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.imagesloaded.min.js"></script>
+
+<script>
+$(function(){
+    var $photoboxs = $('.7photo-boxs')
+    $photoboxs.imagesLoaded(function(){
+        $photoboxs.masonry({
+            itemSelector : '.7photo-box',
+            columnWidth : 10,
+            isAnimated: true,
+        });
+    });
+});
+
+</script>
+{% endblock customjs%}
+
 {% block content %}
   {% if perm_err %}
     <small class="error_msg common">
@@ -108,7 +128,10 @@
     <div class="pull-right">
      
       <p class="muted">
-        <a href="{% url 7slide gallery.id%}"><button id="slide"class="btn">幻灯</button></a>
+        <a href="{% url 7slide gallery.id%}">
+        <button id="slide"class="btn btn-small">
+        <i class="icon-resize-full"></i>打开幻灯片</button>
+        </a>
         <strong>{{gallery.name}}</strong> 
       <small class="common">
         {% if OTHER %}

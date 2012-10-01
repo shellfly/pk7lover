@@ -1,9 +1,32 @@
 {% extends 'basic.html'%}
+
+{% block customjs%}
+ <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.imagesloaded.min.js"></script>
+<script>
+$(function(){
+    var $photoboxs = $('.7photo-boxs')
+    $photoboxs.imagesLoaded(function(){
+        $photoboxs.masonry({
+            itemSelector : '.7photo-box',
+            columnWidth : 10,
+            isAnimated: true,
+        });
+    });
+});
+</script>
+{% endblock customjs%}
+
+
 {% block content %}
 <div class="row">
-  <span class="span2 common"><a href = "{% url 7activity  activity.id%}">回活动首页</a></span>
+  <span class="pull-left common">
+    <a href = "{% url 7activity activity.id%}">
+      <button class="btn btn-small">回活动首页</button></a>
+     
+</span>
 </div>
-
+<div><p>&nbsp;</p></div>
   <div class="7photo-boxs">
      {% for photo in photos %}
           <div class="span2 7photo-box" style="margin-bottom:7px;background: #F2F0F0;">

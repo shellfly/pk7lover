@@ -1,4 +1,18 @@
 {% extends 'basic.html' %}
+{% block customcss %}
+  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}style/datePicker.css" />
+{% endblock customcss%}
+
+{% block customjs %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/date.js"></script> 
+<script type="text/javascript" src="{{ STATIC_URL}}js/jquery.datePicker.js"></script>
+<script>
+$(function(){
+    $('.vDateField').datePicker().val(new Date().asString()).trigger('change');
+})
+</script>
+{% endblock customjs %}
+
 {% block title %}
 {{title}}
 {% endblock %}
