@@ -143,6 +143,7 @@ def upload(request,album_id=0):
     photo = Photo.objects.create(
         gallery_id=id,
         index = index,
+        uname=ufile.name,
         name = filename,
         path = filepath,
         thumb128 = thumbpath,
@@ -215,6 +216,13 @@ def property(request,album_id):
 
     return HttpResponseRedirect(reverse('7single_album',args=[id]))
 
+def slide(request,album_id):
+    gallery = get_object_or_404(Gallery,id=album_id)
+    people = gallery.user
+    photos = gallery.photo_set.all()
+    print photos
+    return render_to_response('albums/slide.html',RequestContext(request,locals()))
+                
 @csrf_exempt
 def album(request,album_id):
 

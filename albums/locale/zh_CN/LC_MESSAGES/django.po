@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-23 23:04+0800\n"
+"POT-Creation-Date: 2012-10-01 15:59+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,20 +23,17 @@ msgid "public"
 msgstr "公开"
 
 #: forms.py:5
-msgid "only friend"
-msgstr "仅朋友"
-
-#: forms.py:5
-msgid "only family"
-msgstr "仅家人"
+msgid "private"
+msgstr "私有(朋友和家人可见)"
 
 #: forms.py:8
 msgid "Album name"
 msgstr " 相册名称"
 
-#: forms.py:11 models.py:38
-msgid "permission"
-msgstr "权限"
+#: forms.py:11
+#, fuzzy
+msgid "vpermission"
+msgstr "查看权限"
 
 #: forms.py:13
 msgid "No comment"
@@ -49,6 +46,10 @@ msgstr "相册描述"
 #: models.py:36
 msgid "gallery name"
 msgstr "相册名称"
+
+#: models.py:38
+msgid "permission"
+msgstr "权限"
 
 #: models.py:39
 msgid "allow comment"
@@ -99,13 +100,18 @@ msgid "tags"
 msgstr "标签"
 
 #: models.py:59
-msgid "votes"
-msgstr "投票"
-
-#: models.py:60
 msgid "stars"
 msgstr "喜欢"
 
-#: models.py:61
+#: models.py:60
 msgid "upload date"
 msgstr "上传日期"
+
+#~ msgid "only friend"
+#~ msgstr "仅朋友"
+
+#~ msgid "only family"
+#~ msgstr "仅家人"
+
+#~ msgid "votes"
+#~ msgstr "投票"

@@ -26,6 +26,8 @@ $(function(){
     $('.vDateField').datePicker().val(new Date().asString()).trigger('change');
 })
 
+
+
 $(function(){
     var $photoboxs = $('.7photo-boxs')
     $photoboxs.imagesLoaded(function(){
@@ -37,3 +39,6 @@ $(function(){
     });
 });
 
+
+
+ 

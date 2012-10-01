@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{%block title%}{{gallery.name}}-幻灯{%endblock%}
+{%block customcss%}		
+  <link rel="stylesheet" href="{{STATIC_URL}}style/supersized.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="{{STATIC_URL}}style/supersized.shutter.css" type="text/css" media="screen" />
+{% endblock customcss %}
+
+{%block customjs%}
+  <script type="text/javascript" src="{{STATIC_URL}}js/supersized/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/supersized/supersized.3.2.7.min.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/supersized/supersized.shutter.min.js"></script>
+  <script type="text/javascript">
+			
+			jQuery(function($){
+				
+				$.supersized({
+				
+					// Functionality
+					slide_interval          :   3000,		// Length between transitions
+					transition              :   3, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+					transition_speed		:	700,		// Speed of transition
+															   
+					// Components							
+					slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+					slides 					:  	[			// Slideshow Images
+                        {% for photo in photos%}
+                        {image:'http://localhost:8000{{MEDIA_URL}}{{photo.path}}',title:'{{photo.uname}}',thumb:'http://localhost:8000{{MEDIA_URL}}{{photo.thumb128}}',
+                        url:'{% url 7single_photo photo.id%}'},
+                        {% endfor %}
+												]
+						});
+		    });
+		    
+		</script>
+
+<style type="text/css">
+		ul#demo-block{ margin:0 15px 15px 15px; }
+			ul#demo-block li{ margin:0 0 10px 0; padding:10px; display:inline; float:left; clear:both; color:#aaa; background:url('img/bg-black.png'); font:11px Helvetica, Arial, sans-serif; }
+			ul#demo-block li a{ color:#eee; font-weight:bold; }
+	</style>
+
+{% endblock customjs%}		
+	
+{%block content%}
+	<ul id="demo-block">
+	
+	</ul>
+	
+	<!--End of styles-->
+
+	<!--Thumbnail Navigation-->
+	<div id="prevthumb"></div>
+	<div id="nextthumb"></div>
+	
+	<!--Arrow Navigation-->
+	<a id="prevslide" class="load-item"></a>
+	<a id="nextslide" class="load-item"></a>
+	
+	<div id="thumb-tray" class="load-item">
+		<div id="thumb-back"></div>
+		<div id="thumb-forward"></div>
+	</div>
+	
+	<!--Time Bar-->
+	<div id="progress-back" class="load-item">
+		<div id="progress-bar"></div>
+	</div>
+	
+	<!--Control Bar-->
+	<div id="controls-wrapper" class="load-item">
+		<div id="controls">
+			
+			<a id="play-button"><img id="pauseplay" src="{{STATIC_URL}}img/supersized/pause.png"/></a>
+		
+			<!--Slide counter-->
+			<div id="slidecounter">
+				<span class="slidenumber"></span> / <span class="totalslides"></span>
+			</div>
+			
+			<!--Slide captions displayed here-->
+			<div id="slidecaption"></div>
+			
+			<!--Thumb Tray button-->
+			<a id="tray-button"><img id="tray-arrow" src="{{STATIC_URL}}img/supersized/button-tray-up.png"/></a>
+			
+			<!--Navigation-->
+			<ul id="slide-list"></ul>
+			
+		</div>
+	</div>
+{% endblock %}
+{% block footer %}
+{% endblock footer %}

@@ -106,6 +106,7 @@
     </div>
 
     <div class="pull-right">
+      <a href="{% url 7slide gallery.id%}"><button id="slide"class="btn">幻灯</button></a>
       <p class="muted"><strong>{{gallery.name}}</strong> 
       <small class="common">
         {% if OTHER %}
@@ -192,6 +193,7 @@
     });
     });
     });
+    
   </script>
 
 {% endif %}

@@ -27,7 +27,10 @@
   <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/date.js"></script>                                
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.datePicker.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL}}js/main.js"></script>
+
+  {% block customcss%}{% endblock%}
+  {% block customjs%}{% endblock %}
   <title>{% block title %} Pk7lover {% endblock %}</title>
 </head>
 <!-- END html head -->
@@ -67,7 +70,8 @@
     {% block content %} 
     {% endblock content%}
   </div>
- 
+
+ {% block footer %}
   <footer>
     <hr />
     <div  class="copy pull-left">&copy pk7lover 2012 
@@ -85,6 +89,7 @@
       </div>
 {% endif %}
   </footer>
+{% endblock footer %}
    <div class="blank"><p>&nbsp;<br />&nbsp;<br />&nbsp;<br /></p></div>
 </div>
 <!-- END wrapper -->

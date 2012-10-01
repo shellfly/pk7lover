@@ -48,6 +48,7 @@ class Gallery(models.Model):
 class Photo(models.Model):
     gallery = models.ForeignKey(Gallery)
     index = models.IntegerField()
+    uname = models.CharField(_('photo name'),max_length=64,default="")
     name = models.CharField(_('photo name'),max_length=64)
     path = models.CharField(_('photo path'),max_length=225)
     thumb128 = models.CharField(_('thumbnail'),max_length=225)
