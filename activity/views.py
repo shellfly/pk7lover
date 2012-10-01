@@ -184,7 +184,7 @@ def show(request,id):
     if activity.end_date < timezone.now().date():
         exceed = True
 
-    if people.id != request.user.id:
+    if request.user.is_authenticated() and people.id != request.user.id:
         neighbour = 1
         #if people not in my circle's left friend,eyeon him
         my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]

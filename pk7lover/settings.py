@@ -179,6 +179,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'social_auth.backends.contrib.douban.DoubanBackend2',
     'social_auth.backends.contrib.weibo.WeiboBackend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
     )
 
 DOUBAN2_CONSUMER_KEY = '0a2d72534ed7a1e61e8856f9ec86e5b2'
@@ -186,3 +187,6 @@ DOUBAN2_CONSUMER_SECRET = 'f5d877b8d74e3046'
 
 WEIBO_CLIENT_KEY = '2080333013'
 WEIBO_CLIENT_SECRET = '3e5cd2e09ef071209198e92c99fa2fd93e5cd2e09ef071209198e92c99fa2fd9'
+
+GOOGLE_OAUTH2_CLIENT_ID = '239821497865.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'qsW20v4hhCu_jQHcKnkLkSKP'

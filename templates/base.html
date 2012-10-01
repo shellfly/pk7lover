@@ -73,7 +73,9 @@
   <footer>
     <hr />
     <div  class="copy pull-left">&copy pk7lover 2012 
-    <small class="common"><a href="{{site_name}}/browse/#about">关于</a></small></div>
+    <small class="common"><a href="{{site_name}}/browse/#about">关于
+    </a></small></div>
+    
 {% if not user.is_authenticated and not index %}
     <div class="social pull-right">
       <small class=" common">豆瓣和微博登陆正在审核中，如果不能正常登陆，
@@ -84,6 +86,9 @@
       <a href="{% url socialauth_begin 'weibo'%}">
         <img src="{{STATIC_URL}}weibo.png" />
       </a>
+      <a href="{% url socialauth_begin 'google-oauth2'%}">
+        <img src="{{STATIC_URL}}google.png" />
+        </a>
       </div>
 {% endif %}
   </footer>
