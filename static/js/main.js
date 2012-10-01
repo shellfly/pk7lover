@@ -13,7 +13,7 @@ $(function(){
 
     $('#id_username').focus();
     $('.helptext').addClass('muted');
-    $('.7minigravatar').css({'width':'48px','margin':'0px 6px 10px 6px','word-break':'break-all', 'word-wrap':'break-word'}) 
+    $('.7minigravatar').css({'width':'48px','height':'80px','margin':'0px 6px 0px','word-break':'break-all', 'word-wrap':'break-word'}) 
 });
 
 $(function() {
