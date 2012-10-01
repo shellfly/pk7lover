@@ -199,12 +199,13 @@ def people(request,username):
         neighbour = 1
         
         #if people not in my circle's left friend,eyeon him
-        my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
-        try:
-            lr = my_circle.leftright_set.get(friend=people,friend_type="left")
-            print lr.group
-        except:
-            neighbour_off = 1
+        if request.user.is_authenticated():
+            my_circle = Circle.objects.get_or_create(user_id=request.user.id)[0]
+            try:
+                lr = my_circle.leftright_set.get(friend=people,friend_type="left")
+                print lr.group
+            except:
+                neighbour_off = 1
     try:
         circle = Circle.objects.get(user_id=people.id)
     except:
