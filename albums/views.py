@@ -216,7 +216,7 @@ def property(request,album_id):
 
     return HttpResponseRedirect(reverse('7single_album',args=[id]))
 
-def slide(request,album_id,index=0):
+def slide(request,album_id,index=1):
     gallery = get_object_or_404(Gallery,id=album_id)
     photos = gallery.photo_set.all()
     index = int(index)-1
