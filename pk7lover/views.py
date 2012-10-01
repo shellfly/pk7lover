@@ -18,7 +18,9 @@ import random
 def home(request):
 
     if not request.user.is_authenticated():
-        return render_to_response('stranger.html',RequestContext(request))
+        photos = Photo.objects.all().order_by('?')[:7]
+        index = True
+        return render_to_response('stranger.html',RequestContext(request,locals()))
 
     #actives are User object,distinct(fieldname) only available in
     #postgresql,so mannul...

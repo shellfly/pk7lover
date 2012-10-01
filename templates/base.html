@@ -70,8 +70,9 @@
  
   <footer>
     <hr />
-    <div  class="copy pull-left">&copy pk7lover 2012</div>
-{% if not user.is_authenticated%}
+    <div  class="copy pull-left">&copy pk7lover 2012 
+    <small class="common"><a href="http://pk7lover.com/browse/#about">关于</a></small></div>
+{% if not user.is_authenticated and not index %}
     <div class="social pull-right">
       <small class=" common">豆瓣和微博登陆正在审核中，如果不能正常登陆，
       请先<a href="{% url 7singup%}">注册</a></small>
@@ -84,7 +85,7 @@
       </div>
 {% endif %}
   </footer>
-   
+   <div class="blank"><p>&nbsp;<br />&nbsp;<br />&nbsp;<br /></p></div>
 </div>
 <!-- END wrapper -->
 

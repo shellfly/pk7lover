@@ -13,24 +13,64 @@
   <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
 
-  <div class="feature span5 offset1">
-    
+  <div class="feature span5" style="width:440px"> 
     <h4>社区</h4>
     <p ><strong>快乐和朋友,家人分享</strong></p>
-    <p>跟n个人分享你的快乐，你就能得到2<sup>n</sup>个快乐</p>
+    <p>关注生活中的朋友，和家人分享快乐</p>
    
   </div>    
   
-  <div class="feature span5 offset5">
-    <h4>上传</h4>
-    <p><strong>随时随地，即拍即传</strong></p>
-    <p>一部<abbr title="敬请期待">手机</abbr>或者一台电脑，任何你喜欢的方式，保留最美的瞬间</p>
+  <div class="feature span6">
+    <h4>活动</h4>
+    
+    <p><strong>上传作品,共同参与</strong></p>
+    <p>用你最得意的作品，赢得别人的赞美</p>
   </div>
-  
-  <div class="feature span5 offset2">
+
+  <div class="row show">
+    <div class="span2"><img src="{{STATIC_URL}}images/si.png"></div>  
+
+    <div class="span2"><img src="{{STATIC_URL}}images/five.png"></div>  
+
+    <div class=" pull-right">
+    {% for photo in photos %}
+      <div class="span1">
+        <a href="{% url 7single_photo photo.id %}">
+      <img src="{{MEDIA_URL}}{{photo.square}}" />
+      </a>
+      </div>
+      {% endfor %}
+  </div>
+  </div>
+
+  <div class="feature span6 ">
     <h4 >发现</h4>
-    <p><strong>拍照,分享,整理,纪念</strong></p>
+    <p><strong>拍照,浏览</strong></p>
     <p>发掘自己喜欢的照片,结识更多有趣的人</p>
   </div>
 
+  <div class="feature span5" style="width:440px">
+    <h4 >分享</h4>
+    <p><strong>分享,纪念</strong></p>
+    <p>跟n个人分享你的快乐，你就能得到2<sup>n</sup>个快乐</p>
+  </div>
+<div class="blank"><p>&nbsp;</p></div>
+  <div class="ul" style="border-bottom:1px dashed #DDD;line-height:100%;clear:both"></div>
+<div id="singup" class="span12" style="margin-top:20px">
+  <div class="span2">
+    <a href="{% url 7singup%}"><button class="btn btn-success">马上加入小7</button></a>
+  </div>
+  <div class="span9">
+      <small class=" common">豆瓣和微博登陆正在审核中，如果不能正常登陆，
+      请先<a href="{% url 7singup%}">注册</a></small>
+      <a href="{% url socialauth_begin 'douban2' %}">
+        <img src="{{STATIC_URL}}douban2.png" />
+      </a>
+      <a href="{% url socialauth_begin 'weibo'%}">
+        <img src="{{STATIC_URL}}weibo.png" />
+      </a>
+      </div>
+</div>
+
+  
 {% endblock content%}
