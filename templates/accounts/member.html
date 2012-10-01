@@ -107,7 +107,7 @@
         <li>
           <div class="span1 7minigravatar common">
             <a href="{% url 7people lf.friend.username %}">
-              <img src="{% gravatar_url lf.friend.email %}" /><br />
+              <img src="{% gravatar_url lf.friend.email 42%}" /><br />
             {% firstof lf.friend.first_name lf.friend.username %}</a>
           </div>
         </li>

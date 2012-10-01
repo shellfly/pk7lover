@@ -100,35 +100,35 @@
 
 <div class="span3 pull-right">
   <div class="row">
-  <div class="span3 pull-right">
+  
     <h5>发起人</h5>
      <img src="{% gravatar_url activity.author.email 24%}">
      <span class="common"><a href="{% url 7people activity.author.username %}">
        {% firstof activity.author.first_name activity.author.username %}
      </a></span>
   </div>
-  </div>
 
   <div class="row">
-  <div class="span3 pull-right">
+  
     <h5>活动参与者</h5>
     <ul class="unstyled">
           {% for author in authors %}
           <li>
-            <div class="span1 7minigravatar common" >
+            <div class="span1 7minigravatar">
               <img src="{% gravatar_url author.email %}" /><br />
-               <a href="{% url 7people author.username %}">
-              {% firstof author.first_name author.username %}</a>
+              <small class="common">
+                <a href="{% url 7people author.username %}">
+                  {% firstof author.first_name author.username %}</a></small>
             </div>
           </li>
         {% endfor %}
         </ul>
-  </div>
+  
   </div>
 
    
     <div class="row">
-      <div class="span3 pull-right ">
+      
       <h5>我要参加</h5>
       {% if exceed %}
         <small class="common">
@@ -156,7 +156,7 @@
           还没有账号?<a href="{% url 7singup%}">加入小7</a></p>
         {% endif %}
       {%endif%}
-      </div>
+     
     </div>
 </div>
 
