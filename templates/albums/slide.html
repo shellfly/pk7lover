@@ -24,7 +24,7 @@
 					slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
 					slides 					:  	[			// Slideshow Images
                         {% for photo in photos%}
-                        {image:'http://pk7lover.com{{MEDIA_URL}}{{photo.path}}',title:'{{photo.uname}}',thumb:'http://pk7lover.com{{MEDIA_URL}}{{photo.thumb128}}',
+                        {image:'{{MEDIA_URL}}{{photo.path}}',title:'{{photo.uname}}',thumb:'{{MEDIA_URL}}{{photo.thumb128}}',
                         url:'{% url 7single_photo photo.id%}'},
                         {% endfor %}
 												]
