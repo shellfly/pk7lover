@@ -73,6 +73,8 @@
     <div  class="copy pull-left">&copy pk7lover 2012</div>
 {% if not user.is_authenticated%}
     <div class="social pull-right">
+      <small class=" common">豆瓣和微博登陆正在审核中，如果不能正常登陆，
+      请先<a href="{% url 7singup%}">注册</a></small>
       <a href="{% url socialauth_begin 'douban2' %}">
         <img src="{{STATIC_URL}}douban2.png" />
       </a>
