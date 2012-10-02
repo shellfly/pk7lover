@@ -152,7 +152,7 @@
           {% elif user.is_authenticated %}
           <small>已上传过一个作品到这个活动</small>
         {% else%}
-          <p class="muted">
+          <p class="muted common">
             <a href="{% url 7login %}?next={% url 7activity activity.id%}">登陆</a>后才能参加活动<br />
           还没有账号?<a href="{% url 7singup%}">加入小7</a></p>
         {% endif %}
