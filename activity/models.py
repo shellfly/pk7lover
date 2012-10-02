@@ -2,8 +2,9 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-
 from django.contrib.auth.models import User
+import datetime
+
 from albums.models import Photo
 
 # Create your models here.
@@ -16,6 +17,8 @@ class Activity(models.Model):
     end_date = models.DateField(_('end date'),default=timezone.now)
     tags = models.CharField(_('activity tags'),max_length=64,help_text="请使用最少的准确的标签,用空格隔开")
 
+    def was_published_recently(self):
+        return self.beg_date >= (timezone.now() - datetime.timedelta(days=2)).date()
     def __unicode__(self):
         return self.name
 
@@ -31,6 +34,8 @@ class Photograph(models.Model):
     votes = models.IntegerField(default=1)
     desc = models.CharField(default="",max_length=255)
 
+    def was_published_recently(self):
+        return self.join_date > timezone.now() - datetime.timedelta(days=2)
     def __unicode__(self):
         return self.name
 

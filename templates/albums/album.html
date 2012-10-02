@@ -98,20 +98,31 @@ $(function(){
     <div class="span4 pull-left">
       {% if not OTHER %}
         <div class="btn-group pull-left">
-        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">我的所有相册<span class="caret"></span></button>
+        <button class="btn btn-small dropdown-toggle"
+                data-toggle="dropdown">
+          我的所有相册<span class="caret"></span>
+        </button>
         <ul class="dropdown-menu">
           {% for a in albums%}
             <li><a href="{% url 7single_album a.id%}">{{a.name}}</a></li>
           {% endfor%}
         </ul>
         </div>
-        <a data-toggle="modal" href="#editModal"> <button class="btn btn-small">修改属性</button></a>
-        <a href="{% url 7upload_photo gallery.id %}"><button class="btn btn-small "> 上传照片</button></a>
+        <a data-toggle="modal" href="#editModal"> 
+          <button class="btn btn-small">
+            <i class="icon-wrench"></i>修改属性
+          </button>
+        </a>
+        <a href="{% url 7upload_photo gallery.id %}">
+        <button class="btn btn-small ">
+          <i class="icon-upload"></i>上传照片
+        </button>
+        </a>
        
       {% else %}
         <div class="btn-group pull-left">
           <button class="btn btn-small btn-dropdown-toggle" data-toggle="dropdown">
-            {% firstof people.first_name people.username %}的所有相册
+           {% firstof people.first_name people.username %}的所有相册
             <span class="caret"></span>   
           </button>
           
@@ -128,27 +139,24 @@ $(function(){
     <div class="pull-right">
      
       <p class="muted">
-        <a href="{% url 7slide gallery.id%}">
-        <button id="slide"class="btn btn-small">
-        <i class="icon-resize-full"></i>打开幻灯片</button>
-        </a>
+        <a href="{% url 7slide gallery.id%}"><button class="btn btn-small"><i class="icon-resize-full"></i>打开幻灯片</button></a>
         <strong>{{gallery.name}}</strong> 
-      <small class="common">
-        {% if OTHER %}
-      <a href="{% url 7people people.username %}">
-      {% firstof people.first_name people.username %}
-      </a>
-      {% endif %}创建于{{gallery.create_date|date:'Y-m-d'}} 
-      </small>
-      {% if not OTHER %}
         <small class="common">
-          <a  data-toggle="modal" href="#deleteModal">
-            删除相册
-          </a>
+          {% if OTHER %}
+            <a href="{% url 7people people.username %}">
+              {% firstof people.first_name people.username %}
+            </a>
+            {% endif %}创建于{{gallery.create_date|date:'Y-m-d'}} 
         </small>
-      {% endif %}</small></p>
+        {% if not OTHER %}
+          <small class="common">
+            <a  data-toggle="modal" href="#deleteModal">
+              删除相册
+            </a>
+          </small>
+        {% endif %}</small></p>
+      </div>
     </div>
-  </div>
 
   <div class="7photo-boxs row">
     {% for photo in photos %}

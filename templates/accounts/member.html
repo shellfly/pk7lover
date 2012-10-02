@@ -68,32 +68,33 @@
               <a href="{% url 7eyeon people.username %}">
                 加关注
               </a>
-            {% elif neighbour %}
-            <div class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              {% if lr.group == 0 %}
-              未分组
-              {% elif lr.group == 1%}
-              朋友
-              {% else %}
-              家人
-              {% endif %}
-             <b class="caret"></b> </a>
-              <form class="dropdown-menu" role="menu" aria-labelledby="dLabel" action="{% url 7group people.id %}" method="POST">
-               {%csrf_token%}
-                <input type="checkbox" name="friend" value="1" onclick="this.form.submit()"/>朋友
-                <input type="checkbox" name="family" value="2" onclick="this.form.submit()"/>家人
-              </form>
-            </div>
-            <a href="{% url 7eyeoff people.username %}">取消关注</a></small>
+              {% elif neighbour %}
+              <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  {% if lr.group == 0 %}
+                  未分组
+                  {% elif lr.group == 1%}
+                  朋友
+                  {% else %}
+                  家人
+                  {% endif %}
+                <b class="caret"></b> </a>
+                <form class="dropdown-menu" role="menu" aria-labelledby="dLabel" action="{% url 7group people.id %}" method="POST">
+                  {%csrf_token%}
+                  <input type="checkbox" name="friend" value="1" onclick="this.form.submit()"/>朋友
+                  <input type="checkbox" name="family" value="2" onclick="this.form.submit()"/>家人
+                </form>
+              </div>
+          <a href="{% url 7eyeoff people.username %}">取消关注</a></small>
           {% endif %}
-        {% endif %}
+          {% endif %}
+          </small>
         </div>
        
      </div>
      
      <div class="row person">
-      <small class="muted">
+      <small>
          <br />
         {{people.personal.desc|linebreaks}}
         </small>

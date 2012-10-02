@@ -45,11 +45,10 @@
      </div>
    </div>
 
-   <div class="7photo">
+   <div class="7photo row">
      <a href = "{% url 7single_photo np.id %}">
        <center>
-       <img src="{{MEDIA_URL}}{{ photo.path }}" max-width="530px"
-            class="img-polaroid"/>
+       <img src="{{MEDIA_URL}}{{ photo.path }}" class="img-polaroid" style="max-width:550px""/>
        </center>
      </a>
    </div>

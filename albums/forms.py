@@ -8,7 +8,7 @@ class CreateAlbum(forms.Form):
                            label=_('Album name'))
     permission = forms.ChoiceField(widget = forms.RadioSelect, 
                                    choices=RADIO,
-                                   label=_('vpermission'))
+                                   label=_('permission'))
     comment = forms.CharField(widget=forms.CheckboxInput(attrs={'name':'comment','value':'no'}),
                                label=_('No comment'))
     description = forms.CharField(widget=forms.Textarea(attrs={'cols': 40, 'rows': 7}),

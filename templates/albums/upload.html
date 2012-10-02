@@ -8,14 +8,14 @@
 <div class="span9">
   <div class="7tips row ">
     <div class="7nav">
-      <div class="span2"><a href="
+      <div class="span2 common"><a href="
                     {% if id == 0 %}
                       {% url 7albums user.username %}
                     {% else %}
                       {% url 7single_album id%}
                     {% endif %}">
       -返回相册</a></div>
-      <div class="pull-right"><a href="{% url 7create_album %}" >+创建新相册</a></div>
+      <div class="pull-right common"><a href="{% url 7create_album %}" >+创建新相册</a></div>
     </div>
   </div>
 

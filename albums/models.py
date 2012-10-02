@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from albums.signal import user_modify_gallery,user_delete_photo
 from django.db.models import F
-
+import datetime
 # Create your models here.
 
 def update_last_modified(sender,gallery,**kwargs):
@@ -42,6 +42,8 @@ class Gallery(models.Model):
     create_date = models.DateTimeField(_('date created'),default=timezone.now)
     update_date = models.DateTimeField(_('last updated'),default=timezone.now) 
     
+    def was_created_recently(self):
+        return self.create_date > timezone.now() - datetime.timedelta(days=2)
     def __unicode__(self):
         return self.name
 
@@ -60,5 +62,7 @@ class Photo(models.Model):
     stars = models.IntegerField(_('stars'),default=0)
     upload_date = models.DateTimeField(_('upload date'),default=timezone.now)
     
+    def was_uploaded_recently(self):
+        return self.upload_date > timezone.now() - datetime.timedelta(days=2)
     def __unicode__(self):
         return self.name
