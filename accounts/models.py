@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -8,6 +10,8 @@ class UserProfile(models.Model):
     activation_key = models.CharField(max_length=40)
     key_expires = models.DateTimeField()
 
+    def was_expired(self):
+        return self.key_expires > timezone.now() + datetime.timedelta(days=2)
     def __unicode__(self):
         return self.activation_key
 
