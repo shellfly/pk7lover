@@ -6,7 +6,7 @@
 function photo_edit(){
 pixlr.overlay.show({image:'{{site_name}}{{MEDIA_URL}}{{photo.path}}',
 title:'{{photo.uname}}', service:'express',
-exit:'http://{{site_name}}{% url 7single_photo photo.id%}'});
+exit:'{{site_name}}{% url 7single_photo photo.id%}'});
 }
 </script>
 {% endblock customjs%}
