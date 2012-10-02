@@ -1,4 +1,16 @@
 {% extends 'basic.html' %}
+
+{% block customjs%}
+
+<script>
+function photo_edit(){
+pixlr.overlay.show({image:'http://{{site_name}}{{MEDIA_URL}}{{photo.path}}',
+title:'{{photo.uname}}', service:'express',
+exit:'http://{{site_name}}{% url 7single_photo photo.id%}'});
+}
+</script>
+{% endblock customjs%}
+
 {% block content %}
 {% load gravatar%}
  <div class="modal" id="deleteModal" style="display:none">
@@ -17,13 +29,16 @@
      <div class="pull-left btn-group">
        <a href = "{% url 7single_album  album.id %}">
        <button class="btn btn-mini">
-       返回相册
+       <i class="icon-arrow-up"></i>返回相册
        </button></a>
        {% if not OTHER %}
        <a href = "{% url 7setcover photo.id %}">
          <button class="btn btn-mini">
-           设为封面
+           <i class="icon-share-alt"></i>设为封面
          </button></a>
+
+         <button class="btn btn-mini" onclick="photo_edit()"><i class="icon-picture"></i>编辑照片</button>
+
        {% endif %}
      </div>
       <small class="pull-left">({{photo.index}}/{{album.photo_num}})</small>

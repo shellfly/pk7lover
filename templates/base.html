@@ -24,11 +24,20 @@
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-cookie.js"></script> 
   <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>                               
   <script type="text/javascript" src="{{ STATIC_URL}}js/main.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/pixlr.js"></script>
 {% endblock 7js%}
 
   {% block customcss%}{% endblock%}
   {% block customjs%}{% endblock %}
+<script type="text/javascript">
+if(parent){
+parent.pixlr.overlay.hide();
+}
 
+function start_camera(){
+pixlr.overlay.show({service:'express',exit:'http://pk7lover.com'});
+}
+</script>
   <title>{% block title %} Pk7lover {% endblock %}</title>
 </head>
 <!-- END html head -->
@@ -73,7 +82,7 @@
   <footer>
     <hr />
     <div  class="copy pull-left">&copy pk7lover 2012 
-    <small class="common"><a href="{{site_name}}/browse/#about">关于
+    <small class="common"><a href="/browse/#about">关于
     </a></small></div>
     
 {% if not user.is_authenticated and not index %}

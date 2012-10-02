@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block 7header_info %}
 {%if user.is_authenticated %}
   <ul class="unstyled common">
@@ -22,7 +21,7 @@
       </a>
     </li>
     <li style="display:inline"><i class="icon-envelope"></i> 私信</li>
-    <li style="display:inline"><i class="icon-camera"></i> 拍照</li>
+    <li style="display:inline"><i class="icon-camera"></i><a href="javascript:start_camera()">拍照</a></li>
     <li style="display:inline"><i class="icon-off"></i><a href="/accounts/logout">退出</a></li>   
   </ul>
 {% else %}

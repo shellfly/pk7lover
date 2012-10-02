@@ -69,6 +69,6 @@ def home(request):
         if saying.style == '1': #PhotoSaying object,retrieve some extra information
             num = 7 if saying.num > 7 else saying.num
             photos[saying] = Photo.objects.filter(gallery_id=saying.gallery_id).order_by('-upload_date')[:num]
-    print photos
+
     activities = Activity.objects.filter(end_date__gte=timezone.now()).order_by('-photo_num')[:4]
     return render_to_response('index_photo.html',RequestContext(request,locals()))

@@ -74,6 +74,7 @@ def show_photo(request,id):
     pp = Photo.objects.filter(gallery_id = album.id).get(index=p)
     np = Photo.objects.filter(gallery_id = album.id).get(index=n)
     next = reverse('7single_photo',args=[photo.id])
+    site_name = request.get_host()
     return render_to_response('albums/show_photo.html',
                               locals(),
                               RequestContext(request))

@@ -2,6 +2,7 @@
 import os.path
 import socket
 
+
 if socket.gethostname()=='arch':
     DEBUG = True
 else:
@@ -190,3 +191,5 @@ WEIBO_CLIENT_SECRET = '3e5cd2e09ef071209198e92c99fa2fd93e5cd2e09ef071209198e92c9
 
 GOOGLE_OAUTH2_CLIENT_ID = '239821497865.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET = 'qsW20v4hhCu_jQHcKnkLkSKP'
+
+
