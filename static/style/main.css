@@ -47,6 +47,9 @@ a:hover{text-decoration:none}
    
     background:#EFEFEF;
 }
+.feature a{
+    color:#333;
+}
 
 .7photo-box{
   width: 220px;

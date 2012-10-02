@@ -65,12 +65,14 @@ def activities(request,t=0):
         raise Http404()
 
     news = Activity.objects.all().order_by('-beg_date')[:7]
-    if int(t) == 0:
+    mine = True if not int(t) == 0 else False
+    activities = []
+    if not mine:
         activities = Activity.objects.filter(end_date__gte = timezone.now()).order_by('-photo_num')
-    else:
+
+    if mine and  request.user.is_authenticated():
         phs = Photograph.objects.filter(author=request.user).order_by('-join_date')
         activities = [ph.activity for ph in phs]
-        mine = True
 
     paginator = Paginator(activities,7)
     page = request.GET.get('p')
