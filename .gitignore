@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ignore emacs backup files
 .*#$
 # 忽略临时文件
@@ -10,4 +11,9 @@
 .*
 # # 在上面的规则中加入一条例外，即不要忽略.gitignore文件
 !.gitignore
+local_settings.py
+=======
+*.log
+*.pot
+*.pyc
 local_settings.py
