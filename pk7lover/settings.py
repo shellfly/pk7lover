@@ -2,6 +2,10 @@
 import os.path
 import socket
 
+try:
+    from local_settings import *
+except:
+    pass
 
 if socket.gethostname()=='arch':
     DEBUG = True
@@ -9,13 +13,9 @@ else:
     DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'shell0fly@gmail.com'
-EMAIL_HOST_PASSWORD = 'mzatedbdjgpmykvk'
-EMAIL_USE_TLS = True
 SESSION_SAVE_EVERY_REQUEST=True
+
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -24,16 +24,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'pk7lover',                      # Or path to database file if using sqlite3.
-        'USER': 'adminn_pk7lover',                      # Not used with sqlite3.
-        'PASSWORD': '333666',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -183,13 +173,6 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
     )
 
-DOUBAN2_CONSUMER_KEY = '0a2d72534ed7a1e61e8856f9ec86e5b2'
-DOUBAN2_CONSUMER_SECRET = 'f5d877b8d74e3046'
 
-WEIBO_CLIENT_KEY = '2080333013'
-WEIBO_CLIENT_SECRET = '3e5cd2e09ef071209198e92c99fa2fd93e5cd2e09ef071209198e92c99fa2fd9'
-
-GOOGLE_OAUTH2_CLIENT_ID = '239821497865.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET = 'qsW20v4hhCu_jQHcKnkLkSKP'
 
 

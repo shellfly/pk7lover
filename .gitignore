@@ -10,4 +10,4 @@
 .*
 # # 在上面的规则中加入一条例外，即不要忽略.gitignore文件
 !.gitignore
-settings.py
+local_settings.py
